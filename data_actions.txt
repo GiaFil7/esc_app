@@ -1,0 +1,27 @@
+1. To lowercase
+2. Remove spaces
+3. Replace special letters and characters
+
+a  - à,ä,å,á,ã,â,ă,ā
+ae - æ
+c  - ç,č,ć
+d  - ð,đ
+e  - é,è,ê,ė,ę,ë,ə
+i  - î,ì,í,ı
+h  - ħ
+l  - ł
+n  - ñ,ň
+o  - ø,ö,ó,ò
+oe - œ
+s  - ş,š,ș
+ss - ß
+t  - ť,ț
+th - þ
+u  - ü,ù,ú
+y  - ý
+z  - ž,ż
+
+special characters: ( ) , ? ' . - – : ! ¿
+
+import re
+x = re.sub("([àäåáãâăā])", "a", txt)
