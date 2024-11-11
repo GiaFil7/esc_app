@@ -17,7 +17,7 @@ def main():
     app = QApplication(sys.argv)
 
     # window = QWidget()
-    window = ranking_widget("Eurovision Song Contest",1956)
+    window = ranking_widget("Eurovision Song Contest",2024)
     window.show()
 
     app.exec()

@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
+    QLabel, QPushButton, QScrollArea, QSizePolicy,
+    QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_ranking_widget(object):
@@ -60,6 +60,13 @@ class Ui_ranking_widget(object):
         self.vertical_line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.title_layout.addWidget(self.vertical_line)
+
+        self.show_combo_box = QComboBox(ranking_widget)
+        self.show_combo_box.setObjectName(u"show_combo_box")
+        sizePolicy.setHeightForWidth(self.show_combo_box.sizePolicy().hasHeightForWidth())
+        self.show_combo_box.setSizePolicy(sizePolicy)
+
+        self.title_layout.addWidget(self.show_combo_box)
 
         self.import_export_button = QPushButton(ranking_widget)
         self.import_export_button.setObjectName(u"import_export_button")

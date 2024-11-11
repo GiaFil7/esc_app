@@ -19,10 +19,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.info_button.pressed.connect(self.toggle_info)
         self.import_export_button.pressed.connect(self.open_import_export_dialog)
         self.save_button.pressed.connect(self.save_ranking_to_file)
+        self.show_combo_box.currentTextChanged.connect(self.text_changed)
 
         self.contest = contest
         self.year = year
         self.is_info_visible = False
+        self.previous_combo_box_text = self.show_combo_box.currentText()
 
         self.logo = ":/images/heart_logos/al.png"
 
@@ -33,6 +35,13 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         self.setup_ranking_items(self.ranking,self.songs,self.artists)
 
+        if self.contest == "Eurovision Song Contest":
+            if year <= 2003:
+                self.show_combo_box.hide()
+            elif year <= 2008:
+                self.show_combo_box.addItems(["Full Ranking","Semi-Final","Grand Final"])
+            else:
+                self.show_combo_box.addItems(["Full Ranking","Semi-Final 1","Semi-Final 2","Grand Final"])
 
     def get_contest_data(self,contest,year):
         # Maybe make a file mapping contest names to codes
@@ -68,7 +77,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             with open(help_file, 'r') as file:
                 html_as_string = file.read()
 
-
             self.info_label = QLabel()
             self.info_label.setText(html_as_string)
             self.info_label.setAlignment(Qt.AlignTop)
@@ -78,6 +86,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.import_export_button.hide()
             self.save_button.hide()
             self.back_button.hide()
+            self.show_combo_box.hide()
             self.vertical_line.hide()
 
             self.info_button.setIcon(QPixmap(":/images/close_icon.png"))
@@ -88,6 +97,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.import_export_button.show()
             self.save_button.show()
             self.back_button.show()
+
+            if not (self.contest_code == "ESC" and self.year <= 2003):
+                self.show_combo_box.show()
+            
             self.vertical_line.show()
             self.info_label.hide()
 
@@ -126,6 +139,15 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         print("Saved")
 
+    def text_changed(self,text):
+        if self.previous_combo_box_text == "Full Ranking":
+            self.temp_layout = self.layout
+
+        
+
+        # Do this last
+        self.previous_combo_box_text = text
+
 
     def setup_ranking_items(self,ranking,songs,artists):
         self.layout = QVBoxLayout()
@@ -150,8 +172,11 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.layout.addWidget(self.drag_target_indicator)
         self.drag_target_indicator.hide()
         
+        self.setup_temp_widget(self.layout)
+
+    def setup_temp_widget(self,layout):
         self.temp_widget = QWidget()
-        self.temp_widget.setLayout(self.layout)
+        self.temp_widget.setLayout(layout)
         self.temp_widget.setContentsMargins(0,0,0,0)
 
         self.entry_scroll_area.setWidget(self.temp_widget)
