@@ -29,7 +29,8 @@ class ranking_item(QWidget, Ui_ranking_item):
         self.song_label.setContentsMargins(3,0,0,0)
 
     def mouseMoveEvent(self, e):
-        if e.buttons() == Qt.MouseButton.LeftButton:
+        ranking_widget = self.parent().parent().parent().parent()
+        if e.buttons() == Qt.MouseButton.LeftButton and ranking_widget.allow_dragging:
             drag = QDrag(self)
             mime = QMimeData()
             drag.setMimeData(mime)

@@ -24,6 +24,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.contest = contest
         self.year = year
         self.is_info_visible = False
+        self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
 
         self.logo = ":/images/heart_logos/al.png"
@@ -126,25 +127,66 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         self.ranking = new_ranking
 
+        old_index = self.entries.index
+        new_order = self.entries.set_index(self.entries['country_code'])
+        self.entries = new_order.reindex(self.ranking)
+        self.entries = self.entries.set_index(old_index)
+
+        self.songs = list(self.entries['song'])
+        self.artists = list(self.entries['artist'])
+
     def save_ranking_to_file(self):
         self.update_ranking()
 
-        old_index = self.entries.index
-        new_order = self.entries.set_index(self.entries['country_code'])
-        new_order = new_order.reindex(self.ranking)
-        new_order = new_order.set_index(old_index)
-
-        with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay', datetime_format='HH:MM') as writer:
-            new_order.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=new_order.index[0]+1)
+        with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
+            self.entries.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=self.entries.index[0]+1)
 
         print("Saved")
 
     def text_changed(self,text):
+        if self.previous_combo_box_text == text:
+            return None
+
         if self.previous_combo_box_text == "Full Ranking":
+            self.update_ranking()
             self.temp_layout = self.layout
 
-        
+        # Only allow dragging of items when viewing the full ranking
+        if text == "Full Ranking":
+            self.allow_dragging = True
+        else:
+            self.allow_dragging = False
 
+        if self.contest == "Eurovision Song Contest":
+            if self.year <= 2007:
+                semi_finalists = self.entries[self.entries['show'] == "SF"]
+            else:
+                semi_finalists_1 =self.entries[self.entries['show'] == "SF1"]
+                semi_finalists_2 =self.entries[self.entries['show'] == "SF2"]
+            
+            self.entries['original_order'] = range(len(self.entries))
+            if text == "Semi-Final":
+                entries_to_show = semi_finalists
+            elif text == "Semi-Final 1":
+                entries_to_show = semi_finalists_1
+            elif text == "Semi-Final 2":
+                entries_to_show = semi_finalists_2
+            elif text == "Grand Final":
+                automatic = self.entries[self.entries['show'] == "GF"]
+
+                if self.year <= 2007:
+                    qualifiers = semi_finalists.iloc[:10]
+                else:
+                    qualifiers_1 = semi_finalists_1.iloc[:10]
+                    qualifiers_2 = semi_finalists_2.iloc[:10]
+                    qualifiers = pd.concat([qualifiers_1, qualifiers_2])
+                
+                entries_to_show = pd.concat([qualifiers, automatic]).sort_values(by='original_order')
+            else:
+                entries_to_show = self.entries
+
+        entries_to_show = entries_to_show.drop(columns='original_order').reset_index(drop=True)
+        self.setup_ranking_items(list(entries_to_show['country_code']),list(entries_to_show['song']),list(entries_to_show['artist']))
         # Do this last
         self.previous_combo_box_text = text
 
