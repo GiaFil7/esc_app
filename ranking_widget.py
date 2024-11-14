@@ -27,7 +27,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
 
-        self.logo = ":/images/heart_logos/al.png"
+        self.logo = ":/images/heart_logos/empty_heart.svg"
 
         self.logo_label.setPixmap(QPixmap(self.logo))
         self.year_label.setText(self.contest + " " + str(self.year))
