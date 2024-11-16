@@ -8,5 +8,8 @@
     "editor.tokenColorCustomizations": {
         
     
-    }
+    },
+    "python.analysis.extraPaths": [
+        "./ui"
+    ]
 }

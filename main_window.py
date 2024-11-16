@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QMainWindow,QStackedWidget,QVBoxLayout
-from ui_main_window import Ui_main_window
+from ui.ui_main_window import Ui_main_window
 from main_menu import main_menu
 from rankings_main_menu import rankings_main_menu
 from rankings_esc_main_menu import rankings_esc_main_menu

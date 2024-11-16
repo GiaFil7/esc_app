@@ -1,4 +1,4 @@
-from ui_ranking_import_export import Ui_import_export_dialog
+from ui.ui_ranking_import_export import Ui_import_export_dialog
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QGuiApplication
 

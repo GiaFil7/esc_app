@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget
-from ui_main_menu import Ui_main_menu
+from ui.ui_main_menu import Ui_main_menu
 
 import resources_rc
 

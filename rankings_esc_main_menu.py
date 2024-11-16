@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget
-from ui_rankings_esc_main_menu import Ui_rankings_esc_main_menu
+from ui.ui_rankings_esc_main_menu import Ui_rankings_esc_main_menu
 
 import resources_rc
 

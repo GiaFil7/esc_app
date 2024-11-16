@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QLabel, QSizePolicy
 from PySide6.QtGui import QPixmap, QDrag
 from PySide6.QtCore import QMimeData, Qt
-from ui_ranking_item import Ui_ranking_item
+from ui.ui_ranking_item import Ui_ranking_item
 
 import resources_rc
 

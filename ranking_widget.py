@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget,QVBoxLayout,QLabel
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QPixmap,Qt
-from ui_ranking_widget import Ui_ranking_widget
+from ui.ui_ranking_widget import Ui_ranking_widget
 from ranking_item import ranking_item, DragTargetIndicator
 from ranking_import_export import ranking_import_export
 
