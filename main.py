@@ -24,9 +24,6 @@ def main():
 
     #widget= ranking_widget("Eurovision Song Contest",2024)
     window = main_window()
-    widget = main_menu(window)
-    window.setCentralWidget(widget)
-
     window.show()
 
     app.exec()
