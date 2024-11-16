@@ -11,13 +11,16 @@ class main_menu(QWidget,Ui_main_menu):
         self.setupUi(self)
         self.main_window = main_window
 
+        print(self.main_window)
+
         self.rankings_button.clicked.connect(self.load_rankings_menu)
         self.quizzes_button.clicked.connect(self.load_quizzes_menu)
 
     def load_rankings_menu(self):
-        rankings_widget = rankings_main_menu(self)
-        self.main_window.setCentralWidget(rankings_widget)
+        #rankings_widget = rankings_main_menu(self)
+        self.main_window.setCurrentWidget(self.main_window.rankings_main_menu)
 
     def load_quizzes_menu(self):
-        quizzes_widget = QWidget() # Change
-        self.main_window.setCentralWidget(quizzes_widget)
+        print("Load Quizzes")
+        #quizzes_widget = QWidget() # Change
+        #self.main_window.setCentralWidget(quizzes_widget)
