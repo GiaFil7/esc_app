@@ -4,6 +4,7 @@ from main_menu import main_menu
 from rankings_main_menu import rankings_main_menu
 from rankings_esc_main_menu import rankings_esc_main_menu
 from rankings_by_year import rankings_by_year
+from statistics_menu import statistics_menu
 
 import resources_rc
 
@@ -17,11 +18,13 @@ class main_window(QMainWindow,Ui_main_window):
         self.rankings_main_menu = rankings_main_menu()
         self.rankings_esc_main_menu = rankings_esc_main_menu()
         self.rankings_by_year = rankings_by_year()
+        self.statistics_menu = statistics_menu()
 
         self.stacked_widget.addWidget(self.main_menu)
         self.stacked_widget.addWidget(self.rankings_main_menu)
         self.stacked_widget.addWidget(self.rankings_esc_main_menu)
         self.stacked_widget.addWidget(self.rankings_by_year)
+        self.stacked_widget.addWidget(self.statistics_menu)
 
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.stacked_widget)
@@ -37,6 +40,7 @@ class main_window(QMainWindow,Ui_main_window):
         self.rankings_esc_main_menu.statistics_button.clicked.connect(self.load_rankings_statistics)
         self.rankings_esc_main_menu.rankings_button.clicked.connect(self.load_rankings_by_year)
         self.rankings_by_year.back_button.clicked.connect(self.load_rankings_esc_main_menu)
+        self.statistics_menu.back_button.clicked.connect(self.load_rankings_esc_main_menu)
 
 
     def load_main_menu(self):
@@ -55,4 +59,4 @@ class main_window(QMainWindow,Ui_main_window):
         self.stacked_widget.setCurrentWidget(self.rankings_by_year)
 
     def load_rankings_statistics(self):
-        print("Load statistics")
+        self.stacked_widget.setCurrentWidget(self.statistics_menu)

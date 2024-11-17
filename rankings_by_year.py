@@ -45,6 +45,13 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         stacked_widget = self.parent()
         year = item.text.split(" ")[-1]
         ranking = ranking_widget(self.contest_name,int(year))
+        ranking.back_button.clicked.connect(partial(self.go_back, ranking))
 
         stacked_widget.addWidget(ranking)
         stacked_widget.setCurrentWidget(ranking)
+
+    def go_back(self,ranking):
+        stacked_widget = self.parent()
+        main_window = stacked_widget.parent()
+        main_window.load_rankings_by_year()
+        stacked_widget.removeWidget(ranking)
