@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QSizePolicy, QSpacerItem, QWidget)
 import resources_rc
+import resources_rc
 
 class Ui_ranking_menu_item(object):
     def setupUi(self, ranking_menu_item):
@@ -38,9 +39,9 @@ class Ui_ranking_menu_item(object):
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
         self.logo_label.setMinimumSize(QSize(0, 0))
-        self.logo_label.setMaximumSize(QSize(40, 40))
+        self.logo_label.setMaximumSize(QSize(20, 20))
         self.logo_label.setBaseSize(QSize(40, 40))
-        self.logo_label.setStyleSheet(u"border: 1px solid black")
+        self.logo_label.setStyleSheet(u"")
         self.logo_label.setFrameShadow(QFrame.Shadow.Plain)
         self.logo_label.setPixmap(QPixmap(u":/images/heart_logos/empty_heart.svg"))
         self.logo_label.setScaledContents(True)
@@ -57,7 +58,7 @@ class Ui_ranking_menu_item(object):
         self.contest_name_label.setSizePolicy(sizePolicy1)
         self.contest_name_label.setMinimumSize(QSize(0, 0))
         self.contest_name_label.setMaximumSize(QSize(400, 16777215))
-        self.contest_name_label.setStyleSheet(u"border: 1px solid black")
+        self.contest_name_label.setStyleSheet(u"")
 
         self.main_layout.addWidget(self.contest_name_label)
 
@@ -70,7 +71,7 @@ class Ui_ranking_menu_item(object):
         sizePolicy.setHeightForWidth(self.submitted_label.sizePolicy().hasHeightForWidth())
         self.submitted_label.setSizePolicy(sizePolicy)
         self.submitted_label.setMaximumSize(QSize(20, 20))
-        self.submitted_label.setStyleSheet(u"border: 1px solid black")
+        self.submitted_label.setStyleSheet(u"")
         self.submitted_label.setPixmap(QPixmap(u":/images/close_icon.png"))
         self.submitted_label.setScaledContents(True)
 

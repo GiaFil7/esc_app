@@ -95,8 +95,8 @@ class Ui_rankings_esc_main_menu(object):
 
     def retranslateUi(self, rankings_esc_main_menu):
         rankings_esc_main_menu.setWindowTitle(QCoreApplication.translate("rankings_esc_main_menu", u"Form", None))
-        self.rankings_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Rankings by Year", None))
+        self.rankings_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Eurovision Song Contest - Rankings by Year", None))
         self.statistics_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Statistics", None))
-        self.back_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Back to Rankings Menu", None))
+        self.back_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Back to Rankings Main Menu", None))
     # retranslateUi
 

@@ -69,7 +69,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Rankings by Year</string>
+        <string>Eurovision Song Contest - Rankings by Year</string>
        </property>
       </widget>
      </item>
@@ -139,7 +139,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Back to Rankings Menu</string>
+        <string>Back to Rankings Main Menu</string>
        </property>
       </widget>
      </item>

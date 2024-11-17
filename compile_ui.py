@@ -1,7 +1,6 @@
 import subprocess
 from contextlib import chdir
 
-
 # Compile resources
 with open("resources_rc.py", "w") as output:
     subprocess.run(["pyside6-rcc", "resources.qrc"], stdout=output)
@@ -13,6 +12,7 @@ files = ["main_menu",
          "ranking_item",
          "ranking_menu_item",
          "ranking_widget",
+         "rankings_by_year",
          "rankings_esc_main_menu",
          "rankings_main_menu"]
 

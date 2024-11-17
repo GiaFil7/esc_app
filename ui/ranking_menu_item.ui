@@ -38,8 +38,8 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>40</width>
-         <height>40</height>
+         <width>20</width>
+         <height>20</height>
         </size>
        </property>
        <property name="baseSize">
@@ -49,7 +49,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 1px solid black</string>
+        <string notr="true"/>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Shadow::Plain</enum>
@@ -58,7 +58,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/images/heart_logos/empty_heart.svg</pixmap>
+        <pixmap resource="../resources.qrc">:/images/heart_logos/empty_heart.svg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -89,7 +89,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 1px solid black</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>text text text text text</string>
@@ -127,13 +127,13 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 1px solid black</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/images/close_icon.png</pixmap>
+        <pixmap resource="../resources.qrc">:/images/close_icon.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -162,6 +162,7 @@
  </widget>
  <resources>
   <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
