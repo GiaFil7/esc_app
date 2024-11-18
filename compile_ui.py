@@ -15,7 +15,8 @@ files = ["main_menu",
          "rankings_by_year",
          "rankings_esc_main_menu",
          "rankings_main_menu",
-         "statistics_menu"]
+         "statistics_menu",
+         "statistics_table"]
 
 # Compile UI files
 for file in files:
