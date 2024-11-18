@@ -12,7 +12,6 @@ class statistics_menu(QWidget,Ui_statistics_menu):
 
         self.contest = contest
 
-        #self.back_button.clicked.connect(self.stacked_widget.load_rankings_esc_main_menu)
         self.winners_button.clicked.connect(partial(self.load_table,"Winners"))
         self.second_places_button.clicked.connect(partial(self.load_table,"2nd Places"))
         self.third_places_button.clicked.connect(partial(self.load_table,"3rd Places"))
@@ -23,8 +22,7 @@ class statistics_menu(QWidget,Ui_statistics_menu):
     def load_table(self,table_type):
         self.stacked_widget = self.parent()
         table_to_load = statistics_table("ESC",table_type)
-        #table_to_load.back_button.connect(partial(self.go_back, table_to_load))
-        table_to_load.back_button.connect(lambda table_to_load: self.go_back(table_to_load))
+        table_to_load.back_button.clicked.connect(partial(self.go_back, table_to_load))
         self.stacked_widget.addWidget(table_to_load)
         self.stacked_widget.setCurrentWidget(table_to_load)
 
