@@ -48,7 +48,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         # Maybe make a file mapping contest names to codes
         if contest == "Eurovision Song Contest":
             self.contest_code = "ESC"
-            self.filename = 'esc_data.xlsx'
+            self.filename = 'ESC_data.xlsx' # Change
             data = pd.read_excel(self.filename)
         else:
             print("Invalid contest")

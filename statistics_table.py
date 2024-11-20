@@ -14,19 +14,22 @@ class statistics_table(QWidget,Ui_statistics_table):
         self.table_type = table_type
 
         self.title_label.setText(self.table_type)
-        if self.table_type == "Winners":
-            self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
-        elif self.table_type == "2nd Places":
-            self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
-        elif self.table_type == "3rd Places":
-            self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
-        elif self.table_type == "Last Places":
-            self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
-
-        if self.contest == "ESC":
-            self.filename = "esc_data.xlsx"
-            self.years = range(1956,2024+1) # Change
-            self.submitted = len(self.years) * [True] # Change
+        match self.table_type:
+            case "Winners":
+                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+            case "2nd Places":
+                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+            case "3rd Places":
+                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+            case "Last Places":
+                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+        
+        # Get the years the contest was held and if the user has submitted a ranking for each one
+        all_contest_data = pd.read_excel('contest_data.xlsx')
+        contest_data = all_contest_data[all_contest_data['contest_code'] ==  self.contest]
+        self.filename = f"{self.contest}_data.xlsx"
+        self.years = list(contest_data['year'])
+        self.submitted = list(contest_data['submitted'])
 
         row_count = sum(1 for x in self.submitted if x)
         self.table.setRowCount(row_count)
@@ -36,16 +39,30 @@ class statistics_table(QWidget,Ui_statistics_table):
 
         if self.submitted_years != []:
             data = pd.read_excel(self.filename)
+
+            countries = data['country'].unique()
+            countries = list(countries)
+            countries.sort()
+
             for year in self.submitted_years:
                 entries = data[data['contest'] == f"{self.contest} {year}"]
-                if self.table_type == "Winners":
-                    entry = entries.iloc[0]
-                elif self.table_type == "2nd Places":
-                    entry = entries.iloc[1]
-                elif self.table_type == "3rd Places":
-                    entry = entries.iloc[2]
-                elif self.table_type == "Last Places":
-                    entry = entries.iloc[-1]
+
+                match self.table_type:
+                    case "Winners":
+                        entry = entries.iloc[0]
+                    case "2nd Places":
+                        entry = entries.iloc[1]
+                    case "3rd Places":
+                        entry = entries.iloc[2]
+                    case "Last Places":
+                        entry = entries.iloc[-1]
+                    case "Medal table":
+                        placing_data = [[0, 0, 0, 0, 0, 0] for _ in range(len(countries))]
+                        for country in countries:
+                            places = [0,1,2,3,4,len(entries)]
+                            if country in entries['country']:
+                                print("do something")
+
 
                 year_item = QTableWidgetItem(str(year))
                 country_item = QTableWidgetItem(entry['country'])
