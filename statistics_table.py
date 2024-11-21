@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QWidget, QTableWidgetItem
-from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView
+from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 
 import pandas as pd # type: ignore
@@ -31,53 +31,80 @@ class statistics_table(QWidget,Ui_statistics_table):
         self.years = list(contest_data['year'])
         self.submitted = list(contest_data['submitted'])
 
-        row_count = sum(1 for x in self.submitted if x)
-        self.table.setRowCount(row_count)
-
         # Get only the years with submitted rankings
         self.submitted_years = [year for year in self.years if self.submitted[self.years.index(year)]]
 
+        # Read the data
+        data = pd.read_excel(self.filename)
+
+        # Get all participating countries
+        self.countries = data['country'].unique()
+        self.countries = list(self.countries)
+        self.countries.sort()
+
+
         if self.submitted_years != []:
-            data = pd.read_excel(self.filename)
-
-            countries = data['country'].unique()
-            countries = list(countries)
-            countries.sort()
-
+            if self.table_type == "Medal table":
+                cols = ['1st','2nd','3rd','4th','5th','Last']
+                placing_data = [[0, 0, 0, 0, 0, 0] for _ in range(len(self.countries))]
+                placing_data = pd.DataFrame(placing_data, columns=cols, index=self.countries)
+                self.table.setRowCount(len(self.countries))
+                self.table.setColumnCount(len(cols))
+                self.table.setHorizontalHeaderLabels(cols)
+                self.table.setVerticalHeaderLabels(self.countries)
+            elif self.table_type in self.countries:
+                print("Fix")
+            else:
+                self.table.setRowCount(len(self.submitted_years))
+        
             for year in self.submitted_years:
                 entries = data[data['contest'] == f"{self.contest} {year}"]
 
                 match self.table_type:
                     case "Winners":
                         entry = entries.iloc[0]
+                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        self.setRowItems(items,year)
                     case "2nd Places":
                         entry = entries.iloc[1]
+                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        self.setRowItems(items,year)
                     case "3rd Places":
                         entry = entries.iloc[2]
+                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        self.setRowItems(items,year)
                     case "Last Places":
                         entry = entries.iloc[-1]
+                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        self.setRowItems(items,year)
                     case "Medal table":
-                        placing_data = [[0, 0, 0, 0, 0, 0] for _ in range(len(countries))]
-                        for country in countries:
-                            places = [0,1,2,3,4,len(entries)]
-                            if country in entries['country']:
-                                print("do something")
+                        places = [0,1,2,3,4,len(entries)-1]
+                        for i in places:
+                            entry = entries.iloc[i]
+                            placing_data.loc[entry['country'],cols[places.index(i)]] += 1
+            
+            if self.table_type == "Medal table":
+                for country in self.countries:
+                    items = [str(placing_data.loc[country,col]) for col in cols]
+                    self.setRowItems(items,country)
 
-
-                year_item = QTableWidgetItem(str(year))
-                country_item = QTableWidgetItem(entry['country'])
-                song_item = QTableWidgetItem(entry['song'])
-                artist_item = QTableWidgetItem(entry['artist'])
-
-                self.table.setItem(self.submitted_years.index(year),0,year_item)
-                self.table.setItem(self.submitted_years.index(year),1,country_item)
-                self.table.setItem(self.submitted_years.index(year),2,song_item)
-                self.table.setItem(self.submitted_years.index(year),3,artist_item)  
+            header = self.table.horizontalHeader()
+            header.setSectionResizeMode(QHeaderView.ResizeToContents)
         else:
             print("No submitted years") # Change
 
 
-
+    def setRowItems(self,items,ind):
+        for i in range(len(items)):
+            item = items[i]
+            widget_item = QTableWidgetItem(item)
+            widget_item.setTextAlignment(Qt.AlignCenter)
+            if self.table_type == "Medal table":
+                self.table.setItem(self.countries.index(ind),i,widget_item)
+            elif self.table_type in self.countries:
+                print("Fix")
+            else:
+                self.table.setItem(self.submitted_years.index(ind),i,widget_item)
 
         
 

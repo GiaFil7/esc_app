@@ -16,6 +16,7 @@ class statistics_menu(QWidget,Ui_statistics_menu):
         self.second_places_button.clicked.connect(partial(self.load_table,"2nd Places"))
         self.third_places_button.clicked.connect(partial(self.load_table,"3rd Places"))
         self.last_places_button.clicked.connect(partial(self.load_table,"Last Places"))
+        self.medal_table_button.clicked.connect(partial(self.load_table,"Medal table"))
 
     def load_table(self,table_type):
         self.stacked_widget = self.parent()
