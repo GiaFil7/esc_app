@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from ui.ui_statistics_menu import Ui_statistics_menu
 from statistics_table import statistics_table
+from statistics_per_country import statistics_per_country
 from functools import partial
 
 import resources_rc
@@ -17,6 +18,7 @@ class statistics_menu(QWidget,Ui_statistics_menu):
         self.third_places_button.clicked.connect(partial(self.load_table,"3rd Places"))
         self.last_places_button.clicked.connect(partial(self.load_table,"Last Places"))
         self.medal_table_button.clicked.connect(partial(self.load_table,"Medal table"))
+        self.per_country_button.clicked.connect(partial(self.load_per_country,self.contest))
 
     def load_table(self,table_type):
         self.stacked_widget = self.parent()
@@ -24,6 +26,13 @@ class statistics_menu(QWidget,Ui_statistics_menu):
         table_to_load.back_button.clicked.connect(partial(self.go_back, table_to_load))
         self.stacked_widget.addWidget(table_to_load)
         self.stacked_widget.setCurrentWidget(table_to_load)
+
+    def load_per_country(self,contest):
+        self.stacked_widget = self.parent()
+        widget = statistics_per_country(contest)
+        widget.back_button.connect(partial(self.go_back, widget))
+        self.stacked_widget.addWidget(widget)
+        self.stacked_widget.setCurrentWidget(widget)
 
     def go_back(self,table):
         self.stacked_widget.setCurrentWidget(self)

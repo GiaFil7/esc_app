@@ -2,6 +2,7 @@ from ui.ui_rankings_by_year import Ui_rankings_by_year
 from PySide6.QtWidgets import QWidget,QVBoxLayout
 from PySide6.QtGui import QPixmap
 from rankings_menu_item import rankings_menu_item
+from statistics_table import statistics_table
 from functools import partial
 
 import pandas as pd # type: ignore
@@ -47,4 +48,15 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
         countries.sort()
 
     def load_country_stats(self,contest,country):
-        print("self")
+        stacked_widget = self.parent()
+        country_stats_widget = statistics_table(contest,country)
+        country_stats_widget.back_button.clicked.connect(partial(self.go_back, country_stats_widget))
+
+        stacked_widget.addWidget(country_stats_widget)
+        stacked_widget.setCurrentWidget(country_stats_widget)
+    
+    def go_back(self,widget):
+        stacked_widget = self.parent()
+        main_window = stacked_widget.parent()
+        main_window.load_rankings_by_year()
+        stacked_widget.removeWidget(widget)
