@@ -8,7 +8,7 @@ from functools import partial
 import resources_rc
 
 class rankings_by_year(QWidget,Ui_rankings_by_year):
-    def __init__(self,contest_name="Eurovision Song Contest",logo=":/images/Eurovision_generic_black.png"):
+    def __init__(self,contest_name="Eurovision Song Contest",logo=":/images/Eurovision_generic_black.png"): # Change
         super().__init__()
         self.setupUi(self)
 
@@ -35,8 +35,8 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.scroll_area.setWidget(self.scroll_widget)
 
     def get_years(self,contest):
-        if contest == "Eurovision Song Contest":
-            return range(1956,2024+1)
+        if contest == "Eurovision Song Contest": #Change
+            return range(1956,2024+1) # Change
         else:
             print("Invalid contest")
             return []
