@@ -9,13 +9,13 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class rankings_by_year(QWidget,Ui_rankings_by_year):
-    def __init__(self,contest_name="Eurovision Song Contest",logo=":/images/Eurovision_generic_black.png"): # Change
+    def __init__(self,contest_code="ESC",logo=":/images/Eurovision_generic_black.png"): # Change
         super().__init__()
         self.setupUi(self)
 
-        self.contest_name = contest_name
-        self.contest_code = "ESC" # Change
-        self.logo = logo
+        self.contest_name = "Eurovision Song Contest" # Change
+        self.contest_code = contest_code
+        self.logo = logo # Change?
 
         self.name_label.setText(self.contest_name)
         self.logo_label.setPixmap(QPixmap(self.logo))
@@ -54,7 +54,7 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         stacked_widget = self.parent()
         year = item.text.split(" ")[-1]
         ranking = ranking_widget(self.contest_name,int(year))
-        ranking.back_button.clicked.connect(partial(self.go_back, ranking))
+        ranking.back_button.clicked.connect(partial(self.go_back, ranking)) # Refactor put in ranking_widget
 
         stacked_widget.addWidget(ranking)
         stacked_widget.setCurrentWidget(ranking)
@@ -62,7 +62,7 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
     def go_back(self,ranking):
         stacked_widget = self.parent()
         main_window = stacked_widget.parent()
-        main_window.load_rankings_by_year()
+        main_window.load_rankings_by_year() # Refactor
         self.update_submitted_status(self)
         stacked_widget.removeWidget(ranking)
 
@@ -80,4 +80,3 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
                 ind = ind[0]
 
                 menu_item.update_icon(contest_data.iloc[ind,2])
-                #menu_item.update()

@@ -1,3 +1,9 @@
+# To compile ui: pyside6-uic tutorial.ui > ui_tutorial.py
+#                          [source file] > [destination file]
+# To compile resources: pyside6-rcc resources.qrc > resources_rc.py
+#                                  [source file] > [destination file]
+# Don't forget to change the encoding of the resulting file to UTF-8
+
 import subprocess
 from contextlib import chdir
 
