@@ -26,6 +26,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.is_info_visible = False
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
+        self.contest_code = "ESC" # Change
 
         self.logo = ":/images/heart_logos/empty_heart.svg"
 
@@ -140,6 +141,21 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
             self.entries.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=self.entries.index[0]+1)
+
+        filename = 'contest_data.xlsx'
+        contest_data = pd.read_excel(filename)
+        contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
+        ind = contest_data.index[contest_data['year'] == self.year].tolist()
+        ind = ind[0]
+
+        if contest_data.iloc[ind,2] == False:
+            contest_data.iloc[ind,2] = True
+
+            with pd.ExcelWriter(filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
+                contest_data.to_excel(writer, sheet_name='data', header=False, index=False, startrow=contest_data.index[0]+1)
+            
+            print(f"New year submitted: {self.year}")
+
 
         print("Saved")
 
