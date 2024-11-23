@@ -173,7 +173,16 @@ class statistics_table(QWidget,Ui_statistics_table):
             data.append(row_data)
 
         # Create the DataFrame
-        df = pd.DataFrame(data, columns=column_headers, index=row_headers)
+        table_data = pd.DataFrame(data, columns=column_headers, index=row_headers)
 
-        # Print the DataFrame
-        print(df)
+        cols = ['1st','2nd','3rd','4th','5th','Last']
+        cols.insert(0, cols.pop(cols.index(cols[logical_ind])))
+        flags = [False, False, False, False, False, False]
+        table_data = table_data.sort_values(cols, ascending=flags)
+
+        for row in range(self.table.rowCount()):
+            for col in range(self.table.columnCount()):
+                item = self.table.item(row, col)
+                item.setText(table_data.iloc[[row],[col]].to_string(index=False,header=False))
+        
+        self.table.setVerticalHeaderLabels(table_data.index.to_list())

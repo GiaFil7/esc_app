@@ -161,8 +161,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             if self.year <= 2007:
                 semi_finalists = self.entries[self.entries['show'] == "SF"]
             else:
-                semi_finalists_1 =self.entries[self.entries['show'] == "SF1"]
-                semi_finalists_2 =self.entries[self.entries['show'] == "SF2"]
+                semi_finalists_1 = self.entries[self.entries['show'] == "SF1"]
+                semi_finalists_2 = self.entries[self.entries['show'] == "SF2"]
             
             self.entries['original_order'] = range(len(self.entries))
             if text == "Semi-Final":
@@ -187,7 +187,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         entries_to_show = entries_to_show.drop(columns='original_order').reset_index(drop=True)
         self.setup_ranking_items(list(entries_to_show['country_code']),list(entries_to_show['song']),list(entries_to_show['artist']))
-        # Do this last
+        
         self.previous_combo_box_text = text
 
 
