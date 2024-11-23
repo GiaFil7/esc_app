@@ -19,10 +19,17 @@ class rankings_menu_item(QWidget,Ui_ranking_menu_item):
         self.contest_name_label.setText(self.text)
         self.logo_label.setPixmap(QPixmap(self.logo))
 
-        if self.submitted:
-            self.submitted_label.setPixmap(QPixmap(":/images/tick_icon.png"))
-        else:
-            self.submitted_label.setPixmap(QPixmap(":/images/close_icon.png"))
+        self.update_icon(self.submitted)
+        #if self.submitted:
+        #    self.submitted_label.setPixmap(QPixmap(":/images/tick_icon.png"))
+        #else:
+        #    self.submitted_label.setPixmap(QPixmap(":/images/close_icon.png"))
 
     def mousePressEvent(self, e):
         self.clicked.emit()
+
+    def update_icon(self,flag):
+        if flag:
+            self.submitted_label.setPixmap(QPixmap(":/images/tick_icon.png"))
+        else:
+            self.submitted_label.setPixmap(QPixmap(":/images/close_icon.png"))

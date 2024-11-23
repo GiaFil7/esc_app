@@ -71,13 +71,13 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
 
         for i in range(by_year_widget.layout.count()):
-            # Get the widget at each index in turn.
             menu_item = self.layout.itemAt(i).widget()
             if isinstance(menu_item,rankings_menu_item):
                 contest_and_year = menu_item.text.split()
-                year = int(contest_and_year[1])
+                year = int(contest_and_year[-1])
 
                 ind = contest_data.index[contest_data['year'] == year].tolist()
                 ind = ind[0]
 
-                menu_item.submitted = contest_data.iloc[ind,2]
+                menu_item.update_icon(contest_data.iloc[ind,2])
+                #menu_item.update()
