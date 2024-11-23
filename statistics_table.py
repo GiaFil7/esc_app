@@ -23,6 +23,8 @@ class statistics_table(QWidget,Ui_statistics_table):
                 self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
             case "Last Places":
                 self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+            case "Medal table":
+                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
             case _:
                 country_codes = pd.read_excel('country_codes.xlsx')
                 country_code_row = country_codes[country_codes['country'] == self.table_type]
@@ -48,7 +50,6 @@ class statistics_table(QWidget,Ui_statistics_table):
         self.countries = list(self.countries)
         self.countries.sort()
 
-
         if self.submitted_years != []:
             if self.table_type == "Medal table":
                 cols = ['1st','2nd','3rd','4th','5th','Last']
@@ -58,6 +59,8 @@ class statistics_table(QWidget,Ui_statistics_table):
                 self.table.setColumnCount(len(cols))
                 self.table.setHorizontalHeaderLabels(cols)
                 self.table.setVerticalHeaderLabels(self.countries)
+                #self.table.setSortingEnabled(True)
+                self.table.horizontalHeader().sectionClicked.connect(self.handle_sort)
             elif self.table_type in self.countries:
                 self.years_participated = data[data['country'] == self.table_type]
                 self.years_participated = self.years_participated['contest'].to_string(index=False)
@@ -67,14 +70,22 @@ class statistics_table(QWidget,Ui_statistics_table):
 
                 years_participated_and_submitted = set(self.years_participated) & set(self.submitted_years)
                 if len(years_participated_and_submitted) != 0:
-                    cols = ["Year","Song","Artist","Place"]
+                    cols = ["Song","Artist","Place"]
                     self.table.setColumnCount(len(cols))
                     self.table.setHorizontalHeaderLabels(cols)
                     self.table.setRowCount(len(years_participated_and_submitted))
+                    years_participated_and_submitted = list(years_participated_and_submitted)
+                    years_participated_and_submitted = [str(x) for x in years_participated_and_submitted]
+                    self.table.setVerticalHeaderLabels(years_participated_and_submitted)
                 else:
                     print("No submitted years") # Change Create func
             else:
+                cols = ["Country","Song","Artist"]
+                self.table.setColumnCount(len(cols))
+                self.table.setHorizontalHeaderLabels(cols)
+                labels = [str(x) for x in self.submitted_years]
                 self.table.setRowCount(len(self.submitted_years))
+                self.table.setVerticalHeaderLabels(labels)
         
             for year in self.submitted_years:
                 entries = data[data['contest'] == f"{self.contest} {year}"]
@@ -82,19 +93,19 @@ class statistics_table(QWidget,Ui_statistics_table):
                 match self.table_type:
                     case "Winners":
                         entry = entries.iloc[0]
-                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        items = [entry['country'], entry['song'], entry['artist']]
                         self.setRowItems(items,year)
                     case "2nd Places":
                         entry = entries.iloc[1]
-                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        items = [entry['country'], entry['song'], entry['artist']]
                         self.setRowItems(items,year)
                     case "3rd Places":
                         entry = entries.iloc[2]
-                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        items = [entry['country'], entry['song'], entry['artist']]
                         self.setRowItems(items,year)
                     case "Last Places":
                         entry = entries.iloc[-1]
-                        items = [str(year), entry['country'], entry['song'], entry['artist']]
+                        items = [entry['country'], entry['song'], entry['artist']]
                         self.setRowItems(items,year)
                     case "Medal table":
                         places = [0,1,2,3,4,len(entries)-1]
@@ -105,7 +116,7 @@ class statistics_table(QWidget,Ui_statistics_table):
                         entry = entries[entries['country'] == self.table_type]
                         if self.table_type in list(entries['country']):
                             place_text = self.get_placing_text(entries)
-                            items = [str(year), entry['song'].to_string(index=False), entry['artist'].to_string(index=False), place_text]
+                            items = [entry['song'].to_string(index=False), entry['artist'].to_string(index=False), place_text]
                             self.setRowItems(items,year)
             
             if self.table_type == "Medal table":
@@ -124,6 +135,7 @@ class statistics_table(QWidget,Ui_statistics_table):
             item = items[i]
             widget_item = QTableWidgetItem(item)
             widget_item.setTextAlignment(Qt.AlignCenter)
+            widget_item.setFlags(Qt.ItemIsEnabled)
             if self.table_type == "Medal table":
                 self.table.setItem(self.countries.index(ind),i,widget_item)
             elif self.table_type in self.countries:
@@ -143,6 +155,25 @@ class statistics_table(QWidget,Ui_statistics_table):
         elif place % 10 == 3:
             text = f"{place}rd/{len(countries)}"
         return text
+    
+    def handle_sort(self,logical_ind):
+        # Extract the column headers
+        column_headers = [self.table.horizontalHeaderItem(col).text() for col in range(self.table.columnCount())]
 
-        
+        # Extract the row headers
+        row_headers = [self.table.verticalHeaderItem(row).text() for row in range(self.table.rowCount())]
 
+        # Extract the table data
+        data = []
+        for row in range(self.table.rowCount()):
+            row_data = []
+            for col in range(self.table.columnCount()):
+                item = self.table.item(row, col)
+                row_data.append(item.text() if item else "")
+            data.append(row_data)
+
+        # Create the DataFrame
+        df = pd.DataFrame(data, columns=column_headers, index=row_headers)
+
+        # Print the DataFrame
+        print(df)

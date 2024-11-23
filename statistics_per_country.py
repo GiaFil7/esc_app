@@ -57,6 +57,5 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
     
     def go_back(self,widget):
         stacked_widget = self.parent()
-        main_window = stacked_widget.parent()
-        main_window.load_rankings_by_year()
+        stacked_widget.setCurrentWidget(self)
         stacked_widget.removeWidget(widget)
