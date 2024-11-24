@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QWidget
 from ui.ui_rankings_esc_main_menu import Ui_rankings_esc_main_menu
 from rankings_by_year import rankings_by_year
 from statistics_menu import statistics_menu
-#from rankings_main_menu import rankings_main_menu
 
 import resources_rc
 

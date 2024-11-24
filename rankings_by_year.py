@@ -33,7 +33,7 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
             flag = contest_data.iloc[ind,2]
 
             text  = f"{self.contest_name} {str(year)}"
-            item = rankings_menu_item(text, submitted=flag) # Need to pass the year logo here
+            item = rankings_menu_item(text, submitted=flag, logo=f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png")
             item.clicked.connect(partial(self.load_ranking, item))
             self.layout.addWidget(item)
         self.layout.setSpacing(0)
