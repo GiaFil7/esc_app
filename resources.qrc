@@ -1,10 +1,10 @@
 <RCC>
   <qresource>
+    <file>images/contest_logos/ESC/ESC.png</file>
     <file>images/copy_icon.png</file>
     <file>images/tick_icon.png</file>
     <file>images/close_icon.png</file>
     <file>images/help_icon.png</file>
-    <file>images/Eurovision_generic_black.png</file>
     <file>images/heart_logos/ad.png</file>
     <file>images/heart_logos/al.png</file>
     <file>images/heart_logos/am.png</file>

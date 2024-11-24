@@ -5,36 +5,35 @@ from rankings_menu_item import rankings_menu_item
 from ranking_widget import ranking_widget
 from functools import partial
 import pandas as pd # type: ignore
-
 import resources_rc
 
 class rankings_by_year(QWidget,Ui_rankings_by_year):
-    def __init__(self,contest_code="ESC",logo=":/images/Eurovision_generic_black.png"): # Change
+    def __init__(self,contest_code):
         super().__init__()
         self.setupUi(self)
 
-        self.contest_name = "Eurovision Song Contest" # Change
         self.contest_code = contest_code
-        self.logo = logo # Change?
+        self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
 
-        self.name_label.setText(self.contest_name)
-        self.logo_label.setPixmap(QPixmap(self.logo))
+        self.setup_menu_items()
 
-        self.setup_menu_items(self.contest_name)
-
-    def setup_menu_items(self,contest):
+    def setup_menu_items(self):
         contest_data = pd.read_excel('contest_data.xlsx')
         contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
 
-        years = self.get_years(contest)
+        name_column = contest_data['contest_name']
+        self.contest_name = name_column[0]
+        self.name_label.setText(self.contest_name)
+
+        years = contest_data['year'].to_list()
         self.layout = QVBoxLayout()
         for year in years:
             ind = contest_data.index[contest_data['year'] == year].tolist()
             ind = ind[0]
             flag = contest_data.iloc[ind,2]
 
-            text  = f"{contest} {str(year)}"
-            item = rankings_menu_item(text, submitted=flag)
+            text  = f"{self.contest_name} {str(year)}"
+            item = rankings_menu_item(text, submitted=flag) # Need to pass the year logo here
             item.clicked.connect(partial(self.load_ranking, item))
             self.layout.addWidget(item)
         self.layout.setSpacing(0)
@@ -42,29 +41,14 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
-
-    def get_years(self,contest):
-        if contest == "Eurovision Song Contest": #Change
-            return range(1956,2024+1) # Change
-        else:
-            print("Invalid contest")
-            return []
         
     def load_ranking(self,item):
         stacked_widget = self.parent()
         year = item.text.split(" ")[-1]
-        ranking = ranking_widget(self.contest_name,int(year))
-        ranking.back_button.clicked.connect(partial(self.go_back, ranking)) # Refactor put in ranking_widget
+        ranking = ranking_widget(self.contest_name,int(year),self)
 
         stacked_widget.addWidget(ranking)
         stacked_widget.setCurrentWidget(ranking)
-
-    def go_back(self,ranking):
-        stacked_widget = self.parent()
-        main_window = stacked_widget.parent()
-        main_window.load_rankings_by_year() # Refactor
-        self.update_submitted_status(self)
-        stacked_widget.removeWidget(ranking)
 
     def update_submitted_status(self,by_year_widget):
         contest_data = pd.read_excel('contest_data.xlsx')

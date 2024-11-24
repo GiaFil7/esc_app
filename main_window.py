@@ -1,9 +1,6 @@
 from PySide6.QtWidgets import QMainWindow,QStackedWidget,QVBoxLayout
 from ui.ui_main_window import Ui_main_window
 from main_menu import main_menu
-from rankings_main_menu import rankings_main_menu
-from rankings_esc_main_menu import rankings_esc_main_menu
-from rankings_by_year import rankings_by_year
 
 import resources_rc
 
@@ -14,17 +11,11 @@ class main_window(QMainWindow,Ui_main_window):
         self.setupUi(self)
         self.stacked_widget = QStackedWidget()
 
-        # Initialize widgets for the different menus
+        # Initialize widget
         self.main_menu = main_menu()
-        #self.rankings_main_menu = rankings_main_menu()
-        #self.rankings_esc_main_menu = rankings_esc_main_menu()
-        #self.rankings_by_year = rankings_by_year()
 
-        # Add the menu widgets to the stacked_widget
+        # Add the menu widget to the stacked_widget
         self.stacked_widget.addWidget(self.main_menu)
-        #self.stacked_widget.addWidget(self.rankings_main_menu)
-        #self.stacked_widget.addWidget(self.rankings_esc_main_menu)
-        #self.stacked_widget.addWidget(self.rankings_by_year)
 
         # Setup the layout
         self.layout = QVBoxLayout()
@@ -32,27 +23,3 @@ class main_window(QMainWindow,Ui_main_window):
         self.stacked_widget.setCurrentWidget(self.main_menu)
         self.setLayout(self.layout)
         self.setCentralWidget(self.stacked_widget)
-
-        # Connect all menu slots
-        #self.main_menu.rankings_button.clicked.connect(self.load_rankings_main_menu)
-        #self.main_menu.quizzes_button.clicked.connect(self.load_quizzes_main_menu)
-        #self.rankings_main_menu.back_button.clicked.connect(self.load_main_menu)
-        #self.rankings_main_menu.esc_rankings_button.clicked.connect(self.load_rankings_esc_main_menu)
-        #self.rankings_esc_main_menu.back_button.clicked.connect(self.load_rankings_main_menu)
-        #self.rankings_esc_main_menu.rankings_button.clicked.connect(self.load_rankings_by_year)
-        #self.rankings_by_year.back_button.clicked.connect(self.load_rankings_esc_main_menu)
-
-    #def load_main_menu(self):
-    #    self.stacked_widget.setCurrentWidget(self.main_menu)
-
-    #def load_rankings_main_menu(self):
-    #    self.stacked_widget.setCurrentWidget(self.rankings_main_menu)
-
-    #def load_quizzes_main_menu(self):
-    #    print("Load Quizzes")
-
-    #def load_rankings_esc_main_menu(self):
-    #    self.stacked_widget.setCurrentWidget(self.rankings_esc_main_menu)
-
-    #def load_rankings_by_year(self):
-    #    self.stacked_widget.setCurrentWidget(self.rankings_by_year)

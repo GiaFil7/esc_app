@@ -4,22 +4,17 @@ from PySide6.QtGui import QPixmap,Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
 from ranking_item import ranking_item, DragTargetIndicator
 from ranking_import_export import ranking_import_export
-
+from functools import partial
 import pandas as pd # type: ignore
 import resources_rc
 
 class ranking_widget(QWidget, Ui_ranking_widget):
     orderChanged = Signal(list)
 
-    def __init__(self,contest,year):
+    def __init__(self,contest,year,by_year_widget):
         super().__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
-
-        self.info_button.pressed.connect(self.toggle_info)
-        self.import_export_button.pressed.connect(self.open_import_export_dialog)
-        self.save_button.pressed.connect(self.save_ranking_to_file)
-        self.show_combo_box.currentTextChanged.connect(self.text_changed)
 
         self.contest = contest
         self.year = year
@@ -27,8 +22,14 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
         self.contest_code = "ESC" # Change
+        self.by_year_widget = by_year_widget
 
-        self.logo = ":/images/heart_logos/empty_heart.svg"
+        self.info_button.pressed.connect(self.toggle_info)
+        self.import_export_button.pressed.connect(self.open_import_export_dialog)
+        self.save_button.pressed.connect(self.save_ranking_to_file)
+        self.show_combo_box.currentTextChanged.connect(self.text_changed)
+        self.back_button.pressed.connect(partial(self.go_back,self.by_year_widget))
+        self.logo = ":/images/heart_logos/empty_heart.svg" # Change
 
         self.logo_label.setPixmap(QPixmap(self.logo))
         self.year_label.setText(self.contest + " " + str(self.year))
@@ -206,6 +207,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         self.previous_combo_box_text = text
 
+    def go_back(self,by_year_widget):
+        stacked_widget = self.parent()
+        stacked_widget.addWidget(by_year_widget)
+        stacked_widget.setCurrentWidget(by_year_widget)
+        by_year_widget.update_submitted_status(by_year_widget)
+        stacked_widget.removeWidget(self)
 
     def setup_ranking_items(self,ranking,songs,artists):
         self.layout = QVBoxLayout()

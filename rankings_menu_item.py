@@ -8,7 +8,7 @@ import resources_rc
 class rankings_menu_item(QWidget,Ui_ranking_menu_item):
     clicked = Signal()
 
-    def __init__(self,text,submitted=True,logo=":/images/heart_logos/empty_heart.svg"):
+    def __init__(self,text,submitted,logo=":/images/heart_logos/empty_heart.svg"):
         super().__init__()
         self.setupUi(self)
 
