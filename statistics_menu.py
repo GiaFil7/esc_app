@@ -7,11 +7,12 @@ from functools import partial
 import resources_rc
 
 class statistics_menu(QWidget,Ui_statistics_menu):
-    def __init__(self,contest):
+    def __init__(self,contest,contest_menu):
         super().__init__()
         self.setupUi(self)
 
         self.contest = contest
+        self.contest_menu = contest_menu
 
         self.winners_button.clicked.connect(partial(self.load_table,"Winners"))
         self.second_places_button.clicked.connect(partial(self.load_table,"2nd Places"))
@@ -19,6 +20,7 @@ class statistics_menu(QWidget,Ui_statistics_menu):
         self.last_places_button.clicked.connect(partial(self.load_table,"Last Places"))
         self.medal_table_button.clicked.connect(partial(self.load_table,"Medal table"))
         self.per_country_button.clicked.connect(partial(self.load_per_country,self.contest))
+        self.back_button.clicked.connect(self.go_back_to_contest)
 
     def load_table(self,table_type):
         self.stacked_widget = self.parent()
@@ -46,3 +48,8 @@ class statistics_menu(QWidget,Ui_statistics_menu):
         widget = statistics_per_country(self.contest)
         self.stacked_widget.setCurrentWidget(widget)
         self.stacked_widget.removeWidget(table)
+
+    def go_back_to_contest(self):
+        self.stacked_widget = self.parent()
+        self.stacked_widget.addWidget(self.contest_menu)
+        self.stacked_widget.setCurrentWidget(self.contest_menu)

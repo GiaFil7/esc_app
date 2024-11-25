@@ -92,7 +92,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.show_combo_box.hide()
             self.vertical_line.hide()
 
-            self.info_button.setIcon(QPixmap(":/images/close_icon.png"))
+            self.info_button.setIcon(QPixmap(":/images/icons/close_icon.png"))
 
             self.is_info_visible = True
         else:
@@ -107,7 +107,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.vertical_line.show()
             self.info_label.hide()
 
-            self.info_button.setIcon(QPixmap(":/images/help_icon.png"))
+            self.info_button.setIcon(QPixmap(":/images/icons/help_icon.png"))
             self.is_info_visible = False
 
     def open_import_export_dialog(self):

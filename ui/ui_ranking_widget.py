@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
     QLabel, QPushButton, QScrollArea, QSizePolicy,
     QVBoxLayout, QWidget)
 import resources_rc
+import resources_rc
 
 class Ui_ranking_widget(object):
     def setupUi(self, ranking_widget):
@@ -39,7 +40,7 @@ class Ui_ranking_widget(object):
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
         self.logo_label.setMaximumSize(QSize(90, 30))
-        self.logo_label.setPixmap(QPixmap(u":/images/Eurovision_generic_black.png"))
+        self.logo_label.setPixmap(QPixmap(u":/images/contest_logos/ESC/ESC.png"))
         self.logo_label.setScaledContents(True)
 
         self.title_layout.addWidget(self.logo_label)
@@ -87,7 +88,7 @@ class Ui_ranking_widget(object):
         sizePolicy.setHeightForWidth(self.info_button.sizePolicy().hasHeightForWidth())
         self.info_button.setSizePolicy(sizePolicy)
         icon = QIcon()
-        icon.addFile(u":/images/help_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/images/icons/help_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.info_button.setIcon(icon)
 
         self.title_layout.addWidget(self.info_button)

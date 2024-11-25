@@ -59,7 +59,7 @@ class Ui_import_export_dialog(object):
         sizePolicy.setHeightForWidth(self.import_button.sizePolicy().hasHeightForWidth())
         self.import_button.setSizePolicy(sizePolicy)
         icon = QIcon()
-        icon.addFile(u":/images/tick_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/images/icons/tick_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.import_button.setIcon(icon)
 
         self.import_layout.addWidget(self.import_button)
@@ -93,7 +93,7 @@ class Ui_import_export_dialog(object):
         sizePolicy.setHeightForWidth(self.export_button.sizePolicy().hasHeightForWidth())
         self.export_button.setSizePolicy(sizePolicy)
         icon1 = QIcon()
-        icon1.addFile(u":/images/copy_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon1.addFile(u":/images/icons/copy_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.export_button.setIcon(icon1)
 
         self.export_layout.addWidget(self.export_button)

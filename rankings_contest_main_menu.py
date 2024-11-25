@@ -18,21 +18,15 @@ class rankings_contest_main_menu(QWidget,Ui_rankings_contest_main_menu):
 
     def load_rankings(self):
         self.stacked_widget = self.parent()
-        rankings_widget = rankings_by_year(self.contest_code)
-        rankings_widget.back_button.clicked.connect(self.load_contest_menu) # Remove
+        rankings_widget = rankings_by_year(self.contest_code,self)
         self.stacked_widget.addWidget(rankings_widget)
         self.stacked_widget.setCurrentWidget(rankings_widget)
 
     def load_statistics(self):
         self.stacked_widget = self.parent()
-        statistics_menu_widget = statistics_menu(self.contest_code)
-        statistics_menu_widget.back_button.clicked.connect(self.load_contest_menu)
+        statistics_menu_widget = statistics_menu(self.contest_code,self)
         self.stacked_widget.addWidget(statistics_menu_widget)
         self.stacked_widget.setCurrentWidget(statistics_menu_widget)
-
-    def load_contest_menu(self):
-        self.stacked_widget = self.parent()
-        self.stacked_widget.setCurrentWidget(self)
 
     def go_back(self):
         self.stacked_widget = self.parent()

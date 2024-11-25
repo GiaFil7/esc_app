@@ -8,7 +8,7 @@ import resources_rc
 class rankings_menu_item(QWidget,Ui_ranking_menu_item):
     clicked = Signal()
 
-    def __init__(self,text,submitted,logo=":/images/heart_logos/empty_heart.svg"):
+    def __init__(self,text,submitted=True,logo=":/images/heart_logos/empty_heart.svg"):
         super().__init__()
         self.setupUi(self)
 
@@ -26,6 +26,6 @@ class rankings_menu_item(QWidget,Ui_ranking_menu_item):
 
     def update_icon(self,flag):
         if flag:
-            self.submitted_label.setPixmap(QPixmap(":/images/tick_icon.png"))
+            self.submitted_label.setPixmap(QPixmap(":/images/icons/tick_icon.png"))
         else:
-            self.submitted_label.setPixmap(QPixmap(":/images/close_icon.png"))
+            self.submitted_label.setPixmap(QPixmap(":/images/icons/close_icon.png"))

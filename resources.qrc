@@ -70,11 +70,11 @@
     <file>images/contest_logos/ESC/ESC_2023.png</file>
     <file>images/contest_logos/ESC/ESC_2024.png</file>
     <file>images/contest_logos/ESC/ESC.png</file>
-    <file>images/copy_icon.png</file>
-    <file>images/tick_icon.png</file>
-    <file>images/close_icon.png</file>
-    <file>images/help_icon.png</file>
     <file>images/heart_logos/ad.png</file>
+    <file>images/icons/close_icon.png</file>
+    <file>images/icons/copy_icon.png</file>
+    <file>images/icons/help_icon.png</file>
+    <file>images/icons/tick_icon.png</file>
     <file>images/heart_logos/al.png</file>
     <file>images/heart_logos/am.png</file>
     <file>images/heart_logos/at.png</file>

@@ -8,12 +8,15 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class rankings_by_year(QWidget,Ui_rankings_by_year):
-    def __init__(self,contest_code):
+    def __init__(self,contest_code,contest_menu):
         super().__init__()
         self.setupUi(self)
 
         self.contest_code = contest_code
+        self.contest_menu = contest_menu
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
+
+        self.back_button.clicked.connect(self.go_back)
 
         self.setup_menu_items()
 
@@ -33,8 +36,9 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
             flag = contest_data.iloc[ind,2]
 
             text  = f"{self.contest_name} {str(year)}"
-            item = rankings_menu_item(text, submitted=flag, logo=f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png")
-            item.clicked.connect(partial(self.load_ranking, item))
+            logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png"
+            item = rankings_menu_item(text, submitted=flag, logo=logo_path)
+            item.clicked.connect(partial(self.load_ranking, year))
             self.layout.addWidget(item)
         self.layout.setSpacing(0)
 
@@ -42,9 +46,8 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
         
-    def load_ranking(self,item):
+    def load_ranking(self,year):
         stacked_widget = self.parent()
-        year = item.text.split(" ")[-1]
         ranking = ranking_widget(self.contest_name,int(year),self)
 
         stacked_widget.addWidget(ranking)
@@ -64,3 +67,8 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
                 ind = ind[0]
 
                 menu_item.update_icon(contest_data.iloc[ind,2])
+    
+    def go_back(self):
+        self.stacked_widget = self.parent()
+        self.stacked_widget.addWidget(self.contest_menu)
+        self.stacked_widget.setCurrentWidget(self.contest_menu)

@@ -18,13 +18,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QSizePolicy, QSpacerItem, QWidget)
 import resources_rc
-import resources_rc
 
 class Ui_ranking_menu_item(object):
     def setupUi(self, ranking_menu_item):
         if not ranking_menu_item.objectName():
             ranking_menu_item.setObjectName(u"ranking_menu_item")
-        ranking_menu_item.resize(579, 58)
+        ranking_menu_item.resize(591, 60)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -72,7 +71,7 @@ class Ui_ranking_menu_item(object):
         self.submitted_label.setSizePolicy(sizePolicy)
         self.submitted_label.setMaximumSize(QSize(20, 20))
         self.submitted_label.setStyleSheet(u"")
-        self.submitted_label.setPixmap(QPixmap(u":/images/close_icon.png"))
+        self.submitted_label.setPixmap(QPixmap(u":/images/icons/close_icon.png"))
         self.submitted_label.setScaledContents(True)
 
         self.main_layout.addWidget(self.submitted_label)

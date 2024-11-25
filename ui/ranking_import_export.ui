@@ -71,8 +71,8 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/images/tick_icon.png</normaloff>:/images/tick_icon.png</iconset>
+         <iconset resource="../resources.qrc">
+          <normaloff>:/images/icons/tick_icon.png</normaloff>:/images/icons/tick_icon.png</iconset>
         </property>
        </widget>
       </item>
@@ -121,8 +121,8 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/images/copy_icon.png</normaloff>:/images/copy_icon.png</iconset>
+         <iconset resource="../resources.qrc">
+          <normaloff>:/images/icons/copy_icon.png</normaloff>:/images/icons/copy_icon.png</iconset>
         </property>
        </widget>
       </item>
@@ -148,7 +148,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
