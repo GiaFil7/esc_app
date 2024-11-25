@@ -51,7 +51,7 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         
     def load_ranking(self,year):
         stacked_widget = self.parent()
-        ranking = ranking_widget(self.contest_name,int(year),self)
+        ranking = ranking_widget(self.contest_code,int(year),self)
 
         stacked_widget.addWidget(ranking)
         stacked_widget.setCurrentWidget(ranking)

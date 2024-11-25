@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget,QVBoxLayout,QLabel
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
-from ranking_item import ranking_item, DragTargetIndicator
+from ranking_item import ranking_item,DragTargetIndicator
 from ranking_import_export import ranking_import_export
 from functools import partial
 import pandas as pd # type: ignore
@@ -11,17 +11,17 @@ import resources_rc
 class ranking_widget(QWidget, Ui_ranking_widget):
     orderChanged = Signal(list)
 
-    def __init__(self,contest,year,by_year_widget):
+    def __init__(self,contest_code,year,by_year_widget):
         super().__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
 
-        self.contest = contest
+        self.get_contest_name()
         self.year = year
         self.is_info_visible = False
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
-        self.contest_code = "ESC" # Change
+        self.contest_code = contest_code
         self.by_year_widget = by_year_widget
 
         self.info_button.pressed.connect(self.toggle_info)
@@ -29,16 +29,16 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.save_button.pressed.connect(self.save_ranking_to_file)
         self.show_combo_box.currentTextChanged.connect(self.text_changed)
         self.back_button.pressed.connect(partial(self.go_back,self.by_year_widget))
-        self.logo = ":/images/heart_logos/empty_heart.svg" # Change
 
-        self.logo_label.setPixmap(QPixmap(self.logo))
-        self.year_label.setText(self.contest + " " + str(self.year))
+        self.logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{self.year}.png"
+        self.logo_label.setPixmap(QPixmap(self.logo_path))
+        self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
-        self.songs,self.artists,self.ranking = self.get_contest_data(self.contest,self.year)
+        self.get_contest_data()
 
         self.setup_ranking_items(self.ranking,self.songs,self.artists)
 
-        if self.contest == "Eurovision Song Contest":
+        if self.contest_code == "ESC":
             if year <= 2003:
                 self.show_combo_box.hide()
             elif year <= 2008:
@@ -46,32 +46,19 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             else:
                 self.show_combo_box.addItems(["Full Ranking","Semi-Final 1","Semi-Final 2","Grand Final"])
 
-    def get_contest_data(self,contest,year):
-        # Maybe make a file mapping contest names to codes
-        if contest == "Eurovision Song Contest":
-            self.contest_code = "ESC"
-            self.filename = 'ESC_data.xlsx' # Change
-            data = pd.read_excel(self.filename)
-        else:
-            print("Invalid contest")
-            return []
-    
-        if year < 1956 or year > 2024:
-            print("Invalid year")
-            return []
-    
-        self.contest_and_year = self.contest_code + " " + str(year)
+    def get_contest_data(self):
+        self.filename = f'{self.contest_code}_data.xlsx'
+        data = pd.read_excel(self.filename)
+
+        self.contest_and_year = f"{self.contest_code} {str(self.year)}"
         self.entries = data[data['contest'] == self.contest_and_year]
 
-        songs = list(self.entries['song'])
-        artists = list(self.entries['artist'])
-        ranking = list(self.entries['country_code'])
+        self.songs = list(self.entries['song'])
+        self.artists = list(self.entries['artist'])
+        self.ranking = list(self.entries['country_code'])
 
-        return songs,artists,ranking
-    
     def toggle_info(self):
-        if not self.is_info_visible:
-            
+        if not self.is_info_visible:    
             if self.contest_and_year != "ESC 1956":
                 help_file = f"help_ranking_{self.contest_code}.html"
             else:
@@ -143,8 +130,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
             self.entries.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=self.entries.index[0]+1)
 
-        filename = 'contest_data.xlsx'
-        contest_data = pd.read_excel(filename)
+        contest_data = pd.read_excel('contest_data.xlsx')
         contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
         ind = contest_data.index[contest_data['year'] == self.year].tolist()
         ind = ind[0]
@@ -152,11 +138,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         if contest_data.iloc[ind,2] == False:
             contest_data.iloc[ind,2] = True
 
-            with pd.ExcelWriter(filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
+            with pd.ExcelWriter('contest_data.xlsx', mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
                 contest_data.to_excel(writer, sheet_name='data', header=False, index=False, startrow=contest_data.index[0]+1)
             
             print(f"New year submitted: {self.year}")
-
 
         print("Saved")
 
@@ -174,7 +159,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         else:
             self.allow_dragging = False
 
-        if self.contest == "Eurovision Song Contest":
+        if self.contest_code == "ESC":
             if self.year <= 2007:
                 semi_finalists = self.entries[self.entries['show'] == "SF"]
             else:
@@ -213,6 +198,13 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         stacked_widget.setCurrentWidget(by_year_widget)
         by_year_widget.update_submitted_status(by_year_widget)
         stacked_widget.removeWidget(self)
+    
+    def get_contest_name(self):
+        self.contest_data = pd.read_excel('contest_data.xlsx')
+        self.contest_data = self.contest_data[self.contest_data['contest_code'] == self.contest_code]
+
+        name_column = self.contest_data['contest_name']
+        self.contest_name = name_column[0]
 
     def setup_ranking_items(self,ranking,songs,artists):
         self.layout = QVBoxLayout()

@@ -6,11 +6,11 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class statistics_table(QWidget,Ui_statistics_table):
-    def __init__(self, contest, table_type, parent_menu):
+    def __init__(self, contest_code, table_type, parent_menu):
         super().__init__()
         self.setupUi(self)
 
-        self.contest = contest
+        self.contest_code = contest_code
         self.table_type = table_type
         self.parent_menu = parent_menu
 
@@ -20,15 +20,15 @@ class statistics_table(QWidget,Ui_statistics_table):
 
         match self.table_type:
             case "Winners":
-                self.icon_label.setPixmap(QPixmap(":/images/icons/1st_place_icon.png")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/1st_place_icon.png"))
             case "2nd Places":
-                self.icon_label.setPixmap(QPixmap(":/images/icons/2nd_place_icon.png")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/2nd_place_icon.png"))
             case "3rd Places":
-                self.icon_label.setPixmap(QPixmap(":/images/icons/3rd_place_icon.png")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/3rd_place_icon.png"))
             case "Last Places":
-                self.icon_label.setPixmap(QPixmap(":/images/icons/thumbs_down_icon.png")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/thumbs_down_icon.png"))
             case "Medal table":
-                self.icon_label.setPixmap(QPixmap(":/images/icons/podium_icon.png")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/podium_icon.png"))
             case _:
                 country_codes = pd.read_excel('country_codes.xlsx')
                 country_code_row = country_codes[country_codes['country'] == self.table_type]
@@ -38,8 +38,8 @@ class statistics_table(QWidget,Ui_statistics_table):
         
         # Get the years the contest was held and if the user has submitted a ranking for each one
         all_contest_data = pd.read_excel('contest_data.xlsx')
-        contest_data = all_contest_data[all_contest_data['contest_code'] ==  self.contest]
-        self.filename = f"{self.contest}_data.xlsx"
+        contest_data = all_contest_data[all_contest_data['contest_code'] ==  self.contest_code]
+        self.filename = f"{self.contest_code}_data.xlsx"
         self.years = list(contest_data['year'])
         self.submitted = list(contest_data['submitted'])
 
@@ -92,25 +92,25 @@ class statistics_table(QWidget,Ui_statistics_table):
                 self.table.setVerticalHeaderLabels(labels)
         
             for year in self.submitted_years:
-                entries = data[data['contest'] == f"{self.contest} {year}"]
+                entries = data[data['contest'] == f"{self.contest_code} {year}"]
 
                 match self.table_type:
                     case "Winners":
                         entry = entries.iloc[0]
                         items = [entry['country'], entry['song'], entry['artist']]
-                        self.setRowItems(items,year)
+                        self.set_row_items(items,year)
                     case "2nd Places":
                         entry = entries.iloc[1]
                         items = [entry['country'], entry['song'], entry['artist']]
-                        self.setRowItems(items,year)
+                        self.set_row_items(items,year)
                     case "3rd Places":
                         entry = entries.iloc[2]
                         items = [entry['country'], entry['song'], entry['artist']]
-                        self.setRowItems(items,year)
+                        self.set_row_items(items,year)
                     case "Last Places":
                         entry = entries.iloc[-1]
                         items = [entry['country'], entry['song'], entry['artist']]
-                        self.setRowItems(items,year)
+                        self.set_row_items(items,year)
                     case "Medal table":
                         places = [0,1,2,3,4,len(entries)-1]
                         for i in places:
@@ -122,12 +122,12 @@ class statistics_table(QWidget,Ui_statistics_table):
                             if self.table_type in list(entries['country']):
                                 place_text = self.get_placing_text(entries)
                                 items = [entry['song'].to_string(index=False), entry['artist'].to_string(index=False), place_text]
-                                self.setRowItems(items,year)
+                                self.set_row_items(items,year)
                 
             if self.table_type == "Medal table":
                 for country in self.countries:
                     items = [str(placing_data.loc[country,col]) for col in cols]
-                    self.setRowItems(items,country)
+                    self.set_row_items(items,country)
 
             header = self.table.horizontalHeader()
             header.setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -135,7 +135,7 @@ class statistics_table(QWidget,Ui_statistics_table):
             self.show_none_label("No submitted years.")
 
 
-    def setRowItems(self,items,ind):
+    def set_row_items(self,items,ind):
         for i in range(len(items)):
             item = items[i]
             widget_item = QTableWidgetItem(item)
