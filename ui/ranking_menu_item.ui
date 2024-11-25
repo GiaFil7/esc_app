@@ -38,8 +38,8 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>20</width>
-         <height>20</height>
+         <width>40</width>
+         <height>40</height>
         </size>
        </property>
        <property name="baseSize">
@@ -161,7 +161,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
   <include location="../resources.qrc"/>
  </resources>
  <connections/>

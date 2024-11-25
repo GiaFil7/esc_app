@@ -39,7 +39,7 @@ class Ui_ranking_menu_item(object):
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
         self.logo_label.setMinimumSize(QSize(0, 0))
-        self.logo_label.setMaximumSize(QSize(20, 20))
+        self.logo_label.setMaximumSize(QSize(40, 40))
         self.logo_label.setBaseSize(QSize(40, 40))
         self.logo_label.setStyleSheet(u"")
         self.logo_label.setFrameShadow(QFrame.Shadow.Plain)

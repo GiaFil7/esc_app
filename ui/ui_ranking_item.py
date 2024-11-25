@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSizePolicy,
     QWidget)
 import resources_rc
+import resources_rc
 
 class Ui_ranking_item(object):
     def setupUi(self, ranking_item):
