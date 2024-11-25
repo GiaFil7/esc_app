@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'rankings_esc_main_menu.ui'
+## Form generated from reading UI file 'rankings_contest_main_menu.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -18,18 +18,18 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
 
-class Ui_rankings_esc_main_menu(object):
-    def setupUi(self, rankings_esc_main_menu):
-        if not rankings_esc_main_menu.objectName():
-            rankings_esc_main_menu.setObjectName(u"rankings_esc_main_menu")
-        rankings_esc_main_menu.resize(600, 400)
+class Ui_rankings_contest_main_menu(object):
+    def setupUi(self, rankings_contest_main_menu):
+        if not rankings_contest_main_menu.objectName():
+            rankings_contest_main_menu.setObjectName(u"rankings_contest_main_menu")
+        rankings_contest_main_menu.resize(600, 400)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(rankings_esc_main_menu.sizePolicy().hasHeightForWidth())
-        rankings_esc_main_menu.setSizePolicy(sizePolicy)
-        rankings_esc_main_menu.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.horizontalLayout = QHBoxLayout(rankings_esc_main_menu)
+        sizePolicy.setHeightForWidth(rankings_contest_main_menu.sizePolicy().hasHeightForWidth())
+        rankings_contest_main_menu.setSizePolicy(sizePolicy)
+        rankings_contest_main_menu.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.horizontalLayout = QHBoxLayout(rankings_contest_main_menu)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.left_spacer = QSpacerItem(300, 20, QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum)
 
@@ -41,7 +41,7 @@ class Ui_rankings_esc_main_menu(object):
 
         self.vertical_layout.addItem(self.top_spacer)
 
-        self.rankings_button = QPushButton(rankings_esc_main_menu)
+        self.rankings_button = QPushButton(rankings_contest_main_menu)
         self.rankings_button.setObjectName(u"rankings_button")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
@@ -56,7 +56,7 @@ class Ui_rankings_esc_main_menu(object):
 
         self.vertical_layout.addItem(self.middle_spacer_1)
 
-        self.statistics_button = QPushButton(rankings_esc_main_menu)
+        self.statistics_button = QPushButton(rankings_contest_main_menu)
         self.statistics_button.setObjectName(u"statistics_button")
         sizePolicy1.setHeightForWidth(self.statistics_button.sizePolicy().hasHeightForWidth())
         self.statistics_button.setSizePolicy(sizePolicy1)
@@ -68,7 +68,7 @@ class Ui_rankings_esc_main_menu(object):
 
         self.vertical_layout.addItem(self.middle_spacer_2)
 
-        self.back_button = QPushButton(rankings_esc_main_menu)
+        self.back_button = QPushButton(rankings_contest_main_menu)
         self.back_button.setObjectName(u"back_button")
         sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy1)
@@ -88,15 +88,15 @@ class Ui_rankings_esc_main_menu(object):
         self.horizontalLayout.addItem(self.right_spacer)
 
 
-        self.retranslateUi(rankings_esc_main_menu)
+        self.retranslateUi(rankings_contest_main_menu)
 
-        QMetaObject.connectSlotsByName(rankings_esc_main_menu)
+        QMetaObject.connectSlotsByName(rankings_contest_main_menu)
     # setupUi
 
-    def retranslateUi(self, rankings_esc_main_menu):
-        rankings_esc_main_menu.setWindowTitle(QCoreApplication.translate("rankings_esc_main_menu", u"Form", None))
-        self.rankings_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Eurovision Song Contest - Rankings by Year", None))
-        self.statistics_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Statistics", None))
-        self.back_button.setText(QCoreApplication.translate("rankings_esc_main_menu", u"Back to Rankings Main Menu", None))
+    def retranslateUi(self, rankings_contest_main_menu):
+        rankings_contest_main_menu.setWindowTitle(QCoreApplication.translate("rankings_contest_main_menu", u"Form", None))
+        self.rankings_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Eurovision Song Contest - Rankings by Year", None))
+        self.statistics_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Statistics", None))
+        self.back_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Back to Rankings Main Menu", None))
     # retranslateUi
 

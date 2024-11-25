@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget
 from ui.ui_rankings_main_menu import Ui_rankings_main_menu
-from rankings_esc_main_menu import rankings_esc_main_menu
+from rankings_contest_main_menu import rankings_contest_main_menu
 from functools import partial
 
 import resources_rc
@@ -16,7 +16,7 @@ class rankings_main_menu(QWidget,Ui_rankings_main_menu):
 
     def load_contest_menu(self,contest_code):
         self.stacked_widget = self.parent()
-        contest_menu = rankings_esc_main_menu(contest_code,self)
+        contest_menu = rankings_contest_main_menu(contest_code,self)
         self.stacked_widget.addWidget(contest_menu)
         self.stacked_widget.setCurrentWidget(contest_menu)
     

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>rankings_esc_main_menu</class>
- <widget class="QWidget" name="rankings_esc_main_menu">
+ <class>rankings_contest_main_menu</class>
+ <widget class="QWidget" name="rankings_contest_main_menu">
   <property name="geometry">
    <rect>
     <x>0</x>

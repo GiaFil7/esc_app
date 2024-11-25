@@ -19,7 +19,7 @@ files = ["main_menu",
          "ranking_menu_item",
          "ranking_widget",
          "rankings_by_year",
-         "rankings_esc_main_menu",
+         "rankings_contest_main_menu",
          "rankings_main_menu",
          "statistics_menu",
          "statistics_table"]
