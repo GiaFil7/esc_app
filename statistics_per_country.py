@@ -49,8 +49,7 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
 
     def load_country_stats(self,contest,country):
         stacked_widget = self.parent()
-        country_stats_widget = statistics_table(contest,country)
-        country_stats_widget.back_button.clicked.connect(partial(self.go_back, country_stats_widget))
+        country_stats_widget = statistics_table(contest,country,self)
 
         stacked_widget.addWidget(country_stats_widget)
         stacked_widget.setCurrentWidget(country_stats_widget)

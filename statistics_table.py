@@ -6,14 +6,18 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class statistics_table(QWidget,Ui_statistics_table):
-    def __init__(self,contest,table_type):
+    def __init__(self,contest,table_type, parent_menu):
         super().__init__()
         self.setupUi(self)
 
         self.contest = contest
         self.table_type = table_type
+        self.parent_menu = parent_menu
 
         self.title_label.setText(self.table_type)
+
+        self.back_button.clicked.connect(self.go_back)
+
         match self.table_type:
             case "Winners":
                 self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
@@ -194,3 +198,8 @@ class statistics_table(QWidget,Ui_statistics_table):
         label_widget.setStyleSheet("color: red")
         label_widget.setAlignment(Qt.AlignTop)
         self.layout.addWidget(label_widget)
+
+    def go_back(self):
+        self.stacked_widget = self.parent()
+        self.stacked_widget.addWidget(self.parent_menu)
+        self.stacked_widget.setCurrentWidget(self.parent_menu)
