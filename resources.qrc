@@ -1,5 +1,10 @@
 <RCC>
   <qresource>
+    <file>images/icons/1st_place_icon.png</file>
+    <file>images/icons/2nd_place_icon.png</file>
+    <file>images/icons/3rd_place_icon.png</file>
+    <file>images/icons/podium_icon.png</file>
+    <file>images/icons/thumbs_down_icon.png</file>
     <file>images/contest_logos/ESC/ESC_1956.png</file>
     <file>images/contest_logos/ESC/ESC_1957.png</file>
     <file>images/contest_logos/ESC/ESC_1958.png</file>

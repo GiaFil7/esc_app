@@ -6,7 +6,7 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class statistics_table(QWidget,Ui_statistics_table):
-    def __init__(self,contest,table_type, parent_menu):
+    def __init__(self, contest, table_type, parent_menu):
         super().__init__()
         self.setupUi(self)
 
@@ -20,15 +20,15 @@ class statistics_table(QWidget,Ui_statistics_table):
 
         match self.table_type:
             case "Winners":
-                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/1st_place_icon.png")) # Change
             case "2nd Places":
-                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/2nd_place_icon.png")) # Change
             case "3rd Places":
-                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/3rd_place_icon.png")) # Change
             case "Last Places":
-                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/thumbs_down_icon.png")) # Change
             case "Medal table":
-                self.icon_label.setPixmap(QPixmap(":/images/heart_logos/empty_heart.svg")) # Change
+                self.icon_label.setPixmap(QPixmap(":/images/icons/podium_icon.png")) # Change
             case _:
                 country_codes = pd.read_excel('country_codes.xlsx')
                 country_code_row = country_codes[country_codes['country'] == self.table_type]

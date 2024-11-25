@@ -21,19 +21,15 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.setup_menu_items()
 
     def setup_menu_items(self):
-        contest_data = pd.read_excel('contest_data.xlsx')
-        contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
-
-        name_column = contest_data['contest_name']
-        self.contest_name = name_column[0]
+        self.get_contest_name()
         self.name_label.setText(self.contest_name)
 
-        years = contest_data['year'].to_list()
+        years = self.contest_data['year'].to_list()
         self.layout = QVBoxLayout()
         for year in years:
-            ind = contest_data.index[contest_data['year'] == year].tolist()
+            ind = self.contest_data.index[self.contest_data['year'] == year].tolist()
             ind = ind[0]
-            flag = contest_data.iloc[ind,2]
+            flag = self.contest_data.iloc[ind,2]
 
             text  = f"{self.contest_name} {str(year)}"
             logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png"
@@ -45,6 +41,13 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
+
+    def get_contest_name(self):
+        self.contest_data = pd.read_excel('contest_data.xlsx')
+        self.contest_data = self.contest_data[self.contest_data['contest_code'] == self.contest_code]
+
+        name_column = self.contest_data['contest_name']
+        self.contest_name = name_column[0]
         
     def load_ranking(self,year):
         stacked_widget = self.parent()
