@@ -15,14 +15,14 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         super().__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
-
-        self.get_contest_name()
+ 
         self.year = year
         self.is_info_visible = False
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
         self.contest_code = contest_code
         self.by_year_widget = by_year_widget
+        self.contest_name = by_year_widget.contest_name
 
         self.info_button.pressed.connect(self.toggle_info)
         self.import_export_button.pressed.connect(self.open_import_export_dialog)
@@ -198,13 +198,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         stacked_widget.setCurrentWidget(by_year_widget)
         by_year_widget.update_submitted_status(by_year_widget)
         stacked_widget.removeWidget(self)
-    
-    def get_contest_name(self):
-        self.contest_data = pd.read_excel('contest_data.xlsx')
-        self.contest_data = self.contest_data[self.contest_data['contest_code'] == self.contest_code]
-
-        name_column = self.contest_data['contest_name']
-        self.contest_name = name_column[0]
 
     def setup_ranking_items(self,ranking,songs,artists):
         self.layout = QVBoxLayout()
