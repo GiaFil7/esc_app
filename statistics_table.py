@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
-
+from functools import partial
+from utils import load_widget
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -16,7 +17,7 @@ class statistics_table(QWidget,Ui_statistics_table):
 
         self.title_label.setText(self.table_type)
 
-        self.back_button.clicked.connect(self.go_back)
+        self.back_button.clicked.connect(partial(load_widget, self, parent_menu))
 
         match self.table_type:
             case "Winners":
@@ -198,8 +199,3 @@ class statistics_table(QWidget,Ui_statistics_table):
         label_widget.setStyleSheet("color: red")
         label_widget.setAlignment(Qt.AlignTop)
         self.layout.addWidget(label_widget)
-
-    def go_back(self):
-        self.stacked_widget = self.parent()
-        self.stacked_widget.addWidget(self.parent_menu)
-        self.stacked_widget.setCurrentWidget(self.parent_menu)

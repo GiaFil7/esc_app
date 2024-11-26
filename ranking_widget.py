@@ -5,13 +5,14 @@ from ui.ui_ranking_widget import Ui_ranking_widget
 from ranking_item import ranking_item,DragTargetIndicator
 from ranking_import_export import ranking_import_export
 from functools import partial
+from utils import load_widget
 import pandas as pd # type: ignore
 import resources_rc
 
 class ranking_widget(QWidget, Ui_ranking_widget):
     orderChanged = Signal(list)
 
-    def __init__(self,contest_code,year,by_year_widget):
+    def __init__(self,year,by_year_widget):
         super().__init__()
         self.setupUi(self)
         self.setAcceptDrops(True)
@@ -20,7 +21,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.is_info_visible = False
         self.allow_dragging = True
         self.previous_combo_box_text = self.show_combo_box.currentText()
-        self.contest_code = contest_code
+        self.contest_code = by_year_widget.contest_code
         self.by_year_widget = by_year_widget
         self.contest_name = by_year_widget.contest_name
 
@@ -193,11 +194,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.previous_combo_box_text = text
 
     def go_back(self,by_year_widget):
-        stacked_widget = self.parent()
-        stacked_widget.addWidget(by_year_widget)
-        stacked_widget.setCurrentWidget(by_year_widget)
+        load_widget(self, by_year_widget)
+
         by_year_widget.update_submitted_status(by_year_widget)
-        stacked_widget.removeWidget(self)
+        self.stacked_widget.removeWidget(self)
 
     def setup_ranking_items(self,ranking,songs,artists):
         self.layout = QVBoxLayout()

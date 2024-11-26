@@ -14,6 +14,8 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.setupUi(self)
 
         self.contest_code = contest_code
+        self.contest_menu = contest_menu
+
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
 
         self.back_button.clicked.connect(partial(load_widget, self, contest_menu))
@@ -21,7 +23,9 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.setup_menu_items()
 
     def setup_menu_items(self):
-        self.get_contest_name()
+        self.contest_name = self.contest_menu.contest_name
+        self.contest_data = self.contest_menu.contest_data
+
         self.name_label.setText(self.contest_name)
 
         years = self.contest_data['year'].to_list()
@@ -41,18 +45,12 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
-
-    def get_contest_name(self):
-        self.contest_data = pd.read_excel('contest_data.xlsx')
-        self.contest_data = self.contest_data[self.contest_data['contest_code'] == self.contest_code]
-
-        name_column = self.contest_data['contest_name']
-        self.contest_name = name_column[0]
         
     def load_ranking(self,year):
-        load_widget(self, ranking_widget(self.contest_code, int(year), self))
+        load_widget(self, ranking_widget(int(year), self))
 
     def update_submitted_status(self,by_year_widget):
+        # Read the new data
         contest_data = pd.read_excel('contest_data.xlsx')
         contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
 
