@@ -5,7 +5,7 @@ from ui.ui_ranking_widget import Ui_ranking_widget
 from ranking_item import ranking_item,DragTargetIndicator
 from ranking_import_export import ranking_import_export
 from functools import partial
-from utils import load_widget,get_contest_data,update_contest_data
+from utils import load_widget,get_contest_data,update_contest_data,get_entry_data,update_entry_data
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -35,7 +35,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.logo_label.setPixmap(QPixmap(self.logo_path))
         self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
-        self.get_contest_data()
+        self.get_data()
 
         self.setup_ranking_items(self.ranking,self.songs,self.artists)
 
@@ -47,10 +47,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             else:
                 self.show_combo_box.addItems(["Full Ranking","Semi-Final 1","Semi-Final 2","Grand Final"])
 
-    def get_contest_data(self):
-        self.filename = f'{self.contest_code}_data.xlsx'
-        data = pd.read_excel(self.filename)
-
+    def get_data(self):
+        data = get_entry_data(self.contest_code)
         self.contest_and_year = f"{self.contest_code} {str(self.year)}"
         self.entries = data[data['contest'] == self.contest_and_year]
 
@@ -127,9 +125,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
     def save_ranking_to_file(self):
         self.update_ranking()
-
-        with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
-            self.entries.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=self.entries.index[0]+1)
+        update_entry_data(self.entries,self.contest_code)
 
         contest_data = get_contest_data(self.contest_code)
         ind = contest_data.index[contest_data['year'] == self.year].tolist()

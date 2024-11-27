@@ -8,3 +8,13 @@ def get_contest_data(contest_code: str):
 def update_contest_data(contest_data: pd.Series):
     with pd.ExcelWriter('contest_data.xlsx', mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
         contest_data.to_excel(writer, sheet_name='data', header=False, index=False, startrow=contest_data.index[0]+1)
+
+def get_entry_data(contest_code: str):
+    filename = f'{contest_code}_data.xlsx'
+    entry_data = pd.read_excel(filename)
+    return entry_data
+
+def update_entry_data(entry_data: pd.Series, contest_code: str):
+    filename = f'{contest_code}_data.xlsx'
+    with pd.ExcelWriter(filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
+            entry_data.to_excel(writer, sheet_name=contest_code, header=False, index=False, startrow=entry_data.index[0]+1)

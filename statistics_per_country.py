@@ -4,7 +4,7 @@ from PySide6.QtGui import QPixmap
 from rankings_menu_item import rankings_menu_item
 from statistics_table import statistics_table
 from functools import partial
-from utils import load_widget
+from utils import load_widget,get_entry_data
 
 import pandas as pd # type: ignore
 import resources_rc
@@ -46,8 +46,7 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
         self.scroll_area.setWidget(self.scroll_widget)
 
     def get_countries(self,contest_code):
-        filename = f"{contest_code}_data.xlsx"
-        data = pd.read_excel(filename)
+        data = get_entry_data(contest_code)
         countries = data['country'].unique()
         countries = list(countries)
         countries.sort()

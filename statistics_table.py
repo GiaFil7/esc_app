@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
-from utils import load_widget,get_contest_data
+from utils import load_widget,get_contest_data,get_entry_data
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -47,8 +47,7 @@ class statistics_table(QWidget,Ui_statistics_table):
         self.submitted_years = [year for year in self.years if self.submitted[self.years.index(year)]]
 
         # Read the data
-        self.filename = f"{self.contest_code}_data.xlsx"
-        data = pd.read_excel(self.filename)
+        data = get_entry_data(self.contest_code)
 
         # Get all participating countries
         self.countries = data['country'].unique()
