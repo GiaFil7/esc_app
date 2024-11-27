@@ -3,8 +3,7 @@ from ui.ui_rankings_contest_main_menu import Ui_rankings_contest_main_menu
 from rankings_by_year import rankings_by_year
 from statistics_menu import statistics_menu
 from functools import partial
-from utils import load_widget
-import pandas as pd # type: ignore
+from utils import load_widget,get_contest_data
 import resources_rc
 
 class rankings_contest_main_menu(QWidget,Ui_rankings_contest_main_menu):
@@ -20,8 +19,6 @@ class rankings_contest_main_menu(QWidget,Ui_rankings_contest_main_menu):
         self.back_button.clicked.connect(partial(load_widget, self, rankings_menu_widget))
 
     def get_contest_name(self):
-        self.contest_data = pd.read_excel('contest_data.xlsx')
-        self.contest_data = self.contest_data[self.contest_data['contest_code'] == self.contest_code]
-
+        self.contest_data = get_contest_data(self.contest_code)
         name_column = self.contest_data['contest_name']
         self.contest_name = name_column[0]

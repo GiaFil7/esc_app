@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
-from utils import load_widget
+from utils import load_widget,get_contest_data
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -38,9 +38,8 @@ class statistics_table(QWidget,Ui_statistics_table):
                 self.icon_label.setPixmap(QPixmap(f":/images/heart_logos/{country_code}.png"))
         
         # Get the years the contest was held and if the user has submitted a ranking for each one
-        all_contest_data = pd.read_excel('contest_data.xlsx')
-        contest_data = all_contest_data[all_contest_data['contest_code'] ==  self.contest_code]
-        self.filename = f"{self.contest_code}_data.xlsx"
+        contest_data = get_contest_data(self.contest_code)
+
         self.years = list(contest_data['year'])
         self.submitted = list(contest_data['submitted'])
 
@@ -48,6 +47,7 @@ class statistics_table(QWidget,Ui_statistics_table):
         self.submitted_years = [year for year in self.years if self.submitted[self.years.index(year)]]
 
         # Read the data
+        self.filename = f"{self.contest_code}_data.xlsx"
         data = pd.read_excel(self.filename)
 
         # Get all participating countries

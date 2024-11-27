@@ -5,7 +5,7 @@ from ui.ui_ranking_widget import Ui_ranking_widget
 from ranking_item import ranking_item,DragTargetIndicator
 from ranking_import_export import ranking_import_export
 from functools import partial
-from utils import load_widget
+from utils import load_widget,get_contest_data,update_contest_data
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -131,17 +131,14 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         with pd.ExcelWriter(self.filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
             self.entries.to_excel(writer, sheet_name=self.contest_code, header=False, index=False, startrow=self.entries.index[0]+1)
 
-        contest_data = pd.read_excel('contest_data.xlsx')
-        contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
+        contest_data = get_contest_data(self.contest_code)
         ind = contest_data.index[contest_data['year'] == self.year].tolist()
         ind = ind[0]
 
         if contest_data.iloc[ind,2] == False:
             contest_data.iloc[ind,2] = True
+            update_contest_data(contest_data)
 
-            with pd.ExcelWriter('contest_data.xlsx', mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
-                contest_data.to_excel(writer, sheet_name='data', header=False, index=False, startrow=contest_data.index[0]+1)
-            
             print(f"New year submitted: {self.year}")
 
         print("Saved")

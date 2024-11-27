@@ -4,8 +4,7 @@ from ui.ui_rankings_by_year import Ui_rankings_by_year
 from rankings_menu_item import rankings_menu_item
 from ranking_widget import ranking_widget
 from functools import partial
-from utils import load_widget
-import pandas as pd # type: ignore
+from utils import load_widget,get_contest_data
 import resources_rc
 
 class rankings_by_year(QWidget,Ui_rankings_by_year):
@@ -51,8 +50,7 @@ class rankings_by_year(QWidget,Ui_rankings_by_year):
 
     def update_submitted_status(self,by_year_widget):
         # Read the new data
-        contest_data = pd.read_excel('contest_data.xlsx')
-        contest_data = contest_data[contest_data['contest_code'] == self.contest_code]
+        contest_data = get_contest_data(self.contest_code)
 
         for i in range(by_year_widget.layout.count()):
             menu_item = self.layout.itemAt(i).widget()
