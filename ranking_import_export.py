@@ -6,6 +6,14 @@ import pandas as pd # type: ignore
 import resources_rc
 
 class ranking_import_export(QWidget, Ui_import_export_dialog):
+    """
+    A widget that allows the user to import and export rankings using country codes.
+
+    :param ranking: A list of country codes
+    :type ranking: List[str]
+    :param entries: Dataframe containing all data about entries in a specific year
+    :type entries: DataFrame
+    """
     def __init__(self,ranking,entries):
         super().__init__()
         self.setupUi(self)
@@ -17,16 +25,26 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         self.ranking = self.clean_string_from_list(self.ranking)
 
         self.export_field.setText(self.ranking)
-
+        
+        # Connect all slots
         self.import_button.pressed.connect(self.import_ranking)
         self.export_button.pressed.connect(self.copy_to_clipboard)
 
     def import_ranking(self):
+        """
+        Takes the text typed by the user in the import field, validates
+        it, displays any errors to the user and rearranges the ranking
+        items.
+        """
+
         raw_text = self.import_field.text()
+
+        # Get the name of the contest
         contest = list(self.entries['contest'])
         contest = contest[0]
 
-        if contest == "ESC 1956":
+        # Initializes the valid country codes and all acceptable characters
+        if contest == "ESC 1956": # Since there are 2 entries per country in 1956, it needs a special case
             valid_country_codes = ["nl1","ch1","be1","de1","fr1","lu1","it1",
                                    "nl2","ch2","be2","de2","fr2","lu2","it2"]
             acceptable_characters = set("abcdefghijklmnopqrstuvxyz,12")
@@ -40,7 +58,7 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         # Check if the field is empty
         if raw_text == "":
             self.error_label.setText("Please input a list of comma-separated country codes")
-            return ""
+            return
         else:
             self.error_label.setText("")
         
@@ -49,7 +67,7 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         # Check for invalid characters
         if not(all((c in acceptable_characters) for c in raw_text)):
             self.error_label.setText("Invalid character(s) or capital letter(s) in input")
-            return ""
+            return
         else:
             self.error_label.setText("")
 
@@ -59,10 +77,10 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
             if code not in valid_country_codes:
                 if code != "":
                     self.error_label.setText(f"Invalid country code: {code}")
-                    return ""
+                    return
                 else:
                     self.error_label.setText("Missing code or extra comma found")
-                    return ""
+                    return
         self.error_label.setText("")
 
         # Find and show duplicate entries 
@@ -71,23 +89,24 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         if duplicate_codes != []:
             duplicate_codes = self.clean_string_from_list(str(duplicate_codes))
             self.error_label.setText(f"Duplicate entries found: {duplicate_codes}")
-            return ""
+            return
 
         # Find and show missing entries
         missing_codes = list(set(self.country_codes).difference(input_codes))
         if missing_codes != []:
             missing_codes = self.clean_string_from_list(str(missing_codes))
             self.error_label.setText(f"Missing entries found: {missing_codes}")
-            return ""
+            return
 
         # Find and show extra entries
         extra_codes = list(set(input_codes).difference(self.country_codes))
         if extra_codes != []:
             extra_codes = self.clean_string_from_list(str(extra_codes))
             self.error_label.setText(f"Extra entries found: {extra_codes}")
-            return ""
+            return
 
-        self.error_label.setText("") # Clear any error messages
+        # Clear any error messages
+        self.error_label.setText("") 
 
         # Reorder the entries
         new_order = self.entries.set_index(self.entries['country_code'])
@@ -101,11 +120,22 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         
 
     def copy_to_clipboard(self):
+        """
+        Copies the text of the export field to the clipboard.
+        """
+
         clipboard = QGuiApplication.clipboard()
         newText = self.export_field.text()
         clipboard.setText(newText)
 
-    def clean_string_from_list(self,input_list):
+    def clean_string_from_list(self,input_list: str) -> str:
+        """
+        Removes [, ] and ' from a string
+
+        :param input_list: A list converted to str
+        :type input_list: str
+        """
+
         output_list = input_list.replace("[","")
         output_list = output_list.replace("]","")
         output_list = output_list.replace("'","")

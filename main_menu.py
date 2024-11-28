@@ -6,10 +6,14 @@ from functools import partial
 import resources_rc
 
 class main_menu(QWidget,Ui_main_menu):
+    """
+    The main menu of the app. It allows the user to navigate to the rankings main menu and the quizzes main menu.
+    """
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
+        # Setup button slots
         self.rankings_button.clicked.connect(partial(load_widget, self, rankings_main_menu(self)))
         self.quizzes_button.clicked.connect(self.load_quizzes_main_menu)
 

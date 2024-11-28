@@ -5,16 +5,17 @@ from main_menu import main_menu
 import resources_rc
 
 class main_window(QMainWindow,Ui_main_window):
+    """
+    Contains a QStackedWidget that is used to display one menu or widget at a time as needed.
+    """
     def __init__(self):
         # Initial setup
         super().__init__()
         self.setupUi(self)
+        
+        # Setup stacked_widget and add the main_menu widget to it
         self.stacked_widget = QStackedWidget()
-
-        # Initialize widget
         self.main_menu = main_menu()
-
-        # Add the menu widget to the stacked_widget
         self.stacked_widget.addWidget(self.main_menu)
 
         # Setup the layout
