@@ -33,3 +33,8 @@ def get_countries(entry_data: pd.DataFrame) -> list:
     countries.sort()
 
     return countries
+
+def get_country_codes() -> pd.DataFrame:
+    country_codes = pd.read_excel('country_codes.xlsx')
+
+    return country_codes

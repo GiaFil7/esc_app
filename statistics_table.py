@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
-from utils import load_widget,get_contest_data,get_entry_data,get_countries
+from utils import load_widget,get_contest_data,get_entry_data,get_countries,get_country_codes
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -31,7 +31,7 @@ class statistics_table(QWidget,Ui_statistics_table):
             case "Medal table":
                 self.icon_label.setPixmap(QPixmap(":/images/icons/podium_icon.png"))
             case _:
-                country_codes = pd.read_excel('country_codes.xlsx')
+                country_codes = get_country_codes()
                 country_code_row = country_codes[country_codes['country'] == self.table_type]
                 country_code = country_code_row['code'].to_string(index=False)
 
