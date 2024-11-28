@@ -3,6 +3,7 @@ import pandas as pd # type: ignore
 def get_contest_data(contest_code: str):
     all_contest_data = pd.read_excel('contest_data.xlsx')
     contest_data = all_contest_data[all_contest_data['contest_code'] == contest_code]
+    
     return contest_data
 
 def update_contest_data(contest_data: pd.Series):
@@ -12,6 +13,7 @@ def update_contest_data(contest_data: pd.Series):
 def get_entry_data(contest_code: str):
     filename = f'{contest_code}_data.xlsx'
     entry_data = pd.read_excel(filename)
+
     return entry_data
 
 def update_entry_data(entry_data: pd.Series, contest_code: str):
@@ -22,4 +24,12 @@ def update_entry_data(entry_data: pd.Series, contest_code: str):
 def get_contest_name(contest_data: pd.Series) -> str:
     name_column = contest_data['contest_name']
     contest_name = name_column[0]
+
     return contest_name
+
+def get_countries(entry_data: pd.DataFrame) -> list:
+    countries = entry_data['country'].unique()
+    countries = list(countries)
+    countries.sort()
+
+    return countries

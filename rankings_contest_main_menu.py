@@ -13,7 +13,7 @@ class rankings_contest_main_menu(QWidget,Ui_rankings_contest_main_menu):
 
         self.contest_code = contest_code
         self.contest_data = get_contest_data(self.contest_code)
-        self.contest_name= get_contest_name(self.contest_data)
+        self.contest_name = get_contest_name(self.contest_data)
         
         self.rankings_button.clicked.connect(partial(load_widget, self, rankings_by_year(self.contest_code,self)))
         self.statistics_button.clicked.connect(partial(load_widget, self, statistics_menu(self.contest_code,self)))

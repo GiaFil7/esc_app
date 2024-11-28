@@ -4,7 +4,7 @@ from PySide6.QtGui import QPixmap
 from rankings_menu_item import rankings_menu_item
 from statistics_table import statistics_table
 from functools import partial
-from utils import load_widget,get_entry_data
+from utils import load_widget,get_entry_data,get_countries
 
 import pandas as pd # type: ignore
 import resources_rc
@@ -28,7 +28,8 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
         self.setup_menu_items()
 
     def setup_menu_items(self):
-        countries = self.get_countries(self.contest_code)
+        data = get_entry_data(self.contest_code)
+        countries = get_countries(data)
 
         country_codes = pd.read_excel('country_codes.xlsx')
         self.layout = QVBoxLayout()
@@ -44,14 +45,6 @@ class statistics_per_country(QWidget,Ui_rankings_by_year):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
-
-    def get_countries(self,contest_code):
-        data = get_entry_data(contest_code)
-        countries = data['country'].unique()
-        countries = list(countries)
-        countries.sort()
-
-        return countries
 
     def load_country_stats(self,country):
         load_widget(self, statistics_table(self.contest_code,country,self))
