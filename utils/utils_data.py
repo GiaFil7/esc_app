@@ -18,3 +18,8 @@ def update_entry_data(entry_data: pd.Series, contest_code: str):
     filename = f'{contest_code}_data.xlsx'
     with pd.ExcelWriter(filename, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
             entry_data.to_excel(writer, sheet_name=contest_code, header=False, index=False, startrow=entry_data.index[0]+1)
+
+def get_contest_name(contest_data: pd.Series) -> str:
+    name_column = contest_data['contest_name']
+    contest_name = name_column[0]
+    return contest_name
