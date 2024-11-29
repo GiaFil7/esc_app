@@ -30,7 +30,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.setupUi(self)
         self.setAcceptDrops(True)
 
-        # Setup the widget's properties
+        # Setup the properties
         self.year = year
         self.is_info_visible = False
         self.allow_dragging = True
@@ -39,7 +39,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.by_year_widget = by_year_widget
         self.contest_name = by_year_widget.contest_name
 
-        # Setup the widget's slots
+        # Setup the slots
         self.info_button.pressed.connect(self.toggle_info)
         self.import_export_button.pressed.connect(self.open_import_export_dialog)
         self.save_button.pressed.connect(self.save_ranking_to_file)
@@ -394,14 +394,22 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         e.accept()
 
     def find_drop_location(self, e):
+        """
+        Calculates the drop location of the dragged item.
+
+        :param e: The event object
+        """
+
         pos = e.position()
         spacing = 2
 
         count_visible = 0
         for n in range(self.layout.count()):
-            # Get the widget at each index in turn.
+            # Get the widget at each index
             w = self.layout.itemAt(n).widget()
 
+            # Get only the visible items and account for the top one being
+            # only partially visible
             extra = 0
             if w.visibleRegion().isEmpty():
                 continue
@@ -415,8 +423,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
                 count_visible = count_visible + 1
 
+            # Calculate the drop location
             loc = count_visible * (self.item_height + 6) + self.logo_label.height() + extra
 
+            # Check if the drop location is valid
             drop_here = (
                 pos.y() >= loc - spacing
                 and pos.y() <= loc + w.size().height() + spacing
@@ -428,15 +438,16 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         return n
     
-    def add_item(self, item):
-        self.layout.addWidget(item)
-    
     def get_item_data(self):
+        """
+        Gets the data of the items in layout.
+        """
+
         data = []
         for n in range(self.layout.count()):
-            # Get the widget at each index in turn.
+            # Get the widget at each index
             w = self.layout.itemAt(n).widget()
             if w != self.drag_target_indicator:
-                # The target indicator has no data.
+                # The target indicator has no data
                 data.append(w.data)
         return data
