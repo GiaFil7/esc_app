@@ -8,13 +8,13 @@ import resources_rc
 
 class rankings_contest_main_menu(QWidget, Ui_rankings_contest_main_menu):
     """
-    A widget that allows the user to navigate to their rankings of the
-    contest, statistics about those rankings and back to the main menu
+    The main contest menu. It allows the user to navigate to their rankings of
+    the contest, statistics about those rankings and back to the main menu
     of the app.
 
     :param contest_code: The contest code of the contest
     :type contest_code: str
-    :param rankings_menu_widget: The main menu of the app (previous menu of this widget)
+    :param rankings_menu_widget: The main rankings menu (previous menu of this widget)
     :type rankings_menu_widget: object
     """
 
