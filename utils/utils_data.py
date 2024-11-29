@@ -34,7 +34,13 @@ def get_countries(entry_data: pd.DataFrame) -> list:
 
     return countries
 
-def get_country_codes() -> pd.DataFrame:
-    country_codes = pd.read_excel('country_codes.xlsx')
+def get_country_codes(special_case="") -> pd.DataFrame:
+    if special_case == "":
+        country_codes = pd.read_excel('country_codes.xlsx', sheet_name='all_codes')
+    elif special_case == "ESC 1956":
+        country_codes = pd.read_excel('country_codes.xlsx', sheet_name='1956_codes')
+    else:
+        print("Invalid special case")
+        country_codes = pd.DataFrame()
 
     return country_codes

@@ -98,7 +98,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
     def open_import_export_dialog(self):
         self.update_ranking()
-        self.dialog = ranking_import_export(str(self.ranking),self.entries)
+        self.dialog = ranking_import_export(self.ranking,self.entries)
         self.dialog.setParent(self,Qt.Dialog)
         self.dialog.show()
 
