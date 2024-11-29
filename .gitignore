@@ -1,3 +1,7 @@
 .venv/
 .vscode/
 __pycache__
+/test.py
+/crop.py
+/data_actions.txt
+/esc_data_backup.xlsx
