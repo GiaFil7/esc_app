@@ -5,7 +5,7 @@ from utils import load_widget
 from functools import partial
 import resources_rc
 
-class main_menu(QWidget,Ui_main_menu):
+class main_menu(QWidget, Ui_main_menu):
     """
     The main menu of the app. It allows the user to navigate to the rankings main menu and the quizzes main menu.
     """

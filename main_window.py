@@ -1,10 +1,9 @@
-from PySide6.QtWidgets import QMainWindow,QStackedWidget,QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QStackedWidget, QVBoxLayout
 from ui.ui_main_window import Ui_main_window
 from main_menu import main_menu
-
 import resources_rc
 
-class main_window(QMainWindow,Ui_main_window):
+class main_window(QMainWindow, Ui_main_window):
     """
     Contains a QStackedWidget that is used to display one menu or widget at a time as needed.
     """

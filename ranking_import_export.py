@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QGuiApplication
 from utils import get_country_codes
 import pandas as pd # type: ignore
+from typing import List
 import resources_rc
 
 class ranking_import_export(QWidget, Ui_import_export_dialog):
@@ -14,7 +15,7 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
     :param entries: Dataframe containing all data about entries in a specific year.
     :type entries: DataFrame
     """
-    def __init__(self,ranking,entries):
+    def __init__(self, ranking: List[str], entries: pd.DataFrame):
         super().__init__()
         self.setupUi(self)
         self.ranking = ranking
@@ -108,7 +109,7 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
 
         # Change the order of the ranking items in the ranking widget
         ranking_widget = self.parent()
-        ranking_widget.setup_ranking_items(list(new_order['country_code']),list(new_order['song']),list(new_order['artist']))
+        ranking_widget.setup_ranking_items(list(new_order['country_code']), list(new_order['song']), list(new_order['artist']))
 
         self.close()
         
