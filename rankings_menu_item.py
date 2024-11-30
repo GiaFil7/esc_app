@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtCore import Signal
 from ui.ui_ranking_menu_item import Ui_ranking_menu_item
 
@@ -31,7 +31,10 @@ class rankings_menu_item(QWidget, Ui_ranking_menu_item):
         self.submitted = submitted
 
         self.contest_name_label.setText(self.text)
-        self.logo_label.setPixmap(QPixmap(self.logo))
+
+        logo_pixmap = QPixmap(self.logo)
+        logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
+        self.logo_label.setPixmap(logo_pixmap)
 
         self.update_icon(self.submitted)
 

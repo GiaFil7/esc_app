@@ -47,7 +47,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.back_button.pressed.connect(partial(self.go_back, self.by_year_widget))
 
         self.logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{self.year}.png"
-        self.logo_label.setPixmap(QPixmap(self.logo_path))
+
+        logo_pixmap = QPixmap(self.logo_path)
+        logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
+        self.logo_label.setPixmap(logo_pixmap)
         self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
         self.get_ranking_data()

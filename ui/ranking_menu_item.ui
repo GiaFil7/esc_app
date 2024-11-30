@@ -61,7 +61,7 @@
         <pixmap resource="../resources.qrc">:/images/heart_logos/empty_heart.svg</pixmap>
        </property>
        <property name="scaledContents">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignCenter</set>

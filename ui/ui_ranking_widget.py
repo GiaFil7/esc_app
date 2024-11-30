@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QPushButton, QScrollArea, QSizePolicy,
-    QVBoxLayout, QWidget)
+    QLabel, QLayout, QPushButton, QScrollArea,
+    QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
 import resources_rc
 
@@ -32,6 +32,7 @@ class Ui_ranking_widget(object):
         self.main_layout.setObjectName(u"main_layout")
         self.title_layout = QHBoxLayout()
         self.title_layout.setObjectName(u"title_layout")
+        self.title_layout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.logo_label = QLabel(ranking_widget)
         self.logo_label.setObjectName(u"logo_label")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -39,9 +40,10 @@ class Ui_ranking_widget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
-        self.logo_label.setMaximumSize(QSize(90, 30))
+        self.logo_label.setMinimumSize(QSize(0, 80))
+        self.logo_label.setMaximumSize(QSize(16777215, 80))
         self.logo_label.setPixmap(QPixmap(u":/images/contest_logos/ESC/ESC.png"))
-        self.logo_label.setScaledContents(True)
+        self.logo_label.setScaledContents(False)
 
         self.title_layout.addWidget(self.logo_label)
 
@@ -113,7 +115,7 @@ class Ui_ranking_widget(object):
         self.entry_scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 733, 524))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 733, 474))
         self.entry_scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.main_layout.addWidget(self.entry_scroll_area)

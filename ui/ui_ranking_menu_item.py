@@ -43,7 +43,7 @@ class Ui_ranking_menu_item(object):
         self.logo_label.setStyleSheet(u"")
         self.logo_label.setFrameShadow(QFrame.Shadow.Plain)
         self.logo_label.setPixmap(QPixmap(u":/images/heart_logos/empty_heart.svg"))
-        self.logo_label.setScaledContents(True)
+        self.logo_label.setScaledContents(False)
         self.logo_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.main_layout.addWidget(self.logo_label)
