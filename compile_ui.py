@@ -1,8 +1,14 @@
-# To compile ui: pyside6-uic tutorial.ui > ui_tutorial.py
-#                          [source file] > [destination file]
-# To compile resources: pyside6-rcc resources.qrc > resources_rc.py
-#                                  [source file] > [destination file]
-# Don't forget to change the encoding of the resulting file to UTF-8
+"""
+Helper script to compile all .ui files.
+
+To manually compile use the following:
+    * To compile ui: pyside6-uic tutorial.ui > ui_tutorial.py
+                                [source file] > [destination file]
+    * To compile resources: pyside6-rcc resources.qrc > resources_rc.py
+                                        [source file] > [destination file]
+Don't forget to change the encoding of the resulting file to UTF-8 when
+compiling manually.
+"""
 
 import subprocess
 from contextlib import chdir
@@ -11,7 +17,7 @@ from contextlib import chdir
 with open("resources_rc.py", "w") as output:
     subprocess.run(["pyside6-rcc", "resources.qrc"], stdout=output)
 
-
+# UI files to compile
 files = ["main_menu",
          "main_window",
          "ranking_import_export",

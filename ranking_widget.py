@@ -393,11 +393,13 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.drag_target_indicator.show()
         e.accept()
 
-    def find_drop_location(self, e):
+    def find_drop_location(self, e) -> int:
         """
-        Calculates the drop location of the dragged item.
+        Calculates the drop location of the dragged item and returns its index.
 
         :param e: The event object
+        :returns: The index of the drop location
+        :rtype: int
         """
 
         pos = e.position()
@@ -438,9 +440,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         return n
     
-    def get_item_data(self):
+    def get_item_data(self) -> list:
         """
-        Gets the data of the items in layout.
+        Gets the data of the items in the layout.
+
+        :returns: The data of the items in the layout
+        :rtype: list
         """
 
         data = []
