@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget
 from ui.ui_main_menu import Ui_main_menu
-from rankings_main_menu import rankings_main_menu
+from rankings.rankings_main_menu import rankings_main_menu
 from utils import load_widget
 from functools import partial
 import resources_rc

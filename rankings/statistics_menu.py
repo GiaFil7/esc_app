@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from ui.ui_statistics_menu import Ui_statistics_menu
-from statistics_table import statistics_table
-from statistics_per_country import statistics_per_country
+from rankings.statistics_table import statistics_table
+from rankings.statistics_per_country import statistics_per_country
 from functools import partial
 from utils import load_widget
 import resources_rc

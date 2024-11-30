@@ -1,11 +1,10 @@
 from ui.ui_rankings_by_year import Ui_rankings_by_year
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
-from rankings_menu_item import rankings_menu_item
-from statistics_table import statistics_table
+from rankings.rankings_menu_item import rankings_menu_item
+from rankings.statistics_table import statistics_table
 from functools import partial
 from utils import load_widget, get_entry_data, get_countries, get_country_codes
-import pandas as pd # type: ignore
 import resources_rc
 
 class statistics_per_country(QWidget, Ui_rankings_by_year):

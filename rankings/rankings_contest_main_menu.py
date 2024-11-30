@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from ui.ui_rankings_contest_main_menu import Ui_rankings_contest_main_menu
-from rankings_by_year import rankings_by_year
-from statistics_menu import statistics_menu
+from rankings.rankings_by_year import rankings_by_year
+from rankings.statistics_menu import statistics_menu
 from functools import partial
 from utils import load_widget, get_contest_name, get_contest_data
 import resources_rc

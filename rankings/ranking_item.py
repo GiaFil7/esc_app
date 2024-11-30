@@ -71,7 +71,7 @@ class ranking_item(QWidget, Ui_ranking_item):
 
         self.data = data
 
-class DragTargetIndicator(QLabel):
+class drag_target_indicator(QLabel):
     """
     Dummy widget used as a preview of the location the ranking widget would
     be dropped if the user stopped dragging.

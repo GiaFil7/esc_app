@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
 from ui.ui_rankings_by_year import Ui_rankings_by_year
-from rankings_menu_item import rankings_menu_item
-from ranking_widget import ranking_widget
+from rankings.rankings_menu_item import rankings_menu_item
+from rankings.ranking_widget import ranking_widget
 from functools import partial
 from utils import load_widget, get_contest_data
 import resources_rc

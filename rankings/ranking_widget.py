@@ -2,8 +2,8 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QPixmap, Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
-from ranking_item import ranking_item, DragTargetIndicator
-from ranking_import_export import ranking_import_export
+from rankings.ranking_item import ranking_item, drag_target_indicator
+from rankings.ranking_import_export import ranking_import_export
 from functools import partial
 from typing import List
 from utils import load_widget, get_contest_data, update_contest_data, get_entry_data, update_entry_data
@@ -156,7 +156,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             if hasattr(w,'number_label'):
                 new_ranking.append(w.country_code)
             else:
-                # Ignore the DragTargetIndicator widget
+                # Ignore the drag_target_indicator widget
                 c = c - 1
         
         self.ranking = new_ranking
@@ -305,7 +305,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.title_layout.setSpacing(0)
         
         # Setup the temporary dragging widget
-        self.drag_target_indicator = DragTargetIndicator()
+        self.drag_target_indicator = drag_target_indicator()
         self.layout.addWidget(self.drag_target_indicator)
         self.drag_target_indicator.hide()
 
@@ -339,7 +339,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
     def dropEvent(self, e):
         """
         When the user lets go of left click, it drops the dragged item on the
-        location of the DragTargetIndicator widget.
+        location of the drag_target_indicator widget.
 
         :param e: The event object
         """
@@ -365,7 +365,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             if hasattr(w,'number_label'):
                 w.number_label.setText(str(c))
             else:
-                # Ignore the DragTargetIndicator widget
+                # Ignore the drag_target_indicator widget
                 c = c - 1
     
     def dragMoveEvent(self, e):
