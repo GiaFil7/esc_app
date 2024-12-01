@@ -6,7 +6,9 @@ from rankings.ranking_item import ranking_item, drag_target_indicator
 from rankings.ranking_import_export import ranking_import_export
 from functools import partial
 from typing import List
-from utils import load_widget, get_contest_data, update_contest_data, get_entry_data, update_entry_data, read_html_file
+from utils import load_widget, read_html_file, save_widget_to_file
+from utils import get_contest_data, update_contest_data
+from utils import get_entry_data, update_entry_data
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -40,11 +42,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.contest_name = by_year_widget.contest_name
 
         # Setup the slots
-        self.info_button.pressed.connect(self.toggle_info)
-        self.import_export_button.pressed.connect(self.open_import_export_dialog)
-        self.save_button.pressed.connect(self.save_ranking_to_file)
+        self.info_button.clicked.connect(self.toggle_info)
+        self.import_export_button.clicked.connect(self.open_import_export_dialog)
+        self.save_button.clicked.connect(self.save_ranking_to_file)
         self.show_combo_box.currentTextChanged.connect(self.text_changed)
-        self.back_button.pressed.connect(partial(self.go_back, self.by_year_widget))
+        self.save_img_button.clicked.connect(self.save_img)
+        self.back_button.clicked.connect(partial(self.go_back, self.by_year_widget))
 
         self.logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{self.year}.png"
 
@@ -256,6 +259,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.setup_ranking_items(list(entries_to_show['country_code']), list(entries_to_show['song']), list(entries_to_show['artist']))
         
         self.previous_combo_box_text = text
+
+    def save_img(self):
+        ranking_widget = QWidget() # Change
+        save_widget_to_file(self, ranking_widget)
 
     def go_back(self, by_year_widget: object):
         """

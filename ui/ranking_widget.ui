@@ -96,6 +96,19 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="save_img_button">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Save as image</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="save_button">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -104,7 +117,11 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Save</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/images/icons/save_icon.png</normaloff>:/images/icons/save_icon.png</iconset>
          </property>
         </widget>
        </item>
@@ -134,7 +151,11 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Back to Rankings</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/images/icons/back_icon.png</normaloff>:/images/icons/back_icon.png</iconset>
          </property>
         </widget>
        </item>
@@ -168,7 +189,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../resources.qrc"/>
   <include location="../resources.qrc"/>
  </resources>
  <connections/>

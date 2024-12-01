@@ -34,7 +34,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../resources.qrc">:/images/Eurovision_generic_black.png</pixmap>
+        <pixmap>:/images/Eurovision_generic_black.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -64,7 +64,11 @@
      <item>
       <widget class="QPushButton" name="back_button">
        <property name="text">
-        <string>Back</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/images/icons/back_icon.png</normaloff>:/images/icons/back_icon.png</iconset>
        </property>
       </widget>
      </item>
@@ -81,7 +85,7 @@
         <x>0</x>
         <y>0</y>
         <width>580</width>
-        <height>342</height>
+        <height>348</height>
        </rect>
       </property>
      </widget>

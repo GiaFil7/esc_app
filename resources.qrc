@@ -1,5 +1,7 @@
 <RCC>
   <qresource>
+    <file>images/icons/back_icon.png</file>
+    <file>images/icons/save_icon.png</file>
     <file>images/icons/1st_place_icon.png</file>
     <file>images/icons/2nd_place_icon.png</file>
     <file>images/icons/3rd_place_icon.png</file>

@@ -51,6 +51,9 @@ class Ui_statistics_table(object):
         self.back_button.setObjectName(u"back_button")
         sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy)
+        icon = QIcon()
+        icon.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.back_button.setIcon(icon)
 
         self.title_layout.addWidget(self.back_button)
 
@@ -82,7 +85,7 @@ class Ui_statistics_table(object):
         statistics_table.setWindowTitle(QCoreApplication.translate("statistics_table", u"Form", None))
         self.icon_label.setText("")
         self.title_label.setText(QCoreApplication.translate("statistics_table", u"Winners", None))
-        self.back_button.setText(QCoreApplication.translate("statistics_table", u"Back", None))
+        self.back_button.setText("")
         ___qtablewidgetitem = self.table.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("statistics_table", u"Year", None));
         ___qtablewidgetitem1 = self.table.horizontalHeaderItem(1)

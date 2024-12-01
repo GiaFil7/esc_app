@@ -57,7 +57,11 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Back</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/images/icons/back_icon.png</normaloff>:/images/icons/back_icon.png</iconset>
        </property>
       </widget>
      </item>

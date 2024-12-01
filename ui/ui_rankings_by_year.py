@@ -53,6 +53,9 @@ class Ui_rankings_by_year(object):
 
         self.back_button = QPushButton(rankings_by_year)
         self.back_button.setObjectName(u"back_button")
+        icon = QIcon()
+        icon.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.back_button.setIcon(icon)
 
         self.title_layout.addWidget(self.back_button)
 
@@ -64,7 +67,7 @@ class Ui_rankings_by_year(object):
         self.scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 580, 342))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 580, 348))
         self.scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.verticalLayout.addWidget(self.scroll_area)
@@ -79,6 +82,6 @@ class Ui_rankings_by_year(object):
         rankings_by_year.setWindowTitle(QCoreApplication.translate("rankings_by_year", u"Form", None))
         self.logo_label.setText("")
         self.name_label.setText(QCoreApplication.translate("rankings_by_year", u"Eurovision Song Contest", None))
-        self.back_button.setText(QCoreApplication.translate("rankings_by_year", u"Back", None))
+        self.back_button.setText("")
     # retranslateUi
 

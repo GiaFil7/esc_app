@@ -19,7 +19,6 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
     QLabel, QLayout, QPushButton, QScrollArea,
     QSizePolicy, QVBoxLayout, QWidget)
 import resources_rc
-import resources_rc
 
 class Ui_ranking_widget(object):
     def setupUi(self, ranking_widget):
@@ -78,10 +77,20 @@ class Ui_ranking_widget(object):
 
         self.title_layout.addWidget(self.import_export_button)
 
+        self.save_img_button = QPushButton(ranking_widget)
+        self.save_img_button.setObjectName(u"save_img_button")
+        sizePolicy.setHeightForWidth(self.save_img_button.sizePolicy().hasHeightForWidth())
+        self.save_img_button.setSizePolicy(sizePolicy)
+
+        self.title_layout.addWidget(self.save_img_button)
+
         self.save_button = QPushButton(ranking_widget)
         self.save_button.setObjectName(u"save_button")
         sizePolicy.setHeightForWidth(self.save_button.sizePolicy().hasHeightForWidth())
         self.save_button.setSizePolicy(sizePolicy)
+        icon = QIcon()
+        icon.addFile(u":/images/icons/save_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.save_button.setIcon(icon)
 
         self.title_layout.addWidget(self.save_button)
 
@@ -89,9 +98,9 @@ class Ui_ranking_widget(object):
         self.info_button.setObjectName(u"info_button")
         sizePolicy.setHeightForWidth(self.info_button.sizePolicy().hasHeightForWidth())
         self.info_button.setSizePolicy(sizePolicy)
-        icon = QIcon()
-        icon.addFile(u":/images/icons/help_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.info_button.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/images/icons/help_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.info_button.setIcon(icon1)
 
         self.title_layout.addWidget(self.info_button)
 
@@ -99,6 +108,9 @@ class Ui_ranking_widget(object):
         self.back_button.setObjectName(u"back_button")
         sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy)
+        icon2 = QIcon()
+        icon2.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.back_button.setIcon(icon2)
 
         self.title_layout.addWidget(self.back_button)
 
@@ -134,8 +146,9 @@ class Ui_ranking_widget(object):
         self.logo_label.setText("")
         self.year_label.setText(QCoreApplication.translate("ranking_widget", u"Eurovision Song Contest ####", None))
         self.import_export_button.setText(QCoreApplication.translate("ranking_widget", u"Import/Export", None))
-        self.save_button.setText(QCoreApplication.translate("ranking_widget", u"Save", None))
+        self.save_img_button.setText(QCoreApplication.translate("ranking_widget", u"Save as image", None))
+        self.save_button.setText("")
         self.info_button.setText("")
-        self.back_button.setText(QCoreApplication.translate("ranking_widget", u"Back to Rankings", None))
+        self.back_button.setText("")
     # retranslateUi
 
