@@ -18,17 +18,20 @@ with open("resources_rc.py", "w") as output:
     subprocess.run(["pyside6-rcc", "resources.qrc"], stdout=output)
 
 # UI files to compile
-files = ["main_menu",
-         "main_window",
-         "ranking_import_export",
-         "ranking_item",
-         "ranking_menu_item",
-         "ranking_widget",
-         "rankings_by_year",
-         "rankings_contest_main_menu",
-         "rankings_main_menu",
-         "statistics_menu",
-         "statistics_table"]
+files = [
+    "credits",
+    "main_menu",
+    "main_window",
+    "ranking_import_export",
+    "ranking_item",
+    "ranking_menu_item",
+    "ranking_widget",
+    "rankings_by_year",
+    "rankings_contest_main_menu",
+    "rankings_main_menu",
+    "statistics_menu",
+    "statistics_table"
+]
 
 # Compile UI files
 for file in files:
