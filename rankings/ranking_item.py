@@ -34,7 +34,10 @@ class ranking_item(QWidget, Ui_ranking_item):
         country_code_for_icon = country_code_for_icon.replace("2","")
 
         # Label text and Pixmap
-        self.number_label.setText(str(self.position))
+        if self.position <= 9:
+            self.number_label.setText(f" {str(self.position)}")
+        else:
+            self.number_label.setText(str(self.position))
         self.heart_label.setPixmap(QPixmap(f":/images/heart_logos/{country_code_for_icon}.png"))
         self.song_label.setText(f"{self.song} - {self.artist}")
 

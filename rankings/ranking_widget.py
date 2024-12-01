@@ -4,6 +4,7 @@ from PySide6.QtGui import QPixmap, Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
 from rankings.ranking_item import ranking_item, drag_target_indicator
 from rankings.ranking_import_export import ranking_import_export
+from rankings.rankings_image import rankings_image
 from functools import partial
 from typing import List
 from utils import load_widget, read_html_file, save_widget_to_file
@@ -261,8 +262,31 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.previous_combo_box_text = text
 
     def save_img(self):
-        ranking_widget = QWidget() # Change
-        save_widget_to_file(self, ranking_widget)
+        image_widget = rankings_image(f"{self.contest_name} {self.year}")
+        image_widget.left_layout.setAlignment(Qt.AlignTop)
+        image_widget.right_layout.setAlignment(Qt.AlignTop)
+
+        c = 0
+        for n in range(self.layout.count()):
+            c += 1
+            # Get the widget at each index
+            w = self.layout.itemAt(n).widget()
+            if hasattr(w,'number_label'):
+                song_and_artist = w.song_label.text().split(" - ")
+                song = song_and_artist[0]
+                pos = int(w.number_label.text())
+                item = ranking_item(pos, w.country_code, song, " ")
+                item.song_label.setText(song)
+
+                if c / self.layout.count() <= 0.5:
+                    image_widget.left_layout.addWidget(item)
+                else:
+                    image_widget.right_layout.addWidget(item)
+            else:
+                # Ignore drag_target_indicator widget
+                c -= 1
+
+        save_widget_to_file(self, image_widget)
 
     def go_back(self, by_year_widget: object):
         """
