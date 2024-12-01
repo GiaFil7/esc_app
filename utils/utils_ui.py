@@ -26,7 +26,6 @@ def save_widget_to_file(parent_widget: object, widget_to_save: object):
     :type widtget_to_save: object
     """
 
-    filename, _ = QFileDialog.getSaveFileName(parent_widget, ("Save File"), "./", ("Images (*.png *.jpg)"))
-    
+    filename, _ = QFileDialog.getSaveFileName(parent_widget, ("Save File"), "./", ("Images (*.png *.jpg)")) 
     img = widget_to_save.grab(widget_to_save.rect())
     img.save(filename)

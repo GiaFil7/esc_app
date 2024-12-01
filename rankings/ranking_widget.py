@@ -6,7 +6,7 @@ from rankings.ranking_item import ranking_item, drag_target_indicator
 from rankings.ranking_import_export import ranking_import_export
 from functools import partial
 from typing import List
-from utils import load_widget, get_contest_data, update_contest_data, get_entry_data, update_entry_data
+from utils import load_widget, get_contest_data, update_contest_data, get_entry_data, update_entry_data, read_html_file
 import pandas as pd # type: ignore
 import resources_rc
 
@@ -91,9 +91,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
                 help_file = f"help_ranking_{self.contest_code}.html"
             else:
                 help_file = "help_ranking_ESC_1956.html"
-            
-            with open(help_file, 'r') as file:
-                html_as_string = file.read()
+
+            html_as_string = read_html_file(help_file)
 
             # Create a QLabel widget and display the info to the user
             self.info_label = QLabel()

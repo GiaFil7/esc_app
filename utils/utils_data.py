@@ -129,3 +129,18 @@ def get_country_codes(special_case="") -> pd.DataFrame:
         country_codes = pd.DataFrame()
 
     return country_codes
+
+def read_html_file(file_path: str) -> str:
+    """
+    Reads the specified html file and returns it as a string.
+
+    :param file_path: The path to the file
+    :type file_path: str
+    :returns: The contents of the file as a string
+    :rtype: str
+    """
+
+    with open(file_path, 'r') as file:
+        html_as_string = file.read()
+
+    return html_as_string
