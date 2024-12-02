@@ -15,22 +15,23 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLayout,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_rankings_image(object):
     def setupUi(self, rankings_image):
         if not rankings_image.objectName():
             rankings_image.setObjectName(u"rankings_image")
-        rankings_image.resize(600, 800)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+        rankings_image.resize(500, 400)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(rankings_image.sizePolicy().hasHeightForWidth())
         rankings_image.setSizePolicy(sizePolicy)
-        rankings_image.setMinimumSize(QSize(600, 600))
+        rankings_image.setMinimumSize(QSize(0, 0))
         self.layout = QVBoxLayout(rankings_image)
         self.layout.setObjectName(u"layout")
+        self.layout.setSizeConstraint(QLayout.SizeConstraint.SetMinAndMaxSize)
         self.top_layout = QHBoxLayout()
         self.top_layout.setSpacing(0)
         self.top_layout.setObjectName(u"top_layout")
@@ -58,12 +59,14 @@ class Ui_rankings_image(object):
         self.bottom_layout = QHBoxLayout()
         self.bottom_layout.setObjectName(u"bottom_layout")
         self.left_layout = QVBoxLayout()
+        self.left_layout.setSpacing(0)
         self.left_layout.setObjectName(u"left_layout")
         self.left_layout.setContentsMargins(-1, 0, -1, -1)
 
         self.bottom_layout.addLayout(self.left_layout)
 
         self.right_layout = QVBoxLayout()
+        self.right_layout.setSpacing(0)
         self.right_layout.setObjectName(u"right_layout")
 
         self.bottom_layout.addLayout(self.right_layout)
