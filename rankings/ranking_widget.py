@@ -5,6 +5,7 @@ from ui.ui_ranking_widget import Ui_ranking_widget
 from rankings.ranking_item import ranking_item, drag_target_indicator
 from rankings.ranking_import_export import ranking_import_export
 from rankings.rankings_image import rankings_image
+from rankings.confirm_dialog import confirm_dialog
 from functools import partial
 from typing import List
 from utils import load_widget, read_html_file, save_widget_to_file
@@ -302,17 +303,25 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
     def go_back(self, by_year_widget: object):
         """
-        Loads the ranking_by_year widget and updates the Pixmaps of its
-        menu items according to if the user has submitted a ranking.
+        Displays a dialog confirming if the user is sure about going back. If
+        the user selects "OK", then it loads the ranking_by_year widget and
+        updates the Pixmaps of its menu items according to if the user has
+        submitted a ranking.
 
         :param by_year_widget: A rankings_by_year widget (previous menu of this widget)
         :type by_year_widget: object
         """
 
-        load_widget(self, by_year_widget)
+        # Initialise the dialog box
+        dlg = confirm_dialog()
+        chosen_button = dlg.exec()
 
-        by_year_widget.update_submitted_status(by_year_widget)
-        self.stacked_widget.removeWidget(self)
+        # Check if user selected "OK"
+        if chosen_button == 1:
+            load_widget(self, by_year_widget)
+
+            by_year_widget.update_submitted_status(by_year_widget)
+            self.stacked_widget.removeWidget(self)
 
     def setup_ranking_items(self, ranking: List[str], songs: List[str], artists: List[str]):
         """

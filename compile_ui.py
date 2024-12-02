@@ -19,6 +19,7 @@ with open("resources_rc.py", "w") as output:
 
 # UI files to compile
 files = [
+    "confirm_dialog",
     "credits",
     "main_menu",
     "main_window",
