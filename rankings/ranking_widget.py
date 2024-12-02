@@ -93,9 +93,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         if not self.is_info_visible:
             # Get the help file and read it   
             if self.contest_and_year != "ESC 1956":
-                help_file = f"help_ranking_{self.contest_code}.html"
+                help_file = f"files\\help_ranking_{self.contest_code}.html"
             else:
-                help_file = "help_ranking_ESC_1956.html"
+                help_file = "files\\help_ranking_ESC_1956.html"
 
             html_as_string = read_html_file(help_file)
 

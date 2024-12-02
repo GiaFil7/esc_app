@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QFileDialog
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QIcon, QPainter
 
 def load_widget(current_widget: object, widget_to_load: object):
     """

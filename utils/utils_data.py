@@ -14,7 +14,7 @@ def get_contest_data(contest_code: str) -> pd.Series:
     :rtype: Series
     """
 
-    all_contest_data = pd.read_excel('contest_data.xlsx')
+    all_contest_data = pd.read_excel('files\\contest_data.xlsx')
     contest_data = all_contest_data[all_contest_data['contest_code'] == contest_code]
     
     return contest_data
@@ -31,7 +31,7 @@ def update_contest_data(contest_data: pd.Series):
     :type contest_data: Series
     """
 
-    with pd.ExcelWriter('contest_data.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
+    with pd.ExcelWriter('files\\contest_data.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
         contest_data.to_excel(writer, sheet_name = 'data', header = False, index = False, startrow = contest_data.index[0] + 1)
 
 def get_entry_data(contest_code: str) -> pd.DataFrame:
@@ -52,7 +52,7 @@ def get_entry_data(contest_code: str) -> pd.DataFrame:
         :rtype: DataFrame
     """
 
-    filename = f'{contest_code}_data.xlsx'
+    filename = f'files\\{contest_code}_data.xlsx'
     entry_data = pd.read_excel(filename)
 
     return entry_data
@@ -75,7 +75,7 @@ def update_entry_data(entry_data: pd.Series, contest_code: str):
         :type contest_code: str
     """
 
-    filename = f'{contest_code}_data.xlsx'
+    filename = f'files\\{contest_code}_data.xlsx'
     with pd.ExcelWriter(filename, mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
             entry_data.to_excel(writer, sheet_name = contest_code, header = False, index = False, startrow = entry_data.index[0] + 1)
 
@@ -121,9 +121,9 @@ def get_country_codes(special_case="") -> pd.DataFrame:
     """
 
     if special_case == "":
-        country_codes = pd.read_excel('country_codes.xlsx', sheet_name = 'all_codes')
+        country_codes = pd.read_excel('files\\country_codes.xlsx', sheet_name = 'all_codes')
     elif special_case == "ESC 1956":
-        country_codes = pd.read_excel('country_codes.xlsx', sheet_name = '1956_codes')
+        country_codes = pd.read_excel('files\\country_codes.xlsx', sheet_name = '1956_codes')
     else:
         print("Invalid special case")
         country_codes = pd.DataFrame()
