@@ -23,6 +23,8 @@ files = [
     "credits",
     "main_menu",
     "main_window",
+    "quizzes_contest_main_menu",
+    "quizzes_main_menu",
     "ranking_import_export",
     "ranking_item",
     "ranking_menu_item",

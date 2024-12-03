@@ -31,3 +31,5 @@ class rankings_contest_main_menu(QWidget, Ui_rankings_contest_main_menu):
         self.rankings_button.clicked.connect(partial(load_widget, self, rankings_by_year(self.contest_code, self)))
         self.statistics_button.clicked.connect(partial(load_widget, self, statistics_menu(self.contest_code, self)))
         self.back_button.clicked.connect(partial(load_widget, self, rankings_menu_widget))
+
+        self.rankings_button.setText(f"{self.contest_name} - Rankings by Year")

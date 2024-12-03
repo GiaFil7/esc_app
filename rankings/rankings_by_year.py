@@ -27,6 +27,7 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
         self.contest_menu = contest_menu
 
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
+        self.name_label.setText(contest_menu.contest_name)
 
         self.back_button.clicked.connect(partial(load_widget, self, contest_menu))
 
