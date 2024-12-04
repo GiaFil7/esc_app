@@ -15,7 +15,7 @@ from contextlib import chdir
 
 # Compile resources
 with open("resources_rc.py", "w") as output:
-    subprocess.run(["pyside6-rcc", "resources.qrc"], stdout=output)
+    subprocess.run(["pyside6-rcc", "resources.qrc"], stdout = output)
 
 # UI files to compile
 files = [
@@ -24,6 +24,7 @@ files = [
     "main_menu",
     "main_window",
     "quizzes_contest_main_menu",
+    "quizzes_list_menu",
     "quizzes_main_menu",
     "ranking_import_export",
     "ranking_item",
@@ -43,6 +44,6 @@ for file in files:
     output_file = f"ui_{file}.py"
     with chdir(".\\ui"):
         with open(output_file, "w") as output:
-            subprocess.run(["pyside6-uic", input_file], stdout=output)
+            subprocess.run(["pyside6-uic", input_file], stdout = output)
 
 print("Done compiling!")

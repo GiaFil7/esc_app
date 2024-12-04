@@ -3,6 +3,7 @@ from ui.ui_quizzes_main_menu import Ui_quizzes_main_menu
 from quizzes.quizzes_contest_main_menu import quizzes_contest_main_menu
 from utils import load_widget
 from functools import partial
+import resources_rc
 
 class quizzes_main_menu(QWidget, Ui_quizzes_main_menu):
     def __init__(self, main_menu: object):

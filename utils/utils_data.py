@@ -107,12 +107,12 @@ def get_country_codes(special_case="") -> pd.DataFrame:
     it returns the country codes for that year specifically. It contains one row per country
     and the following columns:
     * **country** *str*: The name of the country
-    * **country_code** *str*: The country code
+    * **code** *str*: The country code
 
     In the case of ESC 1956, there is one row per entry and the following columns:
     * **country** *str*: The name of the country
     * **song** *str*: The song title
-    * **country_code** *str*: The country code
+    * **code** *str*: The country code
 
     :param special_case: The type of special case (optional)
     :type special_case: str
