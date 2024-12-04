@@ -130,6 +130,22 @@ def get_country_codes(special_case="") -> pd.DataFrame:
 
     return country_codes
 
+def get_country_code(country: str) -> str:
+    """
+    Returns the country code of the specified country.
+
+    :param country: The name of the country
+    :type country: str
+    :returns: The country code
+    :rtype: str
+    """
+
+    country_codes = get_country_codes()
+    country_code = country_codes[country_codes['country'] == country]
+    country_code = country_code['code'].to_string(index = False, header = False)
+
+    return country_code
+
 def read_html_file(file_path: str) -> str:
     """
     Reads the specified html file and returns it as a string.

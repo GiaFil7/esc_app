@@ -26,6 +26,7 @@ files = [
     "quizzes_contest_main_menu",
     "quizzes_list_menu",
     "quizzes_main_menu",
+    "quizzes_widget",
     "ranking_import_export",
     "ranking_item",
     "ranking_menu_item",
