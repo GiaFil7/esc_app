@@ -23,7 +23,7 @@ class Ui_main_window(object):
         if not main_window.objectName():
             main_window.setObjectName(u"main_window")
         main_window.setEnabled(True)
-        main_window.resize(600, 400)
+        main_window.resize(800, 600)
         icon = QIcon()
         icon.addFile(u":/images/heart_logos/empty_heart.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         main_window.setWindowIcon(icon)

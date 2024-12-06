@@ -43,8 +43,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         
         self.logo_label.setPixmap(QPixmap(logo_path))
 
-        # Keep give up button hidden until the quiz starts
+        # Keep give up button and answer line edit hidden until the quiz starts
         self.give_up_button.hide()
+        self.answer_line_edit.hide()
 
         self.setup_table()
 
@@ -65,28 +66,43 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         self.handle_accepted_answers(accepted_answers)
 
+        num_of_entries = len(table_data[0])
         self.table = QTableWidget()
-        self.table.setColumnCount(len(cols) * 2)
-        self.table.setHorizontalHeaderLabels(cols + cols)
-        if len(table_data[0]) % 2 == 0:
-            self.table.setRowCount(len(table_data[0]) / 2)
-        else:
-            self.table.setRowCount(0.5 + len(table_data[0]) / 2)
         self.table.verticalHeader().setVisible(False)
 
-        row_count = self.table.rowCount()
-        for i in range(len(table_data[0])):
-            for j in range(len(cols)):
-                row_ind = i % row_count
-                if i <= ((len(table_data[0]) - 1) / 2):
-                    col_ind = j
-                else:
-                    col_ind = j + len(cols)
+        if num_of_entries > 10:
+            self.table.setColumnCount(len(cols) * 2)
+            self.table.setHorizontalHeaderLabels(cols + cols)
+            if len(table_data[0]) % 2 == 0:
+                self.table.setRowCount(num_of_entries / 2)
+            else:
+                self.table.setRowCount(0.5 + num_of_entries / 2)
 
-                inds = [row_ind, col_ind]
-                text = table_data[j][i]
+            row_count = self.table.rowCount()
+            for i in range(num_of_entries):
+                for j in range(len(cols)):
+                    row_ind = i % row_count
+                    if i <= ((num_of_entries - 1) / 2):
+                        col_ind = j
+                    else:
+                        col_ind = j + len(cols)
 
-                self.set_table_item(inds, text)
+                    inds = [row_ind, col_ind]
+                    text = table_data[j][i]
+
+                    self.set_table_item(inds, text)
+        else:
+            self.table.setColumnCount(len(cols))
+            self.table.setHorizontalHeaderLabels(cols)
+            self.table.setRowCount(num_of_entries)
+
+            row_count = self.table.rowCount()
+            for i in range(num_of_entries):
+                for j in range(len(cols)):
+                    inds = [i, j]
+                    text = table_data[j][i]
+
+                    self.set_table_item(inds, text)
 
         self.scroll_area.setWidget(self.table)
 

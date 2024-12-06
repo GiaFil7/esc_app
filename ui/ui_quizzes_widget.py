@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+    QLineEdit, QPushButton, QScrollArea, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_quizzes_widget(object):
@@ -92,6 +92,11 @@ class Ui_quizzes_widget(object):
         self.desc_label.setObjectName(u"desc_label")
 
         self.desc_layout.addWidget(self.desc_label)
+
+        self.answer_line_edit = QLineEdit(quizzes_widget)
+        self.answer_line_edit.setObjectName(u"answer_line_edit")
+
+        self.desc_layout.addWidget(self.answer_line_edit)
 
         self.spacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
