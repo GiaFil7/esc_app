@@ -66,15 +66,26 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.handle_accepted_answers(accepted_answers)
 
         self.table = QTableWidget()
-        self.table.setColumnCount(len(cols))
-        self.table.setHorizontalHeaderLabels(cols)
-        self.table.setRowCount(len(table_data[0]))
+        self.table.setColumnCount(len(cols) * 2)
+        self.table.setHorizontalHeaderLabels(cols + cols)
+        if len(table_data[0]) % 2 == 0:
+            self.table.setRowCount(len(table_data[0]) / 2)
+        else:
+            self.table.setRowCount(0.5 + len(table_data[0]) / 2)
         self.table.verticalHeader().setVisible(False)
 
+        row_count = self.table.rowCount()
         for i in range(len(table_data[0])):
             for j in range(len(cols)):
-                inds = [i, j]
+                row_ind = i % row_count
+                if i <= ((len(table_data[0]) - 1) / 2):
+                    col_ind = j
+                else:
+                    col_ind = j + len(cols)
+
+                inds = [row_ind, col_ind]
                 text = table_data[j][i]
+
                 self.set_table_item(inds, text)
 
         self.scroll_area.setWidget(self.table)
