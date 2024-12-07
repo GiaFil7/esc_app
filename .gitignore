@@ -4,5 +4,4 @@ __pycache__
 /test.py
 /crop.py
 /data_actions.txt
-/esc_data_backup.xlsx
-/files/esc_data_backup.xlsx
+/files/ESC_data_backup.xlsx

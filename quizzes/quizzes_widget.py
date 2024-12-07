@@ -98,10 +98,11 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     inds = [row_ind, col_ind]
                     text = table_data[j][i]
 
-                    self.set_table_item(inds, text)
-
                     if j == 1:
                         self.ans_data.append([row_ind, col_ind, text, accepted_answers[i]])
+                        text = ""
+
+                    self.set_table_item(inds, text)
         else:
             self.table.setColumnCount(len(cols))
             self.table.setHorizontalHeaderLabels(cols)
@@ -113,10 +114,11 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     inds = [i, j]
                     text = table_data[j][i]
 
-                    self.set_table_item(inds, text)
-
                     if j == 1:
-                        self.ans_data.append([row_ind, col_ind, accepted_answers[i]])
+                        self.ans_data.append([row_ind, col_ind, text, accepted_answers[i]])
+                        text = ""
+
+                    self.set_table_item(inds, text)
 
         self.scroll_area.setWidget(self.table)
 
@@ -163,11 +165,15 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         return cols, table_data, accepted_answers
 
     def handle_accepted_answers(self):
-        self.answers = []
+        self.ans_text = []
+        self.ans_inds = []
+        self.songs = []
         for entry in self.ans_data:
             entry_answers = entry[-1].split("|")
             for answer in entry_answers:
-                self.answers.append([entry[0], entry[1], answer])
+                self.ans_text.append(answer)
+                self.ans_inds.append([entry[0], entry[1]])
+                self.songs.append(entry[2])
 
     def set_table_item(self, inds: list, text: str):
         widget_item = QTableWidgetItem(text)
@@ -177,7 +183,16 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
     def check_answer(self, answer: str):
         modified_answer = self.clean_answer(answer)
-        print(modified_answer)
+        if modified_answer in self.ans_text:
+            ind = self.ans_text.index(modified_answer)
+            table_ind = self.ans_inds[ind]
+            item = self.table.item(table_ind[0], table_ind[1])
+            item.setText(self.songs[ind])
+
+            # Clear the line edit
+            self.answer_line_edit.setText("")
+        
+
 
     def clean_answer(self, answer: str) -> str:
         modified_answer = answer.lower()
@@ -200,6 +215,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         modified_answer = re.sub("([üùú])", "u", modified_answer)
         modified_answer = modified_answer.replace("ý", "y")
         modified_answer = re.sub("([žż])", "z", modified_answer)
-        modified_answer = re.sub("([\(\),\?'\.-–:!¿])", "", modified_answer)
+        chars_to_remove = ["(", ")", ",", "?", "'", '"', ".", "-", "–", ":", "!", "¿"]
+        rx = '[' + re.escape(''.join(chars_to_remove)) + ']'
+        modified_answer = re.sub(rx, "", modified_answer)
 
         return modified_answer
