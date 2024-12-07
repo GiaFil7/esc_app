@@ -3,6 +3,7 @@ from PySide6.QtGui import QPixmap, Qt
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code
 from functools import partial
+import re
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
@@ -22,6 +23,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.back_button.clicked.connect(partial(load_widget, self, self.parent_menu))
         self.play_pause_button.clicked.connect(self.toggle_quiz_state)
         self.give_up_button.clicked.connect(self.end_quiz)
+        self.answer_line_edit.textChanged.connect(self.check_answer)
 
         # Set texts
         self.name_label.setText(quiz_name)
@@ -55,8 +57,14 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         if self.is_paused:
             self.play_pause_button.setIcon(QPixmap(":/images/icons/play_icon.png"))
+            self.desc_label.show()
+            self.give_up_button.hide()
+            self.answer_line_edit.hide()
         else:
             self.play_pause_button.setIcon(QPixmap(":/images/icons/pause_icon.png"))
+            self.desc_label.hide()
+            self.give_up_button.show()
+            self.answer_line_edit.show()
 
     def end_quiz(self):
         print("Quiz ended")
@@ -64,12 +72,12 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
     def setup_table(self):
         cols, table_data, accepted_answers = self.get_table_data()
 
-        self.handle_accepted_answers(accepted_answers)
-
         num_of_entries = len(table_data[0])
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
 
+
+        self.ans_data = []
         if num_of_entries > 10:
             self.table.setColumnCount(len(cols) * 2)
             self.table.setHorizontalHeaderLabels(cols + cols)
@@ -91,6 +99,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     text = table_data[j][i]
 
                     self.set_table_item(inds, text)
+
+                    if j == 1:
+                        self.ans_data.append([row_ind, col_ind, text, accepted_answers[i]])
         else:
             self.table.setColumnCount(len(cols))
             self.table.setHorizontalHeaderLabels(cols)
@@ -104,11 +115,16 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
                     self.set_table_item(inds, text)
 
+                    if j == 1:
+                        self.ans_data.append([row_ind, col_ind, accepted_answers[i]])
+
         self.scroll_area.setWidget(self.table)
 
         # Resize the columns to fit the contents
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        self.handle_accepted_answers()
     
     def get_table_data(self):
         entry_data = self.parent_menu.entry_data
@@ -146,12 +162,44 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         return cols, table_data, accepted_answers
 
-    def handle_accepted_answers(self, accepted_answers: list):
-        #print(accepted_answers)
-        x = []
+    def handle_accepted_answers(self):
+        self.answers = []
+        for entry in self.ans_data:
+            entry_answers = entry[-1].split("|")
+            for answer in entry_answers:
+                self.answers.append([entry[0], entry[1], answer])
 
     def set_table_item(self, inds: list, text: str):
         widget_item = QTableWidgetItem(text)
         widget_item.setTextAlignment(Qt.AlignCenter)
         widget_item.setFlags(Qt.ItemIsEnabled)
         self.table.setItem(inds[0], inds[1], widget_item)
+
+    def check_answer(self, answer: str):
+        modified_answer = self.clean_answer(answer)
+        print(modified_answer)
+
+    def clean_answer(self, answer: str) -> str:
+        modified_answer = answer.lower()
+        modified_answer = modified_answer.replace(" ", "")
+        modified_answer = re.sub("([àäåáãâăā])", "a", modified_answer)
+        modified_answer = modified_answer.replace("æ", "ae")
+        modified_answer = re.sub("([çčć])", "c", modified_answer)
+        modified_answer = re.sub("([ðđ])", "d", modified_answer)
+        modified_answer = re.sub("([éèêėęëə])", "e", modified_answer)
+        modified_answer = re.sub("([îìíı])", "i", modified_answer)
+        modified_answer = modified_answer.replace("ħ", "h")
+        modified_answer = modified_answer.replace("ł", "l")
+        modified_answer = re.sub("([ñň])", "n", modified_answer)
+        modified_answer = re.sub("([øöóò])", "o", modified_answer)
+        modified_answer = modified_answer.replace("œ", "oe")
+        modified_answer = re.sub("([şšș])", "s", modified_answer)
+        modified_answer = modified_answer.replace("ß", "ss")
+        modified_answer = re.sub("([ťț])", "t", modified_answer)
+        modified_answer = modified_answer.replace("þ", "th")
+        modified_answer = re.sub("([üùú])", "u", modified_answer)
+        modified_answer = modified_answer.replace("ý", "y")
+        modified_answer = re.sub("([žż])", "z", modified_answer)
+        #modified_answer = re.sub("([(),?'.-–:!¿])", "", modified_answer)
+
+        return modified_answer
