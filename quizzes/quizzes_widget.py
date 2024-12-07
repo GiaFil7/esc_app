@@ -200,6 +200,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         modified_answer = re.sub("([üùú])", "u", modified_answer)
         modified_answer = modified_answer.replace("ý", "y")
         modified_answer = re.sub("([žż])", "z", modified_answer)
-        #modified_answer = re.sub("([(),?'.-–:!¿])", "", modified_answer)
+        modified_answer = re.sub("([\(\),\?'\.-–:!¿])", "", modified_answer)
 
         return modified_answer
