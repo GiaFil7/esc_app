@@ -72,25 +72,27 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
     def setup_table(self):
         cols, table_data, accepted_answers = self.get_table_data()
 
-        num_of_entries = len(table_data[0])
+        self.num_of_entries = len(table_data[0])
+        self.score = 0
+        self.score_label.setText(f"{self.score}/{self.num_of_entries}")
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
 
 
         self.ans_data = []
-        if num_of_entries > 10:
+        if self.num_of_entries > 10:
             self.table.setColumnCount(len(cols) * 2)
             self.table.setHorizontalHeaderLabels(cols + cols)
             if len(table_data[0]) % 2 == 0:
-                self.table.setRowCount(num_of_entries / 2)
+                self.table.setRowCount(self.num_of_entries / 2)
             else:
-                self.table.setRowCount(0.5 + num_of_entries / 2)
+                self.table.setRowCount(0.5 + self.num_of_entries / 2)
 
             row_count = self.table.rowCount()
-            for i in range(num_of_entries):
+            for i in range(self.num_of_entries):
                 for j in range(len(cols)):
                     row_ind = i % row_count
-                    if i <= ((num_of_entries - 1) / 2):
+                    if i <= ((self.num_of_entries - 1) / 2):
                         col_ind = j
                     else:
                         col_ind = j + len(cols)
@@ -106,10 +108,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         else:
             self.table.setColumnCount(len(cols))
             self.table.setHorizontalHeaderLabels(cols)
-            self.table.setRowCount(num_of_entries)
+            self.table.setRowCount(self.num_of_entries)
 
             row_count = self.table.rowCount()
-            for i in range(num_of_entries):
+            for i in range(self.num_of_entries):
                 for j in range(len(cols)):
                     inds = [i, j]
                     text = table_data[j][i]
@@ -187,12 +189,14 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             ind = self.ans_text.index(modified_answer)
             table_ind = self.ans_inds[ind]
             item = self.table.item(table_ind[0], table_ind[1])
-            item.setText(self.songs[ind])
 
-            # Clear the line edit
-            self.answer_line_edit.setText("")
-        
+            if item.text() == "":
+                item.setText(self.songs[ind])
+                self.score += 1
+                self.score_label.setText(f"{self.score}/{self.num_of_entries}")
 
+                # Clear the line edit
+                self.answer_line_edit.setText("")
 
     def clean_answer(self, answer: str) -> str:
         modified_answer = answer.lower()
