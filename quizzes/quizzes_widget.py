@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView
+from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
@@ -59,18 +59,50 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         if self.is_paused:
             self.play_pause_button.setIcon(QPixmap(":/images/icons/play_icon.png"))
-            self.desc_label.show()
             self.give_up_button.hide()
             self.answer_line_edit.hide()
+            self.table.hide()
+
+            self.timer.stop()
+
+            self.pause_label = QLabel("Paused", parent = self)
+            self.pause_label.setAlignment(Qt.AlignCenter)
+            self.pause_label.adjustSize()
+            self.pause_label.raise_()
+            self.pause_label.show()
+            self.center_pause_label()
         else:
             self.play_pause_button.setIcon(QPixmap(":/images/icons/pause_icon.png"))
             self.desc_label.hide()
             self.give_up_button.show()
             self.answer_line_edit.show()
+            self.table.show()
+
+            if self.time > 0:
+                self.pause_label.hide()
 
             self.timer = QTimer()
             self.timer.timeout.connect(self.update_time)
             self.timer.start(1000)
+
+    def center_pause_label(self):
+        window_width = self.width()
+        window_height = self.height()
+        label_width = self.pause_label.width()
+        label_height = self.pause_label.height()
+
+        # Calculate the center position
+        x = (window_width - label_width) // 2
+        y = (window_height - label_height) // 2
+        self.pause_label.move(x, y)
+
+        # Ensure the label's sizeHint is considered
+        self.pause_label.adjustSize()
+
+    def resizeEvent(self, event):
+        if self.is_paused and self.time > 0:
+            self.center_pause_label()
+            super().resizeEvent(event)
 
     def end_quiz(self):
         print("Quiz ended")
@@ -196,6 +228,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             item = self.table.item(table_ind[0], table_ind[1])
 
             if item.text() == "":
+                # If not guessed before
                 item.setText(self.songs[ind])
                 self.score += 1
                 self.score_label.setText(f"{self.score}/{self.num_of_entries}")
@@ -232,10 +265,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
     def update_time(self):
         self.time += 1
-
-        #seconds = self.time % 60
-        #minutes = self.time // 60
-        #hours = self.time // (60 * 60)
 
         time_value = str(datetime.timedelta(seconds=self.time))
         if self.time < 3600:
