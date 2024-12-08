@@ -26,7 +26,7 @@ class Ui_quizzes_widget(object):
             quizzes_widget.setObjectName(u"quizzes_widget")
         quizzes_widget.resize(600, 400)
         self.layout = QVBoxLayout(quizzes_widget)
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(4)
         self.layout.setObjectName(u"layout")
         self.title_layout = QHBoxLayout()
         self.title_layout.setObjectName(u"title_layout")
@@ -118,7 +118,7 @@ class Ui_quizzes_widget(object):
         self.scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 582, 324))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 582, 316))
         self.scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.layout.addWidget(self.scroll_area)

@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="layout">
    <property name="spacing">
-    <number>0</number>
+    <number>4</number>
    </property>
    <item>
     <layout class="QHBoxLayout" name="title_layout">
@@ -171,7 +171,7 @@
         <x>0</x>
         <y>0</y>
         <width>582</width>
-        <height>324</height>
+        <height>316</height>
        </rect>
       </property>
      </widget>

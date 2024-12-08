@@ -1,9 +1,11 @@
 from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView
 from PySide6.QtGui import QPixmap, Qt
+from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code
 from functools import partial
 import re
+import datetime
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
@@ -18,6 +20,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.contest_code = self.parent_menu.contest_code
         self.contest_name = self.parent_menu.contest_name
         self.is_paused = True
+        self.time = 0
 
         # Setup slots
         self.back_button.clicked.connect(partial(load_widget, self, self.parent_menu))
@@ -51,7 +54,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         self.setup_table()
 
-
     def toggle_quiz_state(self):
         self.is_paused = not(self.is_paused)
 
@@ -66,6 +68,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             self.give_up_button.show()
             self.answer_line_edit.show()
 
+            self.timer = QTimer()
+            self.timer.timeout.connect(self.update_time)
+            self.timer.start(1000)
+
     def end_quiz(self):
         print("Quiz ended")
 
@@ -77,7 +83,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.score_label.setText(f"{self.score}/{self.num_of_entries}")
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
-
 
         self.ans_data = []
         if self.num_of_entries > 10:
@@ -224,3 +229,16 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         modified_answer = re.sub(rx, "", modified_answer)
 
         return modified_answer
+
+    def update_time(self):
+        self.time += 1
+
+        #seconds = self.time % 60
+        #minutes = self.time // 60
+        #hours = self.time // (60 * 60)
+
+        time_value = str(datetime.timedelta(seconds=self.time))
+        if self.time < 3600:
+            time_value = time_value[-5:]
+
+        self.timer_label.setText(str(time_value))
