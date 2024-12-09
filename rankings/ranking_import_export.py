@@ -2,7 +2,7 @@ from ui.ui_ranking_import_export import Ui_import_export_dialog
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QGuiApplication
 from utils import get_country_codes
-import pandas as pd # type: ignore
+import pandas as pd
 from typing import List
 import resources_rc
 

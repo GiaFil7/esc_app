@@ -1,4 +1,4 @@
-import pandas as pd # type: ignore
+import pandas as pd
 
 def get_contest_data(contest_code: str) -> pd.Series:
     """

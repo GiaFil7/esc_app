@@ -3,7 +3,7 @@ from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data
-import pandas as pd # type: ignore
+import pandas as pd
 from functools import partial
 import re
 import datetime

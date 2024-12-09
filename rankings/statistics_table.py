@@ -3,7 +3,7 @@ from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
 from utils import load_widget, get_contest_data, get_entry_data, get_countries, get_country_codes
-import pandas as pd # type: ignore
+import pandas as pd
 import resources_rc
 
 class statistics_table(QWidget, Ui_statistics_table):

@@ -11,7 +11,7 @@ from typing import List
 from utils import load_widget, read_html_file, save_widget_to_file
 from utils import get_contest_data, update_contest_data
 from utils import get_entry_data, update_entry_data
-import pandas as pd # type: ignore
+import pandas as pd
 import resources_rc
 
 class ranking_widget(QWidget, Ui_ranking_widget):
