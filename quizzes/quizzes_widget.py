@@ -3,7 +3,6 @@ from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
-import pandas as pd
 from functools import partial
 import re
 import datetime
@@ -47,7 +46,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             case _:
                 logo_path = ":/images/heart_logos/empty_heart.svg"
         
-        self.logo_label.setPixmap(QPixmap(logo_path))
+        logo_pixmap = QPixmap(logo_path)
+        logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
+        self.logo_label.setPixmap(logo_pixmap)
+        #self.logo_label.setPixmap(QPixmap(logo_path))
 
         # Keep give up button and answer line edit hidden until the quiz starts
         self.give_up_button.hide()
