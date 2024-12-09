@@ -189,8 +189,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         # If the user hadn't submitted a ranking for the ranking widget's year,
         # update the contest_data
-        if contest_data.iloc[ind,2] == False:
-            contest_data.iloc[ind,2] = True
+        if contest_data.iloc[ind, 2] == False:
+            contest_data.iloc[ind, 2] = True
             update_contest_data(contest_data)
 
             print(f"New year submitted: {self.year}")

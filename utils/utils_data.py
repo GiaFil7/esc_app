@@ -179,3 +179,20 @@ def get_quiz_data(contest_code: str) -> pd.DataFrame:
     quiz_data = pd.read_excel(filename, sheet_name = contest_code)
 
     return quiz_data
+
+def update_quiz_data(quiz_data: pd.Series, contest_code: str):
+    """
+    Updates the quiz data of a contest. The data must have a row for every quiz and the following columns:
+    * **quiz** *str*: The quiz code (e.g. year, country code)
+    * **best_score** *int*: The user's best score for that quiz
+    * **max_score** *int*: The maximum score for that quiz
+    * **best_time** *int*: The user's best time (in seconds) for that quiz
+    
+    :param quiz_data: The new quiz data to save to file
+    :type quiz_data: Series
+    :param contest_code: The contest code
+    :type contest_code: str
+    """
+
+    with pd.ExcelWriter('files\\quiz_data.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
+        quiz_data.to_excel(writer, sheet_name = contest_code, header = False, index = False, startrow = 1)

@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QLabel
-from PySide6.QtGui import QPixmap, Qt
+from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
-from utils import load_widget, get_country_code, get_quiz_data
+from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
 import pandas as pd
 from functools import partial
 import re
@@ -36,8 +36,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         # Setup the logo
         match self.quiz_type:
             case "country":
-                country_code = get_country_code(self.quiz_name)
-                logo_path = f":/images/heart_logos/{country_code}.png"
+                self.country_code = get_country_code(self.quiz_name)
+                logo_path = f":/images/heart_logos/{self.country_code}.png"
 
             case "year":
                 split_text = self.quiz_name.split(" ")
@@ -111,6 +111,47 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.answer_line_edit.hide()
         self.timer.stop()
 
+        self.quiz_data = get_quiz_data(self.contest_code)
+
+        # Update the user's best score and/or best time if needed
+        match self.quiz_type:
+            case "country":
+                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.country_code].tolist()
+                  
+            case "year":
+                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.year].tolist()
+
+            case _: # Temp
+                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_name].tolist()
+        
+        ind = ind[0]
+        if self.score >= self.quiz_data.iloc[ind, 1]:
+            self.quiz_data.iloc[ind, 1] = self.score
+
+            if self.time < self.quiz_data.iloc[ind, 3]:
+                self.quiz_data.iloc[ind, 3] = self.time
+
+        update_quiz_data(self.quiz_data, self.contest_code)
+
+        # Reveal any missed answers
+        max_score = self.quiz_data.iloc[ind, 2]
+        if self.score < max_score:
+            for i in range(self.table.rowCount()):
+                item = self.table.item(i, 1)
+                if item != None:
+                    if item.text() == "":
+                        ind = self.ans_inds.index([i, 1])
+                        item.setText(self.songs[ind])
+                        item.setForeground(QColor(255, 0, 0))
+                
+                if self.num_of_entries > 10:
+                    item = self.table.item(i, 4)
+                    if item != None:
+                        if item.text() == "":
+                            ind = self.ans_inds.index([i, 4])
+                            item.setText(self.songs[ind])
+                            item.setForeground(QColor(255, 0, 0))
+
     def setup_table(self):
         cols, table_data, accepted_answers = self.get_table_data()
 
@@ -158,7 +199,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     text = table_data[j][i]
 
                     if j == 1:
-                        self.ans_data.append([row_ind, col_ind, text, accepted_answers[i]])
+                        self.ans_data.append([i, j, text, accepted_answers[i]])
                         text = ""
 
                     self.set_table_item(inds, text)
