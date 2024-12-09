@@ -3,7 +3,7 @@ from utils.utils_data import get_contest_data, update_contest_data
 from utils.utils_data import get_entry_data, update_entry_data
 from utils.utils_data import get_contest_name, get_countries
 from utils.utils_data import get_country_code, get_country_codes
-from utils.utils_data import read_html_file
+from utils.utils_data import read_html_file, get_quiz_data
 
 __all__ = [
     'load_widget',
@@ -16,5 +16,6 @@ __all__ = [
     'get_countries',
     'get_country_codes',
     'get_country_code',
-    'read_html_file'
+    'read_html_file',
+    'get_quiz_data'
 ]

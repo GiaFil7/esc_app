@@ -2,7 +2,8 @@ from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderVi
 from PySide6.QtGui import QPixmap, Qt
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
-from utils import load_widget, get_country_code
+from utils import load_widget, get_country_code, get_quiz_data
+import pandas as pd # type: ignore
 from functools import partial
 import re
 import datetime
@@ -105,7 +106,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             super().resizeEvent(event)
 
     def end_quiz(self):
-        print("Quiz ended")
+        self.give_up_button.hide()
+        self.play_pause_button.hide()
+        self.answer_line_edit.hide()
+        self.timer.stop()
 
     def setup_table(self):
         cols, table_data, accepted_answers = self.get_table_data()
@@ -227,14 +231,17 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             table_ind = self.ans_inds[ind]
             item = self.table.item(table_ind[0], table_ind[1])
 
-            if item.text() == "":
-                # If not guessed before
+            if item.text() == "": # If not guessed before
                 item.setText(self.songs[ind])
                 self.score += 1
                 self.score_label.setText(f"{self.score}/{self.num_of_entries}")
 
                 # Clear the line edit
                 self.answer_line_edit.setText("")
+
+                # All answers are guessed, end the quiz
+                if self.score == len(self.ans_data):
+                    self.end_quiz()
 
     def clean_answer(self, answer: str) -> str:
         modified_answer = answer.lower()

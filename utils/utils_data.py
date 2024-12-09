@@ -160,3 +160,22 @@ def read_html_file(file_path: str) -> str:
         html_as_string = file.read()
 
     return html_as_string
+
+def get_quiz_data(contest_code: str) -> pd.DataFrame:
+    """
+    Gets the quiz data of the specified contest. They include a row for every quiz and the columns:
+    * **quiz** *str*: The quiz code (e.g. year, country code)
+    * **best_score** *int*: The user's best score for that quiz
+    * **max_score** *int*: The maximum score for that quiz
+    * **best_time** *int*: The user's best time (in seconds) for that quiz
+
+    :param contest_code: The contest code
+    :type contest_code: str
+    :returns: The quiz data
+    :rtype: DataFrame
+    """
+
+    filename = f'files\\quiz_data.xlsx'
+    quiz_data = pd.read_excel(filename, sheet_name = contest_code)
+
+    return quiz_data
