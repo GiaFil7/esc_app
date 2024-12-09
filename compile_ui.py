@@ -24,6 +24,7 @@ files = [
     "main_menu",
     "main_window",
     "quizzes_contest_main_menu",
+    "quizzes_data_display",
     "quizzes_list_menu",
     "quizzes_main_menu",
     "quizzes_widget",

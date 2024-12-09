@@ -23,7 +23,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.time = 0
 
         # Setup slots
-        self.back_button.clicked.connect(partial(load_widget, self, self.parent_menu))
+        self.back_button.clicked.connect(self.go_back)
         self.play_pause_button.clicked.connect(self.toggle_quiz_state)
         self.give_up_button.clicked.connect(self.end_quiz)
         self.answer_line_edit.textChanged.connect(self.check_answer)
@@ -49,13 +49,16 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         logo_pixmap = QPixmap(logo_path)
         logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
         self.logo_label.setPixmap(logo_pixmap)
-        #self.logo_label.setPixmap(QPixmap(logo_path))
 
         # Keep give up button and answer line edit hidden until the quiz starts
         self.give_up_button.hide()
         self.answer_line_edit.hide()
 
         self.setup_table()
+
+    def go_back(self):
+        load_widget(self, self.parent_menu)
+        self.parent_menu.setup_layout()
 
     def toggle_quiz_state(self):
         self.is_paused = not(self.is_paused)
@@ -127,7 +130,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_name].tolist()
         
         ind = ind[0]
-        if self.score >= self.quiz_data.iloc[ind, 1]:
+        if self.score >= self.quiz_data.iloc[ind, 1] and self.score > 0:
             self.quiz_data.iloc[ind, 1] = self.score
 
             if self.time < self.quiz_data.iloc[ind, 3]:
@@ -316,7 +319,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
     def update_time(self):
         self.time += 1
 
-        time_value = str(datetime.timedelta(seconds=self.time))
+        time_value = str(datetime.timedelta(seconds = self.time))
         if self.time < 3600:
             time_value = time_value[-5:]
 
