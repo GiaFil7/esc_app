@@ -65,6 +65,11 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         max_score = int(quiz_row['max_score'].iloc[0])
         best_time = int(quiz_row['best_time'].iloc[0])
 
+        self.total_max_score += max_score
+        self.total_best_score += best_score
+        if best_score > 0:
+            self.total_best_time += best_time
+
         time_value = str(datetime.timedelta(seconds = best_time))
         if best_time < 3600:
             time_value = time_value[-5:]
@@ -82,6 +87,9 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
     
     def setup_layout(self):
         self.quiz_data = get_quiz_data(self.contest_code)
+        self.total_max_score = 0
+        self.total_best_score = 0
+        self.total_best_time = 0
 
         # Setup menu items
         self.layout = QVBoxLayout()
@@ -120,3 +128,16 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
+
+        if self.menu_type != "misc":
+            total_time_value = str(datetime.timedelta(seconds = self.total_best_time))
+            if self.total_best_time < 3600:
+                total_time_value = total_time_value[-5:]
+        
+            percentage = round((self.total_best_score / self.total_max_score) * 100)
+
+            text = f"Total score: {self.total_best_score}/{self.total_max_score} ({percentage}%) | Total time: {total_time_value}"
+        else:
+            text = ""
+        
+        self.totals_label.setText(text)

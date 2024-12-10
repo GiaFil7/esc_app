@@ -47,9 +47,18 @@ class Ui_quizzes_list_menu(object):
 
         self.title_layout.addWidget(self.name_label)
 
-        self.horizontal_spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontal_spacer_1 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.title_layout.addItem(self.horizontal_spacer)
+        self.title_layout.addItem(self.horizontal_spacer_1)
+
+        self.totals_label = QLabel(quizzes_list_menu)
+        self.totals_label.setObjectName(u"totals_label")
+
+        self.title_layout.addWidget(self.totals_label)
+
+        self.horizontal_spacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.title_layout.addItem(self.horizontal_spacer_2)
 
         self.back_button = QPushButton(quizzes_list_menu)
         self.back_button.setObjectName(u"back_button")
@@ -82,6 +91,7 @@ class Ui_quizzes_list_menu(object):
         quizzes_list_menu.setWindowTitle(QCoreApplication.translate("quizzes_list_menu", u"Form", None))
         self.logo_label.setText("")
         self.name_label.setText(QCoreApplication.translate("quizzes_list_menu", u"Contest Name - Menu Type", None))
+        self.totals_label.setText(QCoreApplication.translate("quizzes_list_menu", u"Total score: ####/1700 (XX%) | Total time: XX:XX:XX", None))
         self.back_button.setText("")
     # retranslateUi
 

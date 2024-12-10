@@ -130,11 +130,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_name].tolist()
         
         ind = ind[0]
-        if self.score >= self.quiz_data.iloc[ind, 1] and self.score > 0:
-            self.quiz_data.iloc[ind, 1] = self.score
-
-            if self.time < self.quiz_data.iloc[ind, 3]:
+        if self.score > 0: 
+            if self.score > self.quiz_data.iloc[ind, 1]:
+                self.quiz_data.iloc[ind, 1] = self.score
                 self.quiz_data.iloc[ind, 3] = self.time
+            elif self.score == self.quiz_data.iloc[ind, 1]:
+                if self.time < self.quiz_data.iloc[ind, 3]:
+                    self.quiz_data.iloc[ind, 3] = self.time
 
         update_quiz_data(self.quiz_data, self.contest_code)
 

@@ -80,18 +80,6 @@ class Ui_quizzes_contest_main_menu(object):
 
         self.vertical_layout.addItem(self.middle_spacer_4)
 
-        self.statistics_button = QPushButton(quizzes_contest_main_menu)
-        self.statistics_button.setObjectName(u"statistics_button")
-        sizePolicy1.setHeightForWidth(self.statistics_button.sizePolicy().hasHeightForWidth())
-        self.statistics_button.setSizePolicy(sizePolicy1)
-        self.statistics_button.setMinimumSize(QSize(300, 50))
-
-        self.vertical_layout.addWidget(self.statistics_button)
-
-        self.middle_spacer_2 = QSpacerItem(20, 12, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.vertical_layout.addItem(self.middle_spacer_2)
-
         self.back_button = QPushButton(quizzes_contest_main_menu)
         self.back_button.setObjectName(u"back_button")
         sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
@@ -122,7 +110,6 @@ class Ui_quizzes_contest_main_menu(object):
         self.by_country_button.setText(QCoreApplication.translate("quizzes_contest_main_menu", u"Contest Name - Quizzes by Country", None))
         self.by_year_button.setText(QCoreApplication.translate("quizzes_contest_main_menu", u"Contest Name - Quizzes by Year", None))
         self.misc_button.setText(QCoreApplication.translate("quizzes_contest_main_menu", u"Contest Name - Miscellaneous Quizzes", None))
-        self.statistics_button.setText(QCoreApplication.translate("quizzes_contest_main_menu", u"Statistics", None))
         self.back_button.setText(QCoreApplication.translate("quizzes_contest_main_menu", u"Back to Quizzes Main Menu", None))
     # retranslateUi
 
