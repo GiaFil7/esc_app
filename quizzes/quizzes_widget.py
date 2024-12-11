@@ -3,7 +3,6 @@ from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
-from functools import partial
 import re
 import datetime
 import resources_rc

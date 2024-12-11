@@ -113,13 +113,17 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
                     best_score_text, best_time_text = self.get_score_and_time(year)
 
-                    self.add_item(f"{self.contest_name} {year}", logo_path, f"{self.contest_name} {year}", "year", best_score_text, best_time_text)
+                    self.add_item(f"{self.contest_name} {year}", logo_path, f"{self.contest_name} {year}",
+                                  "year", best_score_text, best_time_text)
 
             case "misc":
-                quizzes = ["All entries", "Winners"]
-
-                for quiz in quizzes:
-                    self.add_item(quiz, ":/images/heart_logos/empty_heart.svg", quiz, "misc", " ", " ")
+                quiz_titles = ["All entries", "Winners", "Last Places"]
+                quiz_codes = ["all", "winners", "last"]
+                
+                for i, quiz_title in enumerate(quiz_titles):
+                    best_score_text, best_time_text = self.get_score_and_time(quiz_codes[i])
+                    self.add_item(quiz_title, ":/images/heart_logos/empty_heart.svg", quiz_title,
+                                  "misc", best_score_text, best_time_text)
         
         self.layout.setSpacing(0)
         self.layout.setAlignment(Qt.AlignTop)
