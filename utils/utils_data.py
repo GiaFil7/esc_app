@@ -53,7 +53,7 @@ def get_entry_data(contest_code: str) -> pd.DataFrame:
     """
 
     filename = f'files\\{contest_code}_data.xlsx'
-    entry_data = pd.read_excel(filename)
+    entry_data = pd.read_excel(filename, usecols="A:H")
 
     return entry_data
 
