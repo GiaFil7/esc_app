@@ -196,3 +196,15 @@ def update_quiz_data(quiz_data: pd.Series, contest_code: str):
 
     with pd.ExcelWriter('files\\quiz_data.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
         quiz_data.to_excel(writer, sheet_name = contest_code, header = False, index = False, startrow = 1)
+
+def get_misc_quiz_data(contest_code: str):
+    filename = f'files\\quiz_misc_{contest_code}.xlsx'
+    misc_quiz_data = pd.read_excel(filename, sheet_name = 'data')
+
+    return misc_quiz_data
+
+def get_misc_quiz_entries(contest_code: str, quiz_code: str):
+    filename = f'files\\quiz_misc_{contest_code}.xlsx'
+    misc_quiz_entries = pd.read_excel(filename, sheet_name = quiz_code)
+
+    return misc_quiz_entries

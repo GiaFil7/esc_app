@@ -4,7 +4,8 @@ from ui.ui_quizzes_list_menu import Ui_quizzes_list_menu
 from rankings.rankings_menu_item import rankings_menu_item
 from quizzes.quizzes_widget import quizzes_widget
 from quizzes.quizzes_data_display import quizzes_data_display
-from utils import load_widget, get_countries, get_entry_data, get_country_code, get_contest_data, get_quiz_data
+from utils import load_widget, get_countries, get_entry_data, get_country_code
+from utils import get_contest_data, get_quiz_data, get_misc_quiz_data
 from functools import partial
 import datetime
 import resources_rc
@@ -45,7 +46,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                  best_score_text: str, best_time_text: str):
         item = rankings_menu_item(text, logo = logo_path)
         item.submitted_label.hide()
-        item.setFixedWidth(300)
+        item.setFixedWidth(450)
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         score_and_time_widget = quizzes_data_display(best_score_text, best_time_text)
@@ -117,10 +118,11 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                                   "year", best_score_text, best_time_text)
 
             case "misc":
-                quiz_titles = ["All entries", "Winners", "Last Places"]
-                quiz_codes = ["all", "winners", "last"]
+                self.misc_quiz_data = get_misc_quiz_data(self.contest_code)
+                quiz_names = list(self.misc_quiz_data['quiz_name'])
+                quiz_codes = list(self.misc_quiz_data['quiz_code'])
                 
-                for i, quiz_title in enumerate(quiz_titles):
+                for i, quiz_title in enumerate(quiz_names):
                     best_score_text, best_time_text = self.get_score_and_time(quiz_codes[i])
                     self.add_item(quiz_title, ":/images/heart_logos/empty_heart.svg", quiz_title,
                                   "misc", best_score_text, best_time_text)

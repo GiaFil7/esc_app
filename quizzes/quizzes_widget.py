@@ -3,8 +3,8 @@ from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
-import re
-import datetime
+from utils import get_misc_quiz_entries, get_misc_quiz_data
+import re, datetime
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
@@ -27,27 +27,34 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.give_up_button.clicked.connect(self.end_quiz)
         self.answer_line_edit.textChanged.connect(self.check_answer)
 
-        # Set texts
+        # Setup the logo and texts
         self.name_label.setText(quiz_name)
-        self.desc_label.setText(f"Can you name all the entries of {quiz_name}?") # Make special cases for misc
 
-        # Setup the logo
         match self.quiz_type:
             case "country":
                 self.country_code = get_country_code(self.quiz_name)
+                self.quiz_code = self.country_code
                 logo_path = f":/images/heart_logos/{self.country_code}.png"
+                desc = f"Can you name all the entries of {quiz_name}?"
 
             case "year":
                 split_text = self.quiz_name.split(" ")
                 self.year = split_text[-1]
+                self.quiz_code = self.year
                 logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{self.year}.png"
+                desc = f"Can you name all the entries of {quiz_name}?"
 
-            case _:
+            case "misc":
+                self.misc_quiz_data = get_misc_quiz_data(self.contest_code)
+                misc_data = self.misc_quiz_data[self.misc_quiz_data['quiz_name'] == self.quiz_name]
+                self.quiz_code = misc_data['quiz_code'].to_string(header = False, index = False)
+                desc = misc_data['desc'].to_string(header = False, index = False)
                 logo_path = ":/images/heart_logos/empty_heart.svg"
         
         logo_pixmap = QPixmap(logo_path)
         logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
         self.logo_label.setPixmap(logo_pixmap)
+        self.desc_label.setText(desc)
 
         # Keep give up button and answer line edit hidden until the quiz starts
         self.give_up_button.hide()
@@ -118,15 +125,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.quiz_data = get_quiz_data(self.contest_code)
 
         # Update the user's best score and/or best time if needed
-        match self.quiz_type:
-            case "country":
-                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.country_code].tolist()
-                  
-            case "year":
-                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.year].tolist()
-
-            case _: # Temp
-                ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_name].tolist()
+        ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_code].tolist()
         
         ind = ind[0]
         if self.score > 0: 
@@ -247,8 +246,17 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
                 table_data = [countries, songs, placings]
 
-            case _:
-                cols = ["Thing", "Song", "Hint"] # Temporary
+            case "misc":
+                entries = get_misc_quiz_entries(self.contest_code, self.quiz_code)
+                years = entries['contest'].to_string(index = False)
+                years = years.split("\n")
+                years = [item.split(" ") for item in years]
+                years = [item[1] for item in years]
+                songs = list(entries['song'])
+                countries = list(entries['country'])
+
+                cols = ["Year", "Song", "Country"]
+                table_data = [years, songs, countries]
 
         accepted_answers = list(entries['accepted_answers'])
 
