@@ -282,21 +282,23 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
     def check_answer(self, answer: str):
         modified_answer = self.clean_answer(answer)
         if modified_answer in self.ans_text:
-            ind = self.ans_text.index(modified_answer)
-            table_ind = self.ans_inds[ind]
-            item = self.table.item(table_ind[0], table_ind[1])
+            inds = [i for i,x in enumerate(self.ans_text) if x == modified_answer]
+            #ind = self.ans_text.index(modified_answer)
+            for ind in inds:
+                table_ind = self.ans_inds[ind]
+                item = self.table.item(table_ind[0], table_ind[1])
 
-            if item.text() == "": # If not guessed before
-                item.setText(self.songs[ind])
-                self.score += 1
-                self.score_label.setText(f"{self.score}/{self.num_of_entries}")
+                if item.text() == "": # If not guessed before
+                    item.setText(self.songs[ind])
+                    self.score += 1
+                    self.score_label.setText(f"{self.score}/{self.num_of_entries}")
 
-                # Clear the line edit
-                self.answer_line_edit.setText("")
+                    # Clear the line edit
+                    self.answer_line_edit.setText("")
 
-                # All answers are guessed, end the quiz
-                if self.score == len(self.ans_data):
-                    self.end_quiz()
+                    # All answers are guessed, end the quiz
+                    if self.score == len(self.ans_data):
+                        self.end_quiz()
 
     def clean_answer(self, answer: str) -> str:
         modified_answer = answer.lower()
