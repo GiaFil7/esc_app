@@ -5,6 +5,7 @@ from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
 from utils import get_misc_quiz_entries, get_misc_quiz_data
 import re, datetime
+import pandas as pd
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
@@ -154,7 +155,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     if item != None:
                         if item.text() == "":
                             ind = self.ans_inds.index([i, 4])
-                            item.setText(self.songs[ind])
+                            item.setText(str(self.songs[ind]))
                             item.setForeground(QColor(255, 0, 0))
 
     def setup_table(self):
@@ -214,6 +215,27 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         # Resize the columns to fit the contents
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        # For the "all entries" quiz, merge the first column by year
+        if self.quiz_code == "all":
+            row_count = self.table.rowCount()
+            m_cols = [0, 3]
+            
+            for col in m_cols:
+                total_count = 0
+                year_count = 0
+                
+                while total_count < row_count:
+                    curr_text = self.table.item(total_count, col).text()
+                    while self.table.item(total_count + year_count, col).text() == curr_text:
+                        year_count += 1
+
+                        if self.table.item(total_count + year_count, col) == None:
+                            break
+                    
+                    self.table.setSpan(total_count, col, year_count, 1)
+                    total_count += year_count
+                    year_count = 0
 
         self.handle_accepted_answers()
     
@@ -283,7 +305,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         modified_answer = self.clean_answer(answer)
         if modified_answer in self.ans_text:
             inds = [i for i,x in enumerate(self.ans_text) if x == modified_answer]
-            #ind = self.ans_text.index(modified_answer)
+
             for ind in inds:
                 table_ind = self.ans_inds[ind]
                 item = self.table.item(table_ind[0], table_ind[1])
