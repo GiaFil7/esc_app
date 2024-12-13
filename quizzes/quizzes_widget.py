@@ -260,7 +260,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             case "year":
                 cols = ["Country", "Song", "Placing"]
                 contest = f"{self.contest_code} {self.year}"
-                entries = entry_data[entry_data['contest'] == contest]
+                entries = entry_data[entry_data['contest'] == contest].sort_values(by=['country'])
 
                 countries = list(entries['country'])
                 songs = list(entries['song'])
