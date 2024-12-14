@@ -106,13 +106,13 @@ def get_country_codes(special_case="") -> pd.DataFrame:
     Returns the country codes of all participating countries. If the contest is ESC 1956
     it returns the country codes for that year specifically. It contains one row per country
     and the following columns:
-    * **country** *str*: The name of the country
-    * **code** *str*: The country code
+        * **country** *str*: The name of the country
+        * **code** *str*: The country code
 
     In the case of ESC 1956, there is one row per entry and the following columns:
-    * **country** *str*: The name of the country
-    * **song** *str*: The song title
-    * **code** *str*: The country code
+        * **country** *str*: The name of the country
+        * **song** *str*: The song title
+        * **code** *str*: The country code
 
     :param special_case: The type of special case (optional)
     :type special_case: str
@@ -164,10 +164,10 @@ def read_html_file(file_path: str) -> str:
 def get_quiz_data(contest_code: str) -> pd.DataFrame:
     """
     Gets the quiz data of the specified contest. They include a row for every quiz and the columns:
-    * **quiz** *str*: The quiz code (e.g. year, country code)
-    * **best_score** *int*: The user's best score for that quiz
-    * **max_score** *int*: The maximum score for that quiz
-    * **best_time** *int*: The user's best time (in seconds) for that quiz
+        * **quiz** *str*: The quiz code (e.g. year, country code)
+        * **best_score** *int*: The user's best score for that quiz
+        * **max_score** *int*: The maximum score for that quiz
+        * **best_time** *int*: The user's best time (in seconds) for that quiz
 
     :param contest_code: The contest code
     :type contest_code: str
@@ -183,10 +183,10 @@ def get_quiz_data(contest_code: str) -> pd.DataFrame:
 def update_quiz_data(quiz_data: pd.Series, contest_code: str):
     """
     Updates the quiz data of a contest. The data must have a row for every quiz and the following columns:
-    * **quiz** *str*: The quiz code (e.g. year, country code)
-    * **best_score** *int*: The user's best score for that quiz
-    * **max_score** *int*: The maximum score for that quiz
-    * **best_time** *int*: The user's best time (in seconds) for that quiz
+        * **quiz** *str*: The quiz code (e.g. year, country code)
+        * **best_score** *int*: The user's best score for that quiz
+        * **max_score** *int*: The maximum score for that quiz
+        * **best_time** *int*: The user's best time (in seconds) for that quiz
     
     :param quiz_data: The new quiz data to save to file
     :type quiz_data: Series
@@ -197,13 +197,42 @@ def update_quiz_data(quiz_data: pd.Series, contest_code: str):
     with pd.ExcelWriter('files\\quiz_data.xlsx', mode = 'a', engine = 'openpyxl', if_sheet_exists = 'overlay') as writer:
         quiz_data.to_excel(writer, sheet_name = contest_code, header = False, index = False, startrow = 1)
 
-def get_misc_quiz_data(contest_code: str):
+def get_misc_quiz_data(contest_code: str) -> pd.DataFrame:
+    """
+    Gets the data for the miscellaneous quizzes of the specified contest. They include a row for every quiz and the columns:
+        * **quiz_name** *str*: The name of the quiz
+        * **quiz_code** *str*: The code of the quiz
+        * **desc** *str*: The quiz description text 
+
+    :param contest_code: The contest code
+    :type contest_code: str
+    :returns: The miscellaneous quiz data
+    :rtype: DataFrame
+    """
+
     filename = f'files\\quiz_misc_{contest_code}.xlsx'
     misc_quiz_data = pd.read_excel(filename, sheet_name = 'data')
 
     return misc_quiz_data
 
-def get_misc_quiz_entries(contest_code: str, quiz_code: str):
+def get_misc_quiz_entries(contest_code: str, quiz_code: str) -> pd.DataFrame:
+    """
+    Gets the entries for the miscellaneous quiz specified. They include a row for every quiz and the columns:
+        * **contest** *str*: The contest code and year (e.g. ESC 1956)
+        * **country** *str*: The name of the country
+        * **artist** *str*: The name of the artist
+        * **song** *str*: The song title
+        * **placing** *str*: The placing of the entry in the contest (only if quiz_code is "all")
+        * **accepted_answers** *str*: The accepted answers for this entry in quizzes
+
+    :param contest_code: The contest code
+    :type contest_code: str
+    :param quiz_code: The quiz code
+    :type quiz_code: str
+    :returns: The miscellaneous quiz entries
+    :rtype: DataFrame
+    """
+
     filename = f'files\\quiz_misc_{contest_code}.xlsx'
     misc_quiz_entries = pd.read_excel(filename, sheet_name = quiz_code)
 

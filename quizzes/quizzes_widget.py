@@ -5,7 +5,6 @@ from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
 from utils import get_misc_quiz_entries, get_misc_quiz_data
 import re, datetime
-import pandas as pd
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):

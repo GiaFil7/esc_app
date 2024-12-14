@@ -6,6 +6,14 @@ from functools import partial
 import resources_rc
 
 class quizzes_main_menu(QWidget, Ui_quizzes_main_menu):
+    """
+    The main menu for the quizzes. It allows the user to navigate to the main
+    menu for every supported contest and back to the main menu of the app.
+
+    :param main_menu: The main menu of the app (previous menu of this widget)
+    :type main_menu: object
+    """
+
     def __init__(self, main_menu: object):
         super().__init__()
         self.setupUi(self)
