@@ -114,7 +114,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.pause_label.adjustSize()
 
     def resizeEvent(self, event):
-        if self.is_paused and self.time > 0:
+        if self.is_paused and self.time > 0 and hasattr(self, 'pause_label'):
             self.center_pause_label()
             super().resizeEvent(event)
 
@@ -150,7 +150,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 if item != None:
                     if item.text() == "":
                         ind = self.ans_inds.index([i, 1])
-                        item.setText(self.songs[ind])
+                        item.setText(str(self.songs[ind]))
                         item.setForeground(QColor(255, 0, 0))
                 
                 if self.num_of_entries > 10:
