@@ -118,49 +118,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             self.center_pause_label()
             super().resizeEvent(event)
 
-    def end_quiz(self):
-        self.give_up_button.hide()
-        self.play_pause_button.hide()
-        self.answer_line_edit.hide()
-        self.replay_button.show()
-        self.timer.stop()
-        self.is_paused = True
-
-        self.quiz_data = get_quiz_data(self.contest_code)
-
-        # Update the user's best score and/or best time if needed
-        ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_code].tolist()
-        
-        ind = ind[0]
-        if self.score > 0: 
-            if self.score > self.quiz_data.iloc[ind, 1]:
-                self.quiz_data.iloc[ind, 1] = self.score
-                self.quiz_data.iloc[ind, 3] = self.time
-            elif self.score == self.quiz_data.iloc[ind, 1]:
-                if self.time < self.quiz_data.iloc[ind, 3]:
-                    self.quiz_data.iloc[ind, 3] = self.time
-
-        update_quiz_data(self.quiz_data, self.contest_code)
-
-        # Reveal any missed answers
-        max_score = self.quiz_data.iloc[ind, 2]
-        if self.score < max_score:
-            for i in range(self.table.rowCount()):
-                item = self.table.item(i, 1)
-                if item != None:
-                    if item.text() == "":
-                        ind = self.ans_inds.index([i, 1])
-                        item.setText(str(self.songs[ind]))
-                        item.setForeground(QColor(255, 0, 0))
-                
-                if self.num_of_entries > 10:
-                    item = self.table.item(i, 4)
-                    if item != None:
-                        if item.text() == "":
-                            ind = self.ans_inds.index([i, 4])
-                            item.setText(str(self.songs[ind]))
-                            item.setForeground(QColor(255, 0, 0))
-
     def setup_table(self):
         cols, table_data, accepted_answers = self.get_table_data()
 
@@ -170,6 +127,42 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
 
+        if self.num_of_entries > 10:
+            self.col_group_num = 2
+        else:
+            self.col_group_num = 1
+
+        col_count = len(cols) * self.col_group_num
+        col_labels = []
+        for _ in range(self.col_group_num):
+            col_labels += cols
+
+        row_count = self.num_of_entries // self.col_group_num 
+        if self.num_of_entries % row_count != 0:
+            row_count = row_count + 1
+
+        self.table.setColumnCount(col_count)
+        self.table.setHorizontalHeaderLabels(col_labels)
+        self.table.setRowCount(row_count)
+
+        self.ans_data = []
+        for ind in range(self.num_of_entries):
+            j = ind // row_count
+            i = j * row_count + (ind % row_count)
+            # Need to fill all 3 columns of the group
+            data_ind = j % self.col_group_num
+            inds = [i, j]
+            text = table_data[data_ind][i]
+
+            print(f"(i,j) = {i},{j} | {text}")
+
+            if j % len(cols) == 1:
+                self.ans_data.append([i, j, text, accepted_answers[i]])
+                text = ""
+            
+            self.set_table_item(inds, text)
+        
+        """
         self.ans_data = []
         if self.num_of_entries > 10:
             self.table.setColumnCount(len(cols) * 2)
@@ -212,6 +205,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                         text = ""
 
                     self.set_table_item(inds, text)
+        """
 
         self.scroll_area.setWidget(self.table)
 
@@ -369,3 +363,57 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.time = -1
         self.update_time()
         self.play_pause_button.setIcon(QPixmap(":/images/icons/play_icon.png"))
+
+    def end_quiz(self):
+        self.give_up_button.hide()
+        self.play_pause_button.hide()
+        self.answer_line_edit.hide()
+        self.replay_button.show()
+        self.timer.stop()
+        self.is_paused = True
+
+        self.quiz_data = get_quiz_data(self.contest_code)
+
+        # Update the user's best score and/or best time if needed
+        ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_code].tolist()
+        
+        ind = ind[0]
+        if self.score > 0: 
+            if self.score > self.quiz_data.iloc[ind, 1]:
+                self.quiz_data.iloc[ind, 1] = self.score
+                self.quiz_data.iloc[ind, 3] = self.time
+            elif self.score == self.quiz_data.iloc[ind, 1]:
+                if self.time < self.quiz_data.iloc[ind, 3]:
+                    self.quiz_data.iloc[ind, 3] = self.time
+
+        update_quiz_data(self.quiz_data, self.contest_code)
+
+        # Reveal any missed answers
+        max_score = self.quiz_data.iloc[ind, 2]
+        if self.score < max_score:
+            for i in range(self.table.rowCount()):
+                for j in range(self.table.columnCount()):
+                    if j % (self.table.columnCount() / self.col_group_num) == 1:
+                        item = self.table.item(i, j)
+
+                        if item != None:
+                            if item.text() == "":
+                                ind = self.ans_inds.index([i, j])
+                                item.setText(str(self.songs[ind]))
+                                item.setForeground(QColor(255, 0, 0))
+                """
+                item = self.table.item(i, 1)
+                if item != None:
+                    if item.text() == "":
+                        ind = self.ans_inds.index([i, 1])
+                        item.setText(str(self.songs[ind]))
+                        item.setForeground(QColor(255, 0, 0))
+                
+                if self.num_of_entries > 10:
+                    item = self.table.item(i, 4)
+                    if item != None:
+                        if item.text() == "":
+                            ind = self.ans_inds.index([i, 4])
+                            item.setText(str(self.songs[ind]))
+                            item.setForeground(QColor(255, 0, 0))
+                """
