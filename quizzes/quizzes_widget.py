@@ -147,20 +147,18 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         self.ans_data = []
         for ind in range(self.num_of_entries):
-            j = ind // row_count
-            i = j * row_count + (ind % row_count)
-            # Need to fill all 3 columns of the group
-            data_ind = j % self.col_group_num
-            inds = [i, j]
-            text = table_data[data_ind][i]
+            for group_j in range(len(cols)):
+                i = ind % row_count
+                j = (ind // row_count) * len(cols) + group_j
+                
+                inds = [i, j]
+                text = table_data[group_j][ind]
 
-            print(f"(i,j) = {i},{j} | {text}")
-
-            if j % len(cols) == 1:
-                self.ans_data.append([i, j, text, accepted_answers[i]])
-                text = ""
-            
-            self.set_table_item(inds, text)
+                if j % len(cols) == 1:
+                    self.ans_data.append([i, j, text, accepted_answers[i]])
+                    text = ""
+                
+                self.set_table_item(inds, text)
         
         """
         self.ans_data = []
