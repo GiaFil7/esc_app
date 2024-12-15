@@ -26,6 +26,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.play_pause_button.clicked.connect(self.toggle_quiz_state)
         self.give_up_button.clicked.connect(self.end_quiz)
         self.answer_line_edit.textChanged.connect(self.check_answer)
+        self.replay_button.clicked.connect(self.replay_quiz)
 
         # Setup the logo and texts
         self.name_label.setText(quiz_name)
@@ -56,9 +57,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.logo_label.setPixmap(logo_pixmap)
         self.desc_label.setText(desc)
 
-        # Keep give up button and answer line edit hidden until the quiz starts
+        # Keep unnecessary components hidden until needed
         self.give_up_button.hide()
         self.answer_line_edit.hide()
+        self.replay_button.hide()
 
         self.setup_table()
 
@@ -120,7 +122,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.give_up_button.hide()
         self.play_pause_button.hide()
         self.answer_line_edit.hide()
+        self.replay_button.show()
         self.timer.stop()
+        self.is_paused = True
 
         self.quiz_data = get_quiz_data(self.contest_code)
 
@@ -356,3 +360,12 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             time_value = time_value[-5:]
 
         self.timer_label.setText(str(time_value))
+
+    def replay_quiz(self):
+        self.setup_table()
+        self.replay_button.hide()
+        self.play_pause_button.show()
+        self.desc_label.show()
+        self.time = -1
+        self.update_time()
+        self.play_pause_button.setIcon(QPixmap(":/images/icons/play_icon.png"))

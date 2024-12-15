@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/icons/refresh_icon.png</file>
     <file>images/icons/pause_icon.png</file>
     <file>images/icons/play_icon.png</file>
     <file>images/icons/back_icon.png</file>

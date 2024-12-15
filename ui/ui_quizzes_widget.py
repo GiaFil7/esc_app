@@ -62,13 +62,23 @@ class Ui_quizzes_widget(object):
 
         self.title_layout.addWidget(self.timer_label)
 
+        self.replay_button = QPushButton(quizzes_widget)
+        self.replay_button.setObjectName(u"replay_button")
+        sizePolicy.setHeightForWidth(self.replay_button.sizePolicy().hasHeightForWidth())
+        self.replay_button.setSizePolicy(sizePolicy)
+        icon = QIcon()
+        icon.addFile(u":/images/icons/refresh_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.replay_button.setIcon(icon)
+
+        self.title_layout.addWidget(self.replay_button)
+
         self.play_pause_button = QPushButton(quizzes_widget)
         self.play_pause_button.setObjectName(u"play_pause_button")
         sizePolicy.setHeightForWidth(self.play_pause_button.sizePolicy().hasHeightForWidth())
         self.play_pause_button.setSizePolicy(sizePolicy)
-        icon = QIcon()
-        icon.addFile(u":/images/icons/play_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.play_pause_button.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/images/icons/play_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.play_pause_button.setIcon(icon1)
 
         self.title_layout.addWidget(self.play_pause_button)
 
@@ -76,9 +86,9 @@ class Ui_quizzes_widget(object):
         self.back_button.setObjectName(u"back_button")
         sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy)
-        icon1 = QIcon()
-        icon1.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.back_button.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.back_button.setIcon(icon2)
 
         self.title_layout.addWidget(self.back_button)
 
@@ -135,6 +145,7 @@ class Ui_quizzes_widget(object):
         self.name_label.setText(QCoreApplication.translate("quizzes_widget", u"Title", None))
         self.score_label.setText(QCoreApplication.translate("quizzes_widget", u"Score: ##/##", None))
         self.timer_label.setText(QCoreApplication.translate("quizzes_widget", u"00:00", None))
+        self.replay_button.setText("")
         self.play_pause_button.setText("")
         self.back_button.setText("")
         self.desc_label.setText(QCoreApplication.translate("quizzes_widget", u"Description", None))
