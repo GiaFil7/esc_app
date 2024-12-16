@@ -129,6 +129,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         if self.num_of_entries > 10:
             self.col_group_num = 2
+            if self.quiz_code == "all":
+                self.col_group_num = 3
         else:
             self.col_group_num = 1
 
@@ -155,7 +157,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 text = table_data[group_j][ind]
 
                 if j % len(cols) == 1:
-                    self.ans_data.append([i, j, text, accepted_answers[i]])
+                    self.ans_data.append([i, j, text, accepted_answers[ind]])
                     text = ""
                 
                 self.set_table_item(inds, text)
@@ -216,6 +218,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             row_count = self.table.rowCount()
             m_cols = [0, 3]
             
+            """
             for col in m_cols:
                 total_count = 0
                 year_count = 0
@@ -231,6 +234,22 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     self.table.setSpan(total_count, col, year_count, 1)
                     total_count += year_count
                     year_count = 0
+            """
+            for j in range(self.table.columnCount()):
+                    total_count = 0
+                    year_count = 0
+                    if j % (self.table.columnCount() / self.col_group_num) == 0:
+                        while total_count < row_count:
+                            curr_text = self.table.item(total_count, j).text()
+                            while self.table.item(total_count + year_count, j).text() == curr_text:
+                                year_count += 1
+
+                                if self.table.item(total_count + year_count, j) == None:
+                                    break
+                            
+                            self.table.setSpan(total_count, j, year_count, 1)
+                            total_count += year_count
+                            year_count = 0
 
         self.handle_accepted_answers()
     
