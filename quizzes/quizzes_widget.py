@@ -140,26 +140,37 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.pause_label.adjustSize()
 
     def resizeEvent(self, event):
+        """
+        Handles resizing of the widget.
+        """
+
         if self.is_paused and self.time > 0 and hasattr(self, 'pause_label'):
             self.center_pause_label()
             super().resizeEvent(event)
 
     def setup_table(self):
+        """
+        Sets up the table contained in the widget.
+        """
+
         cols, table_data, accepted_answers = self.get_table_data()
 
+        # Initialisations
         self.num_of_entries = len(table_data[0])
         self.score = 0
         self.score_label.setText(f"{self.score}/{self.num_of_entries}")
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
 
+        # Get the number of groups to split the entries into
         if self.num_of_entries > 10:
             self.col_group_num = 2
             if self.quiz_code == "all":
-                self.col_group_num = 3
+                self.col_group_num = 4
         else:
             self.col_group_num = 1
 
+        # Get and set the column and row labels and counts
         col_count = len(cols) * self.col_group_num
         col_labels = []
         for _ in range(self.col_group_num):
@@ -173,6 +184,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.table.setHorizontalHeaderLabels(col_labels)
         self.table.setRowCount(row_count)
 
+        # Store the data required for answer checking and display all data
+        # in the table
         self.ans_data = []
         for entry_i in range(self.num_of_entries):
             for entry_j in range(len(cols)):
@@ -216,7 +229,15 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         self.handle_accepted_answers()
     
-    def get_table_data(self):
+    def get_table_data(self) -> tuple[list, list, list]:
+        """
+        Returns all data needed for setting up the table and for answer
+        checking.
+
+        :returns: The column labels, the table data and the accepted answers
+        :rtype: tuple[list, list, list]
+        """
+
         entry_data = self.parent_menu.entry_data
 
         match self.quiz_type:
@@ -231,8 +252,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 table_data = [years, songs, placings]
                 
             case "year":
-                cols = ["Country", "Song", "Placing"]
                 contest = f"{self.contest_code} {self.year}"
+                cols = ["Country", "Song", "Placing"]
+
                 entries = entry_data[entry_data['contest'] == contest].sort_values(by=['country'])
 
                 countries = list(entries['country'])
@@ -242,13 +264,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 table_data = [countries, songs, placings]
 
             case "misc":
+                cols = ["Year", "Song", "Country"]
                 entries = get_misc_quiz_entries(self.contest_code, self.quiz_code)
 
                 years = get_years(entries)
                 songs = list(entries['song'])
                 countries = list(entries['country'])
 
-                cols = ["Year", "Song", "Country"]
                 table_data = [years, songs, countries]
 
         accepted_answers = list(entries['accepted_answers'])
@@ -256,33 +278,55 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         return cols, table_data, accepted_answers
 
     def handle_accepted_answers(self):
-        self.ans_text = []
-        self.ans_inds = []
-        self.songs = []
+        """
+        Prepares the data needed for answer checking and displaying
+        missed answers.
+        """
+
+        self.ans_filtered_text = []
+        self.ans_table_inds = []
+        self.ans_original_text = []
         for entry in self.ans_data:
             entry_answers = entry[-1].split("|")
             for answer in entry_answers:
-                self.ans_text.append(answer)
-                self.ans_inds.append([entry[0], entry[1]])
-                self.songs.append(entry[2])
+                self.ans_filtered_text.append(answer)
+                self.ans_table_inds.append([entry[0], entry[1]])
+                self.ans_original_text.append(entry[2])
 
     def set_table_item(self, inds: list, text: str):
+        """
+        Initialises and sets a table item.
+
+        :param inds: The indices of the item
+        :type inds: list
+        :param text: The text of the item
+        :type text: str
+        """
+
         widget_item = QTableWidgetItem(text)
         widget_item.setTextAlignment(Qt.AlignCenter)
         widget_item.setFlags(Qt.ItemIsEnabled)
         self.table.setItem(inds[0], inds[1], widget_item)
 
     def check_answer(self, answer: str):
+        """
+        Checks if the text in the line edit is a valid answer. If all answers
+        have been guessed, it ends the quiz.
+
+        :param answer: The text of the line edit
+        :type answer: str
+        """
+
         modified_answer = self.clean_answer(answer)
-        if modified_answer in self.ans_text:
-            inds = [i for i,x in enumerate(self.ans_text) if x == modified_answer]
+        if modified_answer in self.ans_filtered_text:
+            inds = [i for i, x in enumerate(self.ans_filtered_text) if x == modified_answer]
 
             for ind in inds:
-                table_ind = self.ans_inds[ind]
+                table_ind = self.ans_table_inds[ind]
                 item = self.table.item(table_ind[0], table_ind[1])
 
                 if item.text() == "": # If not guessed before
-                    item.setText(self.songs[ind])
+                    item.setText(self.ans_original_text[ind])
                     self.score += 1
                     self.score_label.setText(f"{self.score}/{self.num_of_entries}")
 
@@ -294,6 +338,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                         self.end_quiz()
 
     def clean_answer(self, answer: str) -> str:
+        """
+        Removes or substitutes special characters from the answer.
+
+        :param answer: The user's answer
+        :type answer: str
+        """
+
         modified_answer = answer.lower()
         modified_answer = modified_answer.replace(" ", "")
         modified_answer = re.sub("([àäåáãâăā])", "a", modified_answer)
@@ -321,6 +372,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         return modified_answer
 
     def update_time(self):
+        """
+        Increments the quiz timer.
+        """
+
         self.time += 1
 
         time_value = str(datetime.timedelta(seconds = self.time))
@@ -330,6 +385,10 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.timer_label.setText(str(time_value))
 
     def replay_quiz(self):
+        """
+        Resets the widget to its original state.
+        """
+
         self.setup_table()
         self.replay_button.hide()
         self.play_pause_button.show()
@@ -339,18 +398,22 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.play_pause_button.setIcon(QPixmap(":/images/icons/play_icon.png"))
 
     def end_quiz(self):
+        """
+        Handles what happens when the quiz ends.
+        """
+
+        # Hide, show or toggle needed components/properties
         self.give_up_button.hide()
         self.play_pause_button.hide()
         self.answer_line_edit.hide()
-        self.replay_button.show()
         self.timer.stop()
+        self.replay_button.show()
         self.is_paused = True
 
         self.quiz_data = get_quiz_data(self.contest_code)
 
         # Update the user's best score and/or best time if needed
         ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_code].tolist()
-        
         ind = ind[0]
         if self.score > 0: 
             if self.score > self.quiz_data.iloc[ind, 1]:
@@ -372,6 +435,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
                         if item != None:
                             if item.text() == "":
-                                ind = self.ans_inds.index([i, j])
-                                item.setText(str(self.songs[ind]))
+                                ind = self.ans_table_inds.index([i, j])
+                                item.setText(str(self.ans_original_text[ind]))
                                 item.setForeground(QColor(255, 0, 0))
