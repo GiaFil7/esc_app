@@ -3,11 +3,23 @@ from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
-from utils import get_misc_quiz_entries, get_misc_quiz_data
+from utils import get_misc_quiz_entries, get_misc_quiz_data, get_years
 import re, datetime
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
+    """
+    The main quiz widget. It displays the needed entries in a table and allows
+    the user to play the quiz.
+
+    :param quiz_name: The name of the quiz
+    :type quiz_name: str
+    :param quiz_type: The type of the quiz (e.g. year, country, misc)
+    :type quiz_type: str
+    :param parent_menu: The parent menu of the widget
+    :type parent_menu: object
+    """
+
     def __init__(self, quiz_name: str, quiz_type: str, parent_menu: object):
         super().__init__()
         self.setupUi(self)
@@ -65,10 +77,19 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.setup_table()
 
     def go_back(self):
+        """
+        Loads the parent menu of the widget while updating its data.
+        """
+
         load_widget(self, self.parent_menu)
         self.parent_menu.setup_layout()
 
     def toggle_quiz_state(self):
+        """
+        Handles what happens when the play/pause button is clicked.
+        """
+
+        # Toggle the is_paused property
         self.is_paused = not(self.is_paused)
 
         if self.is_paused:
@@ -78,7 +99,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             self.table.hide()
 
             self.timer.stop()
-
+            
+            # Display the pause screen
             self.pause_label = QLabel("Paused", parent = self)
             self.pause_label.setAlignment(Qt.AlignCenter)
             self.pause_label.adjustSize()
@@ -95,11 +117,16 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             if self.time > 0:
                 self.pause_label.hide()
 
+            # Setup the timer
             self.timer = QTimer()
             self.timer.timeout.connect(self.update_time)
             self.timer.start(1000)
 
     def center_pause_label(self):
+        """
+        Centers the label in the pause menu within the window.
+        """
+
         window_width = self.width()
         window_height = self.height()
         label_width = self.pause_label.width()
@@ -109,8 +136,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         x = (window_width - label_width) // 2
         y = (window_height - label_height) // 2
         self.pause_label.move(x, y)
-
-        # Ensure the label's sizeHint is considered
+        
         self.pause_label.adjustSize()
 
     def resizeEvent(self, event):
@@ -148,64 +174,19 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.table.setRowCount(row_count)
 
         self.ans_data = []
-        for ind in range(self.num_of_entries):
-            for group_j in range(len(cols)):
-                i = ind % row_count
-                j = (ind // row_count) * len(cols) + group_j
+        for entry_i in range(self.num_of_entries):
+            for entry_j in range(len(cols)):
+                table_i = entry_i % row_count
+                table_j = (entry_i // row_count) * len(cols) + entry_j
                 
-                inds = [i, j]
-                text = table_data[group_j][ind]
+                table_inds = [table_i, table_j]
+                text = table_data[entry_j][entry_i]
 
-                if j % len(cols) == 1:
-                    self.ans_data.append([i, j, text, accepted_answers[ind]])
+                if table_j % len(cols) == 1:
+                    self.ans_data.append([table_i, table_j, text, accepted_answers[entry_i]])
                     text = ""
                 
-                self.set_table_item(inds, text)
-        
-        """
-        self.ans_data = []
-        if self.num_of_entries > 10:
-            self.table.setColumnCount(len(cols) * 2)
-            self.table.setHorizontalHeaderLabels(cols + cols)
-            if len(table_data[0]) % 2 == 0:
-                self.table.setRowCount(self.num_of_entries / 2)
-            else:
-                self.table.setRowCount(0.5 + self.num_of_entries / 2)
-
-            row_count = self.table.rowCount()
-            for i in range(self.num_of_entries):
-                for j in range(len(cols)):
-                    row_ind = i % row_count
-                    if i <= ((self.num_of_entries - 1) / 2):
-                        col_ind = j
-                    else:
-                        col_ind = j + len(cols)
-
-                    inds = [row_ind, col_ind]
-                    text = table_data[j][i]
-
-                    if j == 1:
-                        self.ans_data.append([row_ind, col_ind, text, accepted_answers[i]])
-                        text = ""
-
-                    self.set_table_item(inds, text)
-        else:
-            self.table.setColumnCount(len(cols))
-            self.table.setHorizontalHeaderLabels(cols)
-            self.table.setRowCount(self.num_of_entries)
-
-            row_count = self.table.rowCount()
-            for i in range(self.num_of_entries):
-                for j in range(len(cols)):
-                    inds = [i, j]
-                    text = table_data[j][i]
-
-                    if j == 1:
-                        self.ans_data.append([i, j, text, accepted_answers[i]])
-                        text = ""
-
-                    self.set_table_item(inds, text)
-        """
+                self.set_table_item(table_inds, text)
 
         self.scroll_area.setWidget(self.table)
 
@@ -216,25 +197,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         # For the "all entries" quiz, merge the first column by year
         if self.quiz_code == "all":
             row_count = self.table.rowCount()
-            m_cols = [0, 3]
-            
-            """
-            for col in m_cols:
-                total_count = 0
-                year_count = 0
-                
-                while total_count < row_count:
-                    curr_text = self.table.item(total_count, col).text()
-                    while self.table.item(total_count + year_count, col).text() == curr_text:
-                        year_count += 1
 
-                        if self.table.item(total_count + year_count, col) == None:
-                            break
-                    
-                    self.table.setSpan(total_count, col, year_count, 1)
-                    total_count += year_count
-                    year_count = 0
-            """
             for j in range(self.table.columnCount()):
                     total_count = 0
                     year_count = 0
@@ -260,12 +223,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             case "country":
                 cols = ["Year", "Song", "Placing"]
                 entries = entry_data[entry_data['country'] == self.quiz_name]
-                
-                years = entries['contest'].to_string(index = False)
-                years = years.split("\n")
-                years = [item.split(" ") for item in years]
-                years = [item[1] for item in years]
 
+                years = get_years(entries)
                 songs = list(entries['song'])
                 placings = entries['placing'].astype(str).values.tolist()
 
@@ -284,10 +243,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
             case "misc":
                 entries = get_misc_quiz_entries(self.contest_code, self.quiz_code)
-                years = entries['contest'].to_string(index = False)
-                years = years.split("\n")
-                years = [item.split(" ") for item in years]
-                years = [item[1] for item in years]
+
+                years = get_years(entries)
                 songs = list(entries['song'])
                 countries = list(entries['country'])
 
@@ -418,19 +375,3 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                                 ind = self.ans_inds.index([i, j])
                                 item.setText(str(self.songs[ind]))
                                 item.setForeground(QColor(255, 0, 0))
-                """
-                item = self.table.item(i, 1)
-                if item != None:
-                    if item.text() == "":
-                        ind = self.ans_inds.index([i, 1])
-                        item.setText(str(self.songs[ind]))
-                        item.setForeground(QColor(255, 0, 0))
-                
-                if self.num_of_entries > 10:
-                    item = self.table.item(i, 4)
-                    if item != None:
-                        if item.text() == "":
-                            ind = self.ans_inds.index([i, 4])
-                            item.setText(str(self.songs[ind]))
-                            item.setForeground(QColor(255, 0, 0))
-                """

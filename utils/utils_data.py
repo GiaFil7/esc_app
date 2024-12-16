@@ -237,3 +237,22 @@ def get_misc_quiz_entries(contest_code: str, quiz_code: str) -> pd.DataFrame:
     misc_quiz_entries = pd.read_excel(filename, sheet_name = quiz_code)
 
     return misc_quiz_entries
+
+def get_years(entries: pd.DataFrame) -> list:
+    """
+    Returns a list with all the years of the entries provided. The data must
+    have a 'contest' column and the contest should be in the format:
+    {contest_code} {year} (e.g. ESC 1956)
+
+    :param entries: The entry data
+    :type: DataFrame
+    :returns: A list with all the years
+    :rtype: list
+    """
+
+    years = entries['contest'].to_string(index = False)
+    years = years.split("\n")
+    years = [item.split(" ") for item in years]
+    years = [item[1] for item in years]
+
+    return years

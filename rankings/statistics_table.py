@@ -2,7 +2,8 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap,Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
-from utils import load_widget, get_contest_data, get_entry_data, get_countries, get_country_codes
+from utils import load_widget, get_contest_data, get_entry_data
+from utils import get_years, get_countries, get_country_codes 
 import pandas as pd
 import resources_rc
 
@@ -77,11 +78,9 @@ class statistics_table(QWidget, Ui_statistics_table):
                 self.table.setVerticalHeaderLabels(self.countries)
                 self.table.horizontalHeader().sectionClicked.connect(self.handle_sort)
             elif self.table_type in self.countries:
-                self.years_participated = data[data['country'] == self.table_type]
-                self.years_participated = self.years_participated['contest'].to_string(index = False)
-                self.years_participated = self.years_participated.split("\n")
-                self.years_participated = [item.split(" ") for item in self.years_participated]
-                self.years_participated = [int(item[1]) for item in self.years_participated]
+                entries = data[data['country'] == self.table_type]
+                self.years_participated = get_years(entries)
+                self.years_participated = [int(item) for item in self.years_participated]
 
                 self.years_participated_and_submitted = set(self.years_participated) & set(self.submitted_years)
                 if len(self.years_participated_and_submitted) != 0:
