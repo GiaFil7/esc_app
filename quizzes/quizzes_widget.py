@@ -209,23 +209,23 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
 
         # For the "all entries" quiz, merge the first column by year
         if self.quiz_code == "all":
-            row_count = self.table.rowCount()
-
             for j in range(self.table.columnCount()):
-                    total_count = 0
+                if j % (self.table.columnCount() / self.col_group_num) == 0:
                     year_count = 0
-                    if j % (self.table.columnCount() / self.col_group_num) == 0:
-                        while total_count < row_count:
-                            curr_text = self.table.item(total_count, j).text()
-                            while self.table.item(total_count + year_count, j).text() == curr_text:
+                    curr_text = self.table.item(0, j).text()
+                    for i in range(self.table.rowCount()):
+                        if self.table.item(i, j) != None and i != self.table.rowCount() - 1:
+                            if self.table.item(i, j).text() == curr_text:
                                 year_count += 1
-
-                                if self.table.item(total_count + year_count, j) == None:
-                                    break
-                            
-                            self.table.setSpan(total_count, j, year_count, 1)
-                            total_count += year_count
-                            year_count = 0
+                            else:
+                                curr_text = self.table.item(i, j).text()
+                                if year_count != 1:
+                                    self.table.setSpan(i - year_count, j, year_count, 1)
+                                    year_count = 1
+                        else:
+                            if year_count != 1:
+                                self.table.setSpan(i - year_count, j, year_count, 1)
+                                year_count = 1
 
         self.handle_accepted_answers()
     
