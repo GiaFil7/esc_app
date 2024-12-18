@@ -214,9 +214,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     year_count = 0
                     curr_text = self.table.item(0, j).text()
                     for i in range(self.table.rowCount()):
-                        if self.table.item(i, j) != None and i != self.table.rowCount() - 1:
+                        if self.table.item(i, j) != None:
                             if self.table.item(i, j).text() == curr_text:
                                 year_count += 1
+                                if i == self.table.rowCount() - 1:
+                                    if year_count != 1:
+                                        self.table.setSpan(i - year_count + 1, j, year_count, 1)
+                                        year_count = 1
                             else:
                                 curr_text = self.table.item(i, j).text()
                                 if year_count != 1:
