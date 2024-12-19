@@ -8,6 +8,10 @@ def main():
     window = main_window()
     window.show()
 
+    with open("styles.qss", "r") as f:
+        _style = f.read()
+        app.setStyleSheet(_style)
+
     app.exec()
 
 if __name__ == "__main__":
