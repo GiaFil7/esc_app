@@ -2,8 +2,8 @@ QWidget {
     background-color: rgb(9, 20, 107);
     color: white;
     /* font-family: "Roboto"; */
-    font-family: "Alfa Slab One";
-    /* font-family: "Lexend"; */
+    /* font-family: "Alfa Slab One"; */
+    font-family: "Lexend";
     /* font-family: "Shrikhand"; */
     /* font-family: "Teko"; */
     /* font-family: "Titan One"; */
@@ -19,4 +19,8 @@ QPushButton {
 
 QPushButton:hover {
     background-color: rgb(10, 23, 117);
+}
+
+QScrollBar {
+    background-color: rgb(6, 14, 71);
 }
