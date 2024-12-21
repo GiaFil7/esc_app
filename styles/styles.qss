@@ -21,6 +21,84 @@ QPushButton:hover {
     background-color: rgb(10, 23, 117);
 }
 
+/* Common for vertical and horizontal scrollbars */
 QScrollBar {
     background-color: rgb(6, 14, 71);
+    border: none;
+    border-radius: 0px;
+}
+
+QScrollBar::handle {
+    background-color: rgb(10, 23, 117);
+    border-radius: 7px;
+}
+
+/* Buttons */
+QScrollBar::sub-line, QScrollBar::add-line{
+    border: none;
+    background-color: rgb(10, 23, 117);
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:hover, QScrollBar::add-line:hover,
+QScrollBar::handle:hover {
+    background-color: rgb(13, 29, 146);
+}
+
+/* Reset arrow */
+QScrollBar::up-arrow, QScrollBar::down-arrow, 
+QScrollBar::add-page, QScrollBar::sub-page {
+    background: none;
+}
+
+/* Vertical scrollbar */
+QScrollBar:vertical {
+    width: 14px;
+    margin: 15px 0 15px 0;
+}
+
+QScrollBar::handle:vertical {
+    min-height: 30px;
+}
+
+/* Btn top-scrollbar */
+QScrollBar::sub-line:vertical{
+    height: 15px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    subcontrol-position: top;
+}
+
+/* Btn bottom-scrollbar */
+QScrollBar::add-line:vertical{
+    height: 15px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    subcontrol-position: bottom;
+}
+
+/* Horizontal scrollbar */
+QScrollBar:horizontal {
+    height: 14px;
+    margin: 0 15px 0 15px;
+}
+
+QScrollBar::handle:horizontal {
+    min-width: 30px;
+}
+
+/* Btn top-scrollbar */
+QScrollBar::sub-line:horizontal{
+    width: 15px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    subcontrol-position: left;
+}
+
+/* Btn bottom-scrollbar */
+QScrollBar::add-line:horizontal{
+    width: 15px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    subcontrol-position: right;
 }
