@@ -63,6 +63,8 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
         self.scroll_widget = QWidget()
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
+
+        self.align_icons()
         
     def load_ranking(self, year: str):
         """
@@ -97,3 +99,25 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
                 ind = ind[0]
 
                 menu_item.update_icon(contest_data.iloc[ind,2])
+
+    def align_icons(self):
+        """
+        Aligns the submitted_label icons with each other.
+        """
+
+        # Find the maximum width of the menu items
+        widths = []
+        for i in range(self.layout.count()):
+            item = self.layout.itemAt(i).widget()
+            widths.append(item.width())
+
+        max_width = max(widths)
+
+        # Adjust the spacer width of the items
+        for i in range(self.layout.count()):
+            item = self.layout.itemAt(i).widget()
+            spacer_width = item.name_submitted_spacer.sizeHint().width()
+            spacer_height = item.name_submitted_spacer.sizeHint().height()
+            item.name_submitted_spacer.changeSize(spacer_width + max_width - item.width(), spacer_height)
+
+        self.layout.invalidate()
