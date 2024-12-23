@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy
 from PySide6.QtGui import Qt
 from ui.ui_quizzes_list_menu import Ui_quizzes_list_menu
 from rankings.rankings_menu_item import rankings_menu_item
@@ -81,7 +81,6 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         # Initialise the item
         item = rankings_menu_item(quiz_name, logo = logo_path)
         item.submitted_label.hide()
-        item.setFixedWidth(450)
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         # Setup a horizontal layout with the item and an data display widget
@@ -190,6 +189,8 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
 
+        self.align_labels()
+
         # Display the total score and time
         if self.menu_type != "misc":
             total_time_value = str(datetime.timedelta(seconds = self.total_best_time))
@@ -203,3 +204,27 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
             text = ""
         
         self.totals_label.setText(text)
+
+    def align_labels(self):
+        left_labels = []
+        right_labels = []
+        max_left = 0
+        max_right = 0
+        for i in range(self.layout.count()):
+            item = self.layout.itemAt(i).widget()
+            left_label = item.findChild(QLabel, "left_label")
+            left_label.adjustSize()
+            left_labels.append(left_label)
+            right_label = item.findChild(QLabel, "right_label")
+            right_label.adjustSize()
+            right_labels.append(right_label)
+
+            if left_label.width() > max_left:
+                max_left = left_label.width()
+
+            if right_label.width() > max_right:
+                max_right = right_label.width()
+        
+        for i in range(self.layout.count()):
+            left_labels[i].setFixedWidth(1.25 * max_left)
+            right_labels[i].setFixedWidth(1.25 * max_right)
