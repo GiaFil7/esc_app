@@ -212,9 +212,11 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         max_right = 0
         for i in range(self.layout.count()):
             item = self.layout.itemAt(i).widget()
+
             left_label = item.findChild(QLabel, "left_label")
             left_label.adjustSize()
             left_labels.append(left_label)
+
             right_label = item.findChild(QLabel, "right_label")
             right_label.adjustSize()
             right_labels.append(right_label)
@@ -226,5 +228,8 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                 max_right = right_label.width()
         
         for i in range(self.layout.count()):
-            left_labels[i].setFixedWidth(1.25 * max_left)
-            right_labels[i].setFixedWidth(1.25 * max_right)
+            left_labels[i].setFixedWidth(max_left)
+            left_labels[i].adjustSize()
+
+            right_labels[i].setFixedWidth(max_right)
+            right_labels[i].adjustSize()
