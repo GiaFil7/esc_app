@@ -27,12 +27,15 @@ class quizzes_contest_main_menu(QWidget, Ui_quizzes_contest_main_menu):
         self.contest_name = get_contest_name(self.contest_data)
 
         # Setup the slots
-        self.by_country_button.clicked.connect(partial(load_widget, self, quizzes_list_menu("by_country", self)))
-        self.by_year_button.clicked.connect(partial(load_widget, self, quizzes_list_menu("by_year", self)))
-        self.misc_button.clicked.connect(partial(load_widget, self, quizzes_list_menu("misc", self)))
+        self.by_country_button.clicked.connect(partial(self.load_menu, "by_country"))
+        self.by_year_button.clicked.connect(partial(self.load_menu, "by_year"))
+        self.misc_button.clicked.connect(partial(self.load_menu, "misc"))
         self.back_button.clicked.connect(partial(load_widget, self, quizzes_main_menu))
 
         # Set button texts
         self.by_country_button.setText(f"{self.contest_name} - Quizzes by Country")
         self.by_year_button.setText(f"{self.contest_name} - Quizzes by Year")
         self.misc_button.setText(f"{self.contest_name} - Miscellaneous")
+
+    def load_menu(self, type: str):
+        load_widget(self, quizzes_list_menu(type, self))

@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
-    QSizePolicy, QSpacerItem, QWidget)
+    QSizePolicy, QWidget)
 
 class Ui_quizzes_data_display(object):
     def setupUi(self, quizzes_data_display):
@@ -32,10 +32,6 @@ class Ui_quizzes_data_display(object):
         self.layout.setObjectName(u"layout")
         self.layout.setVerticalSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
-        self.spacer = QSpacerItem(200, 20, QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum)
-
-        self.layout.addItem(self.spacer, 0, 0, 1, 1)
-
         self.left_label = QLabel(quizzes_data_display)
         self.left_label.setObjectName(u"left_label")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
@@ -45,14 +41,7 @@ class Ui_quizzes_data_display(object):
         self.left_label.setSizePolicy(sizePolicy1)
         self.left_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.layout.addWidget(self.left_label, 0, 1, 1, 1)
-
-        self.line = QFrame(quizzes_data_display)
-        self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.Shape.VLine)
-        self.line.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.layout.addWidget(self.line, 0, 2, 1, 1)
+        self.layout.addWidget(self.left_label, 0, 0, 1, 1)
 
         self.right_label = QLabel(quizzes_data_display)
         self.right_label.setObjectName(u"right_label")
@@ -60,7 +49,14 @@ class Ui_quizzes_data_display(object):
         self.right_label.setSizePolicy(sizePolicy1)
         self.right_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.layout.addWidget(self.right_label, 0, 3, 1, 1)
+        self.layout.addWidget(self.right_label, 0, 2, 1, 1)
+
+        self.line = QFrame(quizzes_data_display)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.layout.addWidget(self.line, 0, 1, 1, 1)
 
 
         self.retranslateUi(quizzes_data_display)

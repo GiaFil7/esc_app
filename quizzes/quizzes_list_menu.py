@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSizePolicy
-from PySide6.QtGui import Qt
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSpacerItem
+from PySide6.QtGui import Qt, QPixmap
 from ui.ui_quizzes_list_menu import Ui_quizzes_list_menu
 from rankings.rankings_menu_item import rankings_menu_item
 from quizzes.quizzes_widget import quizzes_widget
@@ -46,6 +46,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                 text = f"{self.contest_name} - Miscellaneous Quizzes"
 
         self.name_label.setText(text)
+        self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
 
         self.setup_layout()
     
@@ -80,7 +81,10 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         
         # Initialise the item
         item = rankings_menu_item(quiz_name, logo = logo_path)
-        item.submitted_label.hide()
+        item.main_layout.removeWidget(item.submitted_label)
+        item.submitted_label.deleteLater()
+        item.submitted_label = None
+
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         # Setup a horizontal layout with the item and an data display widget
