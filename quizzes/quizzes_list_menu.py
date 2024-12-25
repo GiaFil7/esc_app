@@ -210,6 +210,11 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.totals_label.setText(text)
 
     def align_labels(self):
+        """
+        Aligns the labels for best score and time.
+        """
+
+        # Get the biggest width for the left and right labels
         left_labels = []
         right_labels = []
         max_left = 0
@@ -231,6 +236,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
             if right_label.width() > max_right:
                 max_right = right_label.width()
         
+        # Apply uniform width to the labels
         for i in range(self.layout.count()):
             left_labels[i].setFixedWidth(max_left)
             left_labels[i].adjustSize()
