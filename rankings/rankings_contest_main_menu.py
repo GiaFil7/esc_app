@@ -28,8 +28,22 @@ class rankings_contest_main_menu(QWidget, Ui_rankings_contest_main_menu):
         self.contest_name = get_contest_name(self.contest_data)
         
         # Setup the slots
-        self.rankings_button.clicked.connect(partial(load_widget, self, rankings_by_year(self.contest_code, self)))
-        self.statistics_button.clicked.connect(partial(load_widget, self, statistics_menu(self.contest_code, self)))
+        self.rankings_button.clicked.connect(self.load_rankings)
+        self.statistics_button.clicked.connect(self.load_statistics)
         self.back_button.clicked.connect(partial(load_widget, self, rankings_menu_widget))
 
         self.rankings_button.setText(f"{self.contest_name} - Rankings by Year")
+
+    def load_rankings(self):
+        """
+        Loads the rankings_by_year widget.
+        """
+
+        load_widget(self, rankings_by_year(self.contest_code, self))
+
+    def load_statistics(self):
+        """
+        Loads the statistics_menu widget.
+        """
+
+        load_widget(self, statistics_menu(self.contest_code, self))

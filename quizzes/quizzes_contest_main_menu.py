@@ -38,4 +38,11 @@ class quizzes_contest_main_menu(QWidget, Ui_quizzes_contest_main_menu):
         self.misc_button.setText(f"{self.contest_name} - Miscellaneous")
 
     def load_menu(self, type: str):
+        """
+        Loads the menu specified.
+
+        :param type: The type of menu to load
+        :type type: str
+        """
+
         load_widget(self, quizzes_list_menu(type, self))

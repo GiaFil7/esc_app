@@ -103,6 +103,6 @@ QScrollBar::add-line:horizontal{
     subcontrol-position: right;
 }
 
-QLabel {
+/* QLabel {
     border: 2px solid black;
-}
+} */
