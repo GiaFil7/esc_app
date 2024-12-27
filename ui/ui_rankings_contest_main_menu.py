@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_rankings_contest_main_menu(object):
     def setupUi(self, rankings_contest_main_menu):
@@ -41,13 +41,29 @@ class Ui_rankings_contest_main_menu(object):
 
         self.vertical_layout.addItem(self.top_spacer)
 
-        self.rankings_button = QPushButton(rankings_contest_main_menu)
-        self.rankings_button.setObjectName(u"rankings_button")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.title_label = QLabel(rankings_contest_main_menu)
+        self.title_label.setObjectName(u"title_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.rankings_button.sizePolicy().hasHeightForWidth())
-        self.rankings_button.setSizePolicy(sizePolicy1)
+        sizePolicy1.setHeightForWidth(self.title_label.sizePolicy().hasHeightForWidth())
+        self.title_label.setSizePolicy(sizePolicy1)
+        self.title_label.setMinimumSize(QSize(300, 50))
+        self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.vertical_layout.addWidget(self.title_label)
+
+        self.middle_spacer_3 = QSpacerItem(20, 12, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.vertical_layout.addItem(self.middle_spacer_3)
+
+        self.rankings_button = QPushButton(rankings_contest_main_menu)
+        self.rankings_button.setObjectName(u"rankings_button")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.rankings_button.sizePolicy().hasHeightForWidth())
+        self.rankings_button.setSizePolicy(sizePolicy2)
         self.rankings_button.setMinimumSize(QSize(300, 50))
 
         self.vertical_layout.addWidget(self.rankings_button)
@@ -58,8 +74,8 @@ class Ui_rankings_contest_main_menu(object):
 
         self.statistics_button = QPushButton(rankings_contest_main_menu)
         self.statistics_button.setObjectName(u"statistics_button")
-        sizePolicy1.setHeightForWidth(self.statistics_button.sizePolicy().hasHeightForWidth())
-        self.statistics_button.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.statistics_button.sizePolicy().hasHeightForWidth())
+        self.statistics_button.setSizePolicy(sizePolicy2)
         self.statistics_button.setMinimumSize(QSize(300, 50))
 
         self.vertical_layout.addWidget(self.statistics_button)
@@ -70,8 +86,8 @@ class Ui_rankings_contest_main_menu(object):
 
         self.back_button = QPushButton(rankings_contest_main_menu)
         self.back_button.setObjectName(u"back_button")
-        sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
-        self.back_button.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
+        self.back_button.setSizePolicy(sizePolicy2)
         self.back_button.setMinimumSize(QSize(300, 50))
 
         self.vertical_layout.addWidget(self.back_button)
@@ -95,7 +111,8 @@ class Ui_rankings_contest_main_menu(object):
 
     def retranslateUi(self, rankings_contest_main_menu):
         rankings_contest_main_menu.setWindowTitle(QCoreApplication.translate("rankings_contest_main_menu", u"Form", None))
-        self.rankings_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Eurovision Song Contest - Rankings by Year", None))
+        self.title_label.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Contest - Rankings", None))
+        self.rankings_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Rankings by Year", None))
         self.statistics_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Statistics", None))
         self.back_button.setText(QCoreApplication.translate("rankings_contest_main_menu", u"Back to Rankings Main Menu", None))
     # retranslateUi

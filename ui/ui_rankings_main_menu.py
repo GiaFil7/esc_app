@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_rankings_main_menu(object):
     def setupUi(self, rankings_main_menu):
@@ -41,13 +41,29 @@ class Ui_rankings_main_menu(object):
 
         self.vertical_layout.addItem(self.top_spacer)
 
-        self.esc_rankings_button = QPushButton(rankings_main_menu)
-        self.esc_rankings_button.setObjectName(u"esc_rankings_button")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.title_label = QLabel(rankings_main_menu)
+        self.title_label.setObjectName(u"title_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.esc_rankings_button.sizePolicy().hasHeightForWidth())
-        self.esc_rankings_button.setSizePolicy(sizePolicy1)
+        sizePolicy1.setHeightForWidth(self.title_label.sizePolicy().hasHeightForWidth())
+        self.title_label.setSizePolicy(sizePolicy1)
+        self.title_label.setMinimumSize(QSize(300, 50))
+        self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.vertical_layout.addWidget(self.title_label)
+
+        self.middle_spacer_2 = QSpacerItem(20, 12, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.vertical_layout.addItem(self.middle_spacer_2)
+
+        self.esc_rankings_button = QPushButton(rankings_main_menu)
+        self.esc_rankings_button.setObjectName(u"esc_rankings_button")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.esc_rankings_button.sizePolicy().hasHeightForWidth())
+        self.esc_rankings_button.setSizePolicy(sizePolicy2)
         self.esc_rankings_button.setMinimumSize(QSize(300, 50))
 
         self.vertical_layout.addWidget(self.esc_rankings_button)
@@ -58,8 +74,8 @@ class Ui_rankings_main_menu(object):
 
         self.back_button = QPushButton(rankings_main_menu)
         self.back_button.setObjectName(u"back_button")
-        sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
-        self.back_button.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
+        self.back_button.setSizePolicy(sizePolicy2)
         self.back_button.setMinimumSize(QSize(300, 50))
 
         self.vertical_layout.addWidget(self.back_button)
@@ -83,7 +99,8 @@ class Ui_rankings_main_menu(object):
 
     def retranslateUi(self, rankings_main_menu):
         rankings_main_menu.setWindowTitle(QCoreApplication.translate("rankings_main_menu", u"Form", None))
-        self.esc_rankings_button.setText(QCoreApplication.translate("rankings_main_menu", u"Eurovision Song Contest Rankings", None))
+        self.title_label.setText(QCoreApplication.translate("rankings_main_menu", u"Rankings", None))
+        self.esc_rankings_button.setText(QCoreApplication.translate("rankings_main_menu", u"Eurovision Song Contest", None))
         self.back_button.setText(QCoreApplication.translate("rankings_main_menu", u"Back to Main Menu", None))
     # retranslateUi
 

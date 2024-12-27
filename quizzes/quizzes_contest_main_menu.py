@@ -32,11 +32,8 @@ class quizzes_contest_main_menu(QWidget, Ui_quizzes_contest_main_menu):
         self.misc_button.clicked.connect(partial(self.load_menu, "misc"))
         self.back_button.clicked.connect(partial(load_widget, self, quizzes_main_menu))
 
-        # Set button texts
-        self.by_country_button.setText(f"{self.contest_name} - Quizzes by Country")
-        self.by_year_button.setText(f"{self.contest_name} - Quizzes by Year")
-        self.misc_button.setText(f"{self.contest_name} - Miscellaneous")
-
+        self.title_label.setText(f"{self.contest_name} - Quizzes")
+        
     def load_menu(self, type: str):
         """
         Loads the menu specified.
