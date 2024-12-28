@@ -19,5 +19,17 @@ class rankings_main_menu(QWidget, Ui_rankings_main_menu):
         self.setupUi(self)
 
         # Setup the slots
-        self.esc_rankings_button.clicked.connect(partial(load_widget, self, rankings_contest_main_menu("ESC", self)))
+        self.esc_rankings_button.clicked.connect(partial(self.load_contest_menu, "ESC"))
         self.back_button.clicked.connect(partial(load_widget, self, main_menu))
+
+        self.title_label.setObjectName("menu_title")
+
+    def load_contest_menu(self, contest_code: str):
+        """
+        Loads the contest menu specified.
+
+        :param contest_code: The contest code
+        :type contest_code: str
+        """
+
+        load_widget(self, rankings_contest_main_menu(contest_code, self))

@@ -21,3 +21,5 @@ class quizzes_main_menu(QWidget, Ui_quizzes_main_menu):
         # Setup the slots
         self.esc_quizzes_button.clicked.connect(partial(load_widget, self, quizzes_contest_main_menu("ESC", self)))
         self.back_button.clicked.connect(partial(load_widget, self, main_menu))
+
+        self.title_label.setObjectName("menu_title")

@@ -106,3 +106,7 @@ QScrollBar::add-line:horizontal{
 /* QLabel {
     border: 2px solid black;
 } */
+
+QLabel#menu_title {
+    font-size: 25px;
+}

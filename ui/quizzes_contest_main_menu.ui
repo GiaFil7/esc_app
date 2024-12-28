@@ -22,25 +22,25 @@
   <property name="layoutDirection">
    <enum>Qt::LayoutDirection::LeftToRight</enum>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QHBoxLayout" name="layout">
    <item>
     <spacer name="left_spacer">
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Policy::Maximum</enum>
+      <enum>QSizePolicy::Policy::Preferred</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>300</width>
+       <width>100</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="vertical_layout">
+    <layout class="QVBoxLayout" name="main_vertical_layout">
      <item>
       <spacer name="top_spacer">
        <property name="orientation">
@@ -48,16 +48,16 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>54</height>
+         <width>297</width>
+         <height>13</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="title_label">
+      <widget class="QLabel" name="menu_title_label">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -87,134 +87,168 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>12</height>
+         <height>13</height>
         </size>
        </property>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="by_country_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Quizzes by Country</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="middle_spacer_1">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Policy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>12</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="by_year_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Quizzes by Year</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="middle_spacer_3">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Policy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>12</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="misc_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Miscellaneous Quizzes</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="middle_spacer_4">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Policy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>12</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="back_button">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Back to Quizzes Main Menu</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontal_layout">
+       <item>
+        <spacer name="central_left_spacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="central_vertical_layout">
+         <item>
+          <widget class="QPushButton" name="by_country_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Quizzes by Country</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="middle_spacer_1">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>13</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="by_year_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Quizzes by Year</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="middle_spacer_3">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>13</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="misc_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Miscellaneous Quizzes</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="middle_spacer_4">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>13</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="back_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Back to Quizzes Main Menu</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="central_right_spacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
      <item>
       <spacer name="bottom_spacer">
@@ -223,8 +257,8 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>54</height>
+         <width>297</width>
+         <height>13</height>
         </size>
        </property>
       </spacer>
@@ -237,11 +271,11 @@
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Policy::Maximum</enum>
+      <enum>QSizePolicy::Policy::Preferred</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>300</width>
+       <width>100</width>
        <height>20</height>
       </size>
      </property>

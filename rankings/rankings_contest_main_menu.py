@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QWidget
+from PySide6.QtGui import Qt
 from ui.ui_rankings_contest_main_menu import Ui_rankings_contest_main_menu
 from rankings.rankings_by_year import rankings_by_year
 from rankings.statistics_menu import statistics_menu
@@ -32,7 +33,9 @@ class rankings_contest_main_menu(QWidget, Ui_rankings_contest_main_menu):
         self.statistics_button.clicked.connect(self.load_statistics)
         self.back_button.clicked.connect(partial(load_widget, self, rankings_menu_widget))
 
-        self.title_label.setText(f"{self.contest_name} - Rankings")
+        # Set menu title properties
+        self.menu_title_label.setText(f"{self.contest_name} - Rankings")
+        self.menu_title_label.setObjectName("menu_title")
 
     def load_rankings(self):
         """
