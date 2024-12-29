@@ -29,8 +29,9 @@ class rankings_menu_item(QWidget, Ui_ranking_menu_item):
         self.logo = logo
         self.text = text
         self.submitted = submitted
-
+        
         self.contest_name_label.setText(self.text)
+        self.contest_name_label.setObjectName("menu_item")
 
         logo_pixmap = QPixmap(self.logo)
         logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)

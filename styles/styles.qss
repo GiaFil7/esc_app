@@ -103,10 +103,19 @@ QScrollBar::add-line:horizontal{
     subcontrol-position: right;
 }
 
-/* QLabel {
+#temp {
+    border: 2px solid black;
+    background-color: red;
+}
+
+/* QWidget {
     border: 2px solid black;
 } */
 
 QLabel#menu_title {
     font-size: 25px;
+}
+
+QLabel#menu_item, QLabel#left_label, QLabel#right_label {
+    font-size: 15px;
 }

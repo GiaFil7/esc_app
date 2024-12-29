@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSpacerItem
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
 from PySide6.QtGui import Qt, QPixmap
 from ui.ui_quizzes_list_menu import Ui_quizzes_list_menu
 from rankings.rankings_menu_item import rankings_menu_item
@@ -90,13 +90,16 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         # Setup a horizontal layout with the item and an data display widget
         item_layout = QHBoxLayout()
         item_layout.addWidget(item)
+        item.setObjectName("temp")
+
         score_and_time_widget = quizzes_data_display(best_score, best_time)
         item_layout.addWidget(score_and_time_widget)
+        score_and_time_widget.setObjectName("temp")
 
         # Create a widget for the created layout and add to the menu layout
-        widget = QWidget()
+        widget = QWidget(parent = self)
         widget.setLayout(item_layout)
-        widget.setFixedWidth(600)
+        widget.setFixedWidth(800)
         self.layout.addWidget(widget)
 
     def get_score_and_time(self, quiz_code: str) -> tuple[str, str]:
@@ -189,7 +192,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.layout.setAlignment(Qt.AlignTop)
 
         # Create a temporary widget to set the layout onto the scroll area
-        self.scroll_widget = QWidget()
+        self.scroll_widget = QWidget(parent = self)
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
 
