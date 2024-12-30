@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QFileDialog
+from PySide6.QtWidgets import QFileDialog, QLabel
 from PySide6.QtCore import Qt
 
 def load_widget(current_widget: object, widget_to_load: object):
@@ -33,3 +33,31 @@ def save_widget_to_file(parent_widget: object, widget_to_save: object, scale_fac
     img = widget_to_save.grab(widget_to_save.rect()).toImage()
     img = img.scaled(img.size() * scale_factor, aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)
     img.save(filename, quality = 100)
+
+def align_logos(layout: object):
+    """
+    Adds extra margin left and right of logos of menu items to align them.
+
+    :param layout: The layout that contains the menu items
+    :type layout: object
+    """
+
+    # Get the maximum width
+    first_item = layout.itemAt(0).widget()
+    first_logo = first_item.findChild(QLabel, "logo_label")
+    max_width = first_logo.maximumSize().width()
+
+    # Add extra margin if needed
+    for i in range(layout.count()):
+        item = layout.itemAt(i).widget()
+
+        logo = item.findChild(QLabel, "logo_label")
+        logo.adjustSize()
+
+        extra_margin = max_width - logo.width()
+
+        if extra_margin > 0:
+            right_margin = extra_margin // 2
+            left_margin = right_margin + (extra_margin  % 2)
+
+            logo.setContentsMargins(left_margin, 0, right_margin, 0)

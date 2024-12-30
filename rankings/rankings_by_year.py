@@ -4,7 +4,7 @@ from ui.ui_rankings_by_year import Ui_rankings_by_year
 from rankings.rankings_menu_item import rankings_menu_item
 from rankings.ranking_widget import ranking_widget
 from functools import partial
-from utils import load_widget, get_contest_data
+from utils import load_widget, get_contest_data, align_logos
 import resources_rc
 
 class rankings_by_year(QWidget, Ui_rankings_by_year):
@@ -64,8 +64,9 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
 
+        align_logos(self.layout)
         self.align_icons()
-        
+    
     def load_ranking(self, year: str):
         """
         Loads the ranking corresponding to the item clicked.

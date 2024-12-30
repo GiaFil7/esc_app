@@ -1,4 +1,4 @@
-from utils.utils_ui import load_widget, save_widget_to_file
+from utils.utils_ui   import load_widget, save_widget_to_file, align_logos
 from utils.utils_data import get_contest_data, update_contest_data
 from utils.utils_data import get_entry_data, update_entry_data
 from utils.utils_data import get_contest_name, get_countries
@@ -10,6 +10,7 @@ from utils.utils_data import get_misc_quiz_data, get_misc_quiz_entries
 __all__ = [
     'load_widget',
     'save_widget_to_file',
+    'align_logos',
     'get_contest_data',
     'update_contest_data',
     'get_entry_data',
