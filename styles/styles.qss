@@ -108,14 +108,18 @@ QScrollBar::add-line:horizontal{
     background-color: red;
 }
 
-QLabel {
+/* QLabel {
     border: 2px solid black;
 }
-
+ */
 QLabel#menu_title {
     font-size: 25px;
 }
 
 QLabel#menu_item, QLabel#left_label, QLabel#right_label {
     font-size: 15px;
+}
+
+QLabel#widget_title {
+    font-size: 20px;
 }

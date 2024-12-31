@@ -46,6 +46,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                 text = f"{self.contest_name} - Miscellaneous Quizzes"
 
         self.name_label.setText(text)
+        self.name_label.setObjectName("widget_title")
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
 
         self.setup_layout()

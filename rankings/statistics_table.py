@@ -29,6 +29,7 @@ class statistics_table(QWidget, Ui_statistics_table):
         self.parent_menu = parent_menu
 
         self.title_label.setText(self.table_type)
+        self.title_label.setObjectName("widget_title")
 
         self.back_button.clicked.connect(partial(load_widget, self, parent_menu))
 
