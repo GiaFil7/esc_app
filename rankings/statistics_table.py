@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
-from PySide6.QtGui import QPixmap,Qt
+from PySide6.QtGui import QPixmap, Qt
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
 from utils import load_widget, get_contest_data, get_entry_data
@@ -146,10 +146,30 @@ class statistics_table(QWidget, Ui_statistics_table):
             # Resize the columns to fit the contents
             header = self.table.horizontalHeader()
             header.setSectionResizeMode(QHeaderView.ResizeToContents)
+
+            self.resize_table()
         else:
             # If there are no submitted years, display a message to the user
             self.show_none_label("No submitted years.")
 
+
+
+    def resize_table(self):
+        """
+        Resizes the table width to the contents of the table.
+        """
+
+        self.table.resizeColumnsToContents()
+
+        total_width = self.table.verticalHeader().sizeHint().width()
+
+        for col in range(self.table.columnCount()):
+            total_width += self.table.columnWidth(col)
+        
+        total_width += self.table.frameWidth() * 2
+        total_width += self.table.verticalScrollBar().sizeHint().width()
+
+        self.table.setFixedWidth(total_width)
 
     def set_row_items(self, items: list, ind: str | int):
         """

@@ -123,3 +123,7 @@ QLabel#menu_item, QLabel#left_label, QLabel#right_label {
 QLabel#widget_title {
     font-size: 20px;
 }
+
+QTableWidget {
+    background-color: red;
+}
