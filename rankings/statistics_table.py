@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QWidget, QTableWidgetItem, QHeaderView, QLabel
 from PySide6.QtGui import QPixmap, Qt
+from PySide6.QtCore import QTimer
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
 from utils import load_widget, get_contest_data, get_entry_data
@@ -147,7 +148,7 @@ class statistics_table(QWidget, Ui_statistics_table):
             header = self.table.horizontalHeader()
             header.setSectionResizeMode(QHeaderView.ResizeToContents)
 
-            self.resize_table()
+            QTimer.singleShot(100, self.resize_table)
         else:
             # If there are no submitted years, display a message to the user
             self.show_none_label("No submitted years.")
@@ -170,6 +171,27 @@ class statistics_table(QWidget, Ui_statistics_table):
         total_width += self.table.verticalScrollBar().sizeHint().width()
 
         self.table.setFixedWidth(total_width)
+
+        self.table.resizeRowsToContents()
+
+        height_total = self.table.horizontalHeader().sizeHint().height()
+        height_total += self.table.frameWidth() * 2
+        height_visible = height_total
+
+        viewport = self.table.viewport().geometry()
+        header_height = self.table.horizontalHeader().height()
+        viewport.adjust(0, -header_height, 0, 0)
+
+        for row in range(self.table.rowCount()):
+            height_total += self.table.rowHeight(row)
+
+            rect = self.table.visualRect(self.table.model().index(row, 0))
+            
+            if viewport.intersects(rect):
+                height_visible += self.table.rowHeight(row)
+
+        if height_total == height_visible:
+            self.table.setFixedHeight(height_total)
 
     def set_row_items(self, items: list, ind: str | int):
         """
