@@ -61,3 +61,48 @@ def align_logos(layout: object):
             left_margin = right_margin + (extra_margin  % 2)
 
             logo.setContentsMargins(left_margin, 0, right_margin, 0)
+
+def resize_table(table: object):
+        """
+        Resizes the table dimensions to the contents of the table.
+
+        :param table: The table to resize
+        :type table: object
+        """
+
+        # Resize rows and columns
+        table.resizeColumnsToContents()
+        table.resizeRowsToContents()
+
+
+        # Compute and set the total width
+        total_width = table.verticalHeader().sizeHint().width()
+
+        for col in range(table.columnCount()):
+            total_width += table.columnWidth(col)
+        
+        total_width += table.frameWidth() * 2
+        total_width += table.verticalScrollBar().sizeHint().width()
+
+        table.setFixedWidth(total_width)
+
+        # Compute and set the total height
+        height_total = table.horizontalHeader().sizeHint().height()
+        height_total += table.frameWidth() * 2
+        height_visible = height_total
+
+        viewport = table.viewport().geometry()
+        header_height = table.horizontalHeader().height()
+        viewport.adjust(0, -header_height, 0, 0)
+
+        for row in range(table.rowCount()):
+            height_total += table.rowHeight(row)
+
+            rect = table.visualRect(table.model().index(row, 0))
+            
+            if viewport.intersects(rect):
+                height_visible += table.rowHeight(row)
+
+        # Adjust the height only if all rows are visible
+        if height_total == height_visible:
+            table.setFixedHeight(height_total)

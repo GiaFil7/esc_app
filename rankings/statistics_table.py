@@ -4,7 +4,7 @@ from PySide6.QtCore import QTimer
 from ui.ui_statistics_table import Ui_statistics_table
 from functools import partial
 from utils import load_widget, get_contest_data, get_entry_data
-from utils import get_years, get_countries, get_country_codes 
+from utils import get_years, get_countries, get_country_codes, resize_table
 import pandas as pd
 import resources_rc
 
@@ -148,50 +148,10 @@ class statistics_table(QWidget, Ui_statistics_table):
             header = self.table.horizontalHeader()
             header.setSectionResizeMode(QHeaderView.ResizeToContents)
 
-            QTimer.singleShot(100, self.resize_table)
+            QTimer.singleShot(100, partial(resize_table, self.table))
         else:
             # If there are no submitted years, display a message to the user
             self.show_none_label("No submitted years.")
-
-
-
-    def resize_table(self):
-        """
-        Resizes the table width to the contents of the table.
-        """
-
-        self.table.resizeColumnsToContents()
-
-        total_width = self.table.verticalHeader().sizeHint().width()
-
-        for col in range(self.table.columnCount()):
-            total_width += self.table.columnWidth(col)
-        
-        total_width += self.table.frameWidth() * 2
-        total_width += self.table.verticalScrollBar().sizeHint().width()
-
-        self.table.setFixedWidth(total_width)
-
-        self.table.resizeRowsToContents()
-
-        height_total = self.table.horizontalHeader().sizeHint().height()
-        height_total += self.table.frameWidth() * 2
-        height_visible = height_total
-
-        viewport = self.table.viewport().geometry()
-        header_height = self.table.horizontalHeader().height()
-        viewport.adjust(0, -header_height, 0, 0)
-
-        for row in range(self.table.rowCount()):
-            height_total += self.table.rowHeight(row)
-
-            rect = self.table.visualRect(self.table.model().index(row, 0))
-            
-            if viewport.intersects(rect):
-                height_visible += self.table.rowHeight(row)
-
-        if height_total == height_visible:
-            self.table.setFixedHeight(height_total)
 
     def set_row_items(self, items: list, ind: str | int):
         """
