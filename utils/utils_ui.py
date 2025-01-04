@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QFileDialog, QLabel
+from PySide6.QtWidgets import QFileDialog, QLabel, QTableWidget
 from PySide6.QtCore import Qt
 
 def load_widget(current_widget: object, widget_to_load: object):
@@ -62,33 +62,45 @@ def align_logos(layout: object):
 
             logo.setContentsMargins(left_margin, 0, right_margin, 0)
 
-def resize_table(table: object):
+def resize_table(table: QTableWidget):
         """
         Resizes the table dimensions to the contents of the table.
 
         :param table: The table to resize
-        :type table: object
+        :type table: QTableWidget
         """
 
         # Resize rows and columns
         table.resizeColumnsToContents()
         table.resizeRowsToContents()
 
+        added_vertical_scrollbar_width = False
+        added_horizontal_scrollbar_height = False
 
         # Compute and set the total width
-        total_width = table.verticalHeader().sizeHint().width()
+        total_width = 0
+        if table.verticalHeader().isVisible():
+            total_width += table.verticalHeader().sizeHint().width()
 
         for col in range(table.columnCount()):
             total_width += table.columnWidth(col)
         
         total_width += table.frameWidth() * 2
-        total_width += table.verticalScrollBar().sizeHint().width()
+
+        if table.verticalScrollBar().isVisible():
+            total_width += table.verticalScrollBar().sizeHint().width()
+            added_vertical_scrollbar_width = True
 
         table.setFixedWidth(total_width)
 
         # Compute and set the total height
         height_total = table.horizontalHeader().sizeHint().height()
         height_total += table.frameWidth() * 2
+
+        if table.horizontalScrollBar().isVisible():
+            height_total += table.horizontalScrollBar().sizeHint().height()
+            added_horizontal_scrollbar_height = True
+
         height_visible = height_total
 
         viewport = table.viewport().geometry()
@@ -106,3 +118,10 @@ def resize_table(table: object):
         # Adjust the height only if all rows are visible
         if height_total == height_visible:
             table.setFixedHeight(height_total)
+
+        # Remove unnecessary width and height
+        if not table.verticalScrollBar().isVisible() and added_vertical_scrollbar_width:
+            table.setFixedWidth(total_width - table.verticalScrollBar().sizeHint().width())
+
+        if not table.horizontalScrollBar().isVisible() and added_horizontal_scrollbar_height:
+            table.setFixedHeight(height_total - table.horizontalScrollBar().sizeHint().height())

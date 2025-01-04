@@ -3,8 +3,9 @@ from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
 from utils import load_widget, get_country_code, get_quiz_data, update_quiz_data
-from utils import get_misc_quiz_entries, get_misc_quiz_data, get_years
+from utils import get_misc_quiz_entries, get_misc_quiz_data, get_years, resize_table
 import re, datetime
+from functools import partial
 import resources_rc
 
 class quizzes_widget(QWidget, Ui_quizzes_widget):
@@ -231,6 +232,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                                 self.table.setSpan(i - year_count, j, year_count, 1)
                                 year_count = 1
 
+        QTimer.singleShot(100, partial(resize_table, self.table))
         self.handle_accepted_answers()
     
     def get_table_data(self) -> tuple[list, list, list]:
@@ -337,6 +339,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                     # Clear the line edit
                     self.answer_line_edit.setText("")
 
+                    # Resize table
+                    resize_table(self.table)
+
                     # All answers are guessed, end the quiz
                     if self.score == len(self.ans_data):
                         self.end_quiz()
@@ -442,3 +447,5 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                                 ind = self.ans_table_inds.index([i, j])
                                 item.setText(str(self.ans_original_text[ind]))
                                 item.setForeground(QColor(255, 0, 0))
+        
+        QTimer.singleShot(100, partial(resize_table, self.table))

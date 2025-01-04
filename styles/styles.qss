@@ -125,5 +125,5 @@ QLabel#widget_title {
 }
 
 QTableWidget {
-    background-color: red;
+    background-color: green;
 }
