@@ -78,6 +78,7 @@ class Ui_statistics_table(object):
         sizePolicy1.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
         self.table.setSizePolicy(sizePolicy1)
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.table.setCornerButtonEnabled(False)
 
         self.verticalLayout.addWidget(self.table)
 

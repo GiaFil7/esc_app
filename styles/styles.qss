@@ -125,5 +125,15 @@ QLabel#widget_title {
 }
 
 QTableWidget {
-    background-color: green;
+    background-color: rgb(13, 29, 153);
+    border: 2px solid black;
+    gridline-color: black;
 }
+
+QHeaderView::section, QTableCornerButton::section {
+    background-color: rgb(4, 10, 53);
+}
+
+/* QTableWidget::item {
+    border: 1px solid black;
+} */

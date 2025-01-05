@@ -78,6 +78,9 @@
      <property name="selectionMode">
       <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
      </property>
+     <property name="cornerButtonEnabled">
+      <bool>false</bool>
+     </property>
      <column>
       <property name="text">
        <string>Year</string>
