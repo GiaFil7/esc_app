@@ -133,7 +133,3 @@ QTableWidget {
 QHeaderView::section, QTableCornerButton::section {
     background-color: rgb(4, 10, 53);
 }
-
-/* QTableWidget::item {
-    border: 1px solid black;
-} */
