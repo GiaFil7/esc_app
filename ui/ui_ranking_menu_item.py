@@ -61,7 +61,7 @@ class Ui_ranking_menu_item(object):
 
         self.main_layout.addWidget(self.contest_name_label)
 
-        self.name_submitted_spacer = QSpacerItem(75, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
+        self.name_submitted_spacer = QSpacerItem(75, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.main_layout.addItem(self.name_submitted_spacer)
 
