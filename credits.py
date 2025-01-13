@@ -19,6 +19,8 @@ class credits(QWidget, Ui_credits):
 
         self.close_button.clicked.connect(partial(load_widget, self, main_menu))
 
+        self.title_label.setObjectName("menu_title")
+
         # Read and display the credits HTML file
         html_text = read_html_file("files\\credits.html")
         self.text_label.setText(html_text)

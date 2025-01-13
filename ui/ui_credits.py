@@ -34,12 +34,22 @@ class Ui_credits(object):
         self.layout.setObjectName(u"layout")
         self.top_layout = QHBoxLayout()
         self.top_layout.setObjectName(u"top_layout")
-        self.top_spacer = QSpacerItem(579, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.title_label = QLabel(credits)
+        self.title_label.setObjectName(u"title_label")
+
+        self.top_layout.addWidget(self.title_label)
+
+        self.top_spacer = QSpacerItem(579, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.top_layout.addItem(self.top_spacer)
 
         self.close_button = QPushButton(credits)
         self.close_button.setObjectName(u"close_button")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.close_button.sizePolicy().hasHeightForWidth())
+        self.close_button.setSizePolicy(sizePolicy1)
         icon = QIcon()
         icon.addFile(u":/images/icons/close_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.close_button.setIcon(icon)
@@ -74,6 +84,7 @@ class Ui_credits(object):
 
     def retranslateUi(self, credits):
         credits.setWindowTitle(QCoreApplication.translate("credits", u"Form", None))
+        self.title_label.setText(QCoreApplication.translate("credits", u"Credits", None))
         self.close_button.setText("")
         self.text_label.setText("")
     # retranslateUi

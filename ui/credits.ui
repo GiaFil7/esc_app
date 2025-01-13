@@ -23,9 +23,19 @@
    <item>
     <layout class="QHBoxLayout" name="top_layout">
      <item>
+      <widget class="QLabel" name="title_label">
+       <property name="text">
+        <string>Credits</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="top_spacer">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Preferred</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -37,6 +47,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="close_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string/>
        </property>
