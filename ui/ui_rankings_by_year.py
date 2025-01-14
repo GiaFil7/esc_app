@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
-    QScrollArea, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_rankings_by_year(object):
@@ -37,7 +37,7 @@ class Ui_rankings_by_year(object):
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
         self.logo_label.setMaximumSize(QSize(95, 30))
-        self.logo_label.setPixmap(QPixmap(u":/images/Eurovision_generic_black.png"))
+        self.logo_label.setPixmap(QPixmap(u":/images/contest_logos/ESC/ESC.png"))
         self.logo_label.setScaledContents(True)
 
         self.title_layout.addWidget(self.logo_label)
@@ -64,10 +64,11 @@ class Ui_rankings_by_year(object):
 
         self.scroll_area = QScrollArea(rankings_by_year)
         self.scroll_area.setObjectName(u"scroll_area")
+        self.scroll_area.setFrameShape(QFrame.Shape.NoFrame)
         self.scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 580, 348))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 582, 344))
         self.scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.verticalLayout.addWidget(self.scroll_area)

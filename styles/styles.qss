@@ -129,3 +129,11 @@ QTableWidget {
 QHeaderView::section, QTableCornerButton::section {
     background-color: rgb(4, 10, 53);
 }
+
+QWidget#by_year_item {
+    border-radius: 8px;
+}
+
+QWidget#by_year_item, QWidget#by_year_item > * {
+    background-color: rgb(21, 44, 230)
+}

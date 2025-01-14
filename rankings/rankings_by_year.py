@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
+from PySide6.QtCore import Qt
 from ui.ui_rankings_by_year import Ui_rankings_by_year
 from rankings.rankings_menu_item import rankings_menu_item
 from rankings.ranking_widget import ranking_widget
@@ -57,8 +58,11 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
             logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png"
             item = rankings_menu_item(text, submitted=flag, logo=logo_path)
             item.clicked.connect(partial(self.load_ranking, year))
+            item.setAttribute(Qt.WA_StyledBackground, True)
+            item.setObjectName("by_year_item")
+
             self.layout.addWidget(item)
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(10)
 
         # Create a temporary widget to set the layout onto the scroll area
         self.scroll_widget = QWidget()

@@ -31,8 +31,10 @@ class Ui_ranking_menu_item(object):
         ranking_menu_item.setSizePolicy(sizePolicy)
         self.horizontalLayout_2 = QHBoxLayout(ranking_menu_item)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 4, 0, 4)
         self.main_layout = QHBoxLayout()
         self.main_layout.setObjectName(u"main_layout")
+        self.main_layout.setContentsMargins(4, -1, 4, -1)
         self.logo_label = QLabel(ranking_menu_item)
         self.logo_label.setObjectName(u"logo_label")
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
@@ -61,7 +63,7 @@ class Ui_ranking_menu_item(object):
 
         self.main_layout.addWidget(self.contest_name_label)
 
-        self.name_submitted_spacer = QSpacerItem(75, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.name_submitted_spacer = QSpacerItem(30, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.main_layout.addItem(self.name_submitted_spacer)
 
@@ -78,10 +80,6 @@ class Ui_ranking_menu_item(object):
 
 
         self.horizontalLayout_2.addLayout(self.main_layout)
-
-        self.right_spacer = QSpacerItem(300, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.right_spacer)
 
 
         self.retranslateUi(ranking_menu_item)
