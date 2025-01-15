@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>623</width>
-    <height>483</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,15 +56,21 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="main_vertical_layout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <spacer name="top_spacer">
        <property name="orientation">
         <enum>Qt::Orientation::Vertical</enum>
        </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Fixed</enum>
+       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>30</height>
+         <height>80</height>
         </size>
        </property>
       </spacer>
@@ -101,8 +107,8 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>13</height>
+         <width>40</width>
+         <height>30</height>
         </size>
        </property>
       </spacer>
@@ -134,8 +140,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -169,8 +175,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -204,8 +210,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -239,8 +245,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -274,8 +280,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -309,8 +315,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">
@@ -344,8 +350,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>30</height>
+             <width>225</width>
+             <height>40</height>
             </size>
            </property>
            <property name="text">

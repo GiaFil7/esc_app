@@ -21,6 +21,10 @@ QPushButton:hover {
     background-color: rgb(10, 23, 117);
 }
 
+#statistics_menu > QPushButton {
+    border-radius: 10px;
+}
+
 /* Common for vertical and horizontal scrollbars */
 QScrollBar {
     background-color: rgb(6, 14, 71);

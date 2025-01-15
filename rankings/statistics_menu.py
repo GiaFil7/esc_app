@@ -36,6 +36,7 @@ class statistics_menu(QWidget, Ui_statistics_menu):
         self.per_country_button.clicked.connect(self.load_per_country)
         self.back_button.clicked.connect(partial(load_widget, self, contest_menu))
 
+        self.setObjectName("statistics_menu")
         self.menu_title_label.setText(f"{self.contest_name} - Ranking statistics")
         self.menu_title_label.setObjectName("menu_title")
 

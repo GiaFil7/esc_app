@@ -22,7 +22,7 @@ class Ui_statistics_menu(object):
     def setupUi(self, statistics_menu):
         if not statistics_menu.objectName():
             statistics_menu.setObjectName(u"statistics_menu")
-        statistics_menu.resize(623, 483)
+        statistics_menu.resize(623, 640)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,8 +38,9 @@ class Ui_statistics_menu(object):
         self.layout.addItem(self.left_spacer)
 
         self.main_vertical_layout = QVBoxLayout()
+        self.main_vertical_layout.setSpacing(0)
         self.main_vertical_layout.setObjectName(u"main_vertical_layout")
-        self.top_spacer = QSpacerItem(20, 30, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.top_spacer = QSpacerItem(20, 80, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.main_vertical_layout.addItem(self.top_spacer)
 
@@ -52,7 +53,7 @@ class Ui_statistics_menu(object):
 
         self.main_vertical_layout.addWidget(self.menu_title_label)
 
-        self.middle_spacer_7 = QSpacerItem(20, 13, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.middle_spacer_7 = QSpacerItem(40, 30, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.main_vertical_layout.addItem(self.middle_spacer_7)
 
@@ -71,7 +72,7 @@ class Ui_statistics_menu(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.per_country_button.sizePolicy().hasHeightForWidth())
         self.per_country_button.setSizePolicy(sizePolicy1)
-        self.per_country_button.setMinimumSize(QSize(300, 30))
+        self.per_country_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.per_country_button)
 
@@ -83,7 +84,7 @@ class Ui_statistics_menu(object):
         self.medal_table_button.setObjectName(u"medal_table_button")
         sizePolicy1.setHeightForWidth(self.medal_table_button.sizePolicy().hasHeightForWidth())
         self.medal_table_button.setSizePolicy(sizePolicy1)
-        self.medal_table_button.setMinimumSize(QSize(300, 30))
+        self.medal_table_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.medal_table_button)
 
@@ -95,7 +96,7 @@ class Ui_statistics_menu(object):
         self.winners_button.setObjectName(u"winners_button")
         sizePolicy1.setHeightForWidth(self.winners_button.sizePolicy().hasHeightForWidth())
         self.winners_button.setSizePolicy(sizePolicy1)
-        self.winners_button.setMinimumSize(QSize(300, 30))
+        self.winners_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.winners_button)
 
@@ -107,7 +108,7 @@ class Ui_statistics_menu(object):
         self.second_places_button.setObjectName(u"second_places_button")
         sizePolicy1.setHeightForWidth(self.second_places_button.sizePolicy().hasHeightForWidth())
         self.second_places_button.setSizePolicy(sizePolicy1)
-        self.second_places_button.setMinimumSize(QSize(300, 30))
+        self.second_places_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.second_places_button)
 
@@ -119,7 +120,7 @@ class Ui_statistics_menu(object):
         self.third_places_button.setObjectName(u"third_places_button")
         sizePolicy1.setHeightForWidth(self.third_places_button.sizePolicy().hasHeightForWidth())
         self.third_places_button.setSizePolicy(sizePolicy1)
-        self.third_places_button.setMinimumSize(QSize(300, 30))
+        self.third_places_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.third_places_button)
 
@@ -131,7 +132,7 @@ class Ui_statistics_menu(object):
         self.last_places_button.setObjectName(u"last_places_button")
         sizePolicy1.setHeightForWidth(self.last_places_button.sizePolicy().hasHeightForWidth())
         self.last_places_button.setSizePolicy(sizePolicy1)
-        self.last_places_button.setMinimumSize(QSize(300, 30))
+        self.last_places_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.last_places_button)
 
@@ -143,7 +144,7 @@ class Ui_statistics_menu(object):
         self.back_button.setObjectName(u"back_button")
         sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy1)
-        self.back_button.setMinimumSize(QSize(300, 30))
+        self.back_button.setMinimumSize(QSize(225, 40))
 
         self.central_vertical_layout.addWidget(self.back_button)
 
