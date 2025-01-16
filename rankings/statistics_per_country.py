@@ -1,6 +1,7 @@
 from ui.ui_rankings_by_year import Ui_rankings_by_year
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
+from PySide6.QtCore import Qt
 from rankings.rankings_menu_item import rankings_menu_item
 from rankings.statistics_table import statistics_table
 from functools import partial
@@ -55,8 +56,12 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
             item = rankings_menu_item(country, logo = f":/images/heart_logos/{country_code}.png")
             item.submitted_label.hide()
             item.clicked.connect(partial(self.load_country_stats, country))
+            item.setAttribute(Qt.WA_StyledBackground, True)
+            item.setObjectName("stats_per_country_item")
+            item.setFixedWidth(250)
+
             self.layout.addWidget(item)
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(10)
 
         # Initialise a temporary widget and set it to the scroll area
         self.scroll_widget = QWidget()
