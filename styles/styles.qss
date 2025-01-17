@@ -107,11 +107,6 @@ QScrollBar::add-line:horizontal{
     subcontrol-position: right;
 }
 
-#temp {
-    border: 2px solid black;
-    background-color: red;
-}
-
 QLabel#menu_title {
     font-size: 25px;
 }
@@ -141,4 +136,8 @@ QWidget#by_year_item, QWidget#stats_per_country_item {
 QWidget#by_year_item, QWidget#by_year_item > *,
 QWidget#stats_per_country_item, QWidget#stats_per_country_item > * {
     background-color: rgb(21, 44, 230)
+}
+
+QLabel {
+    border: 2px solid black;
 }

@@ -37,13 +37,13 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         # Set text
         match self.menu_type:
             case "by_country":
-                text = f"{self.contest_name} - Quizzes by Country"
+                text = "Quizzes by Country"
 
             case "by_year":
-                text = f"{self.contest_name} - Quizzes by Year"
+                text = "Quizzes by Year"
 
             case "misc":
-                text = f"{self.contest_name} - Miscellaneous Quizzes"
+                text = "Miscellaneous Quizzes"
 
         self.name_label.setText(text)
         self.name_label.setObjectName("widget_title")
@@ -85,22 +85,22 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         item.main_layout.removeWidget(item.submitted_label)
         item.submitted_label.deleteLater()
         item.submitted_label = None
+        item.setFixedWidth(300)
 
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         # Setup a horizontal layout with the item and an data display widget
         item_layout = QHBoxLayout()
         item_layout.addWidget(item)
-        item.setObjectName("temp")
 
         score_and_time_widget = quizzes_data_display(best_score, best_time)
         item_layout.addWidget(score_and_time_widget)
-        score_and_time_widget.setObjectName("temp")
+        item_layout.setContentsMargins(0, 0, 0, 0)
+        item_layout.setSpacing(0)
 
         # Create a widget for the created layout and add to the menu layout
         widget = QWidget(parent = self)
         widget.setLayout(item_layout)
-        widget.setFixedWidth(800)
         self.layout.addWidget(widget)
 
     def get_score_and_time(self, quiz_code: str) -> tuple[str, str]:

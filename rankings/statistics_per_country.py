@@ -52,7 +52,7 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
         self.layout = QVBoxLayout()
         for country in countries:
             country_code_row = country_codes[country_codes['country'] == country]
-            country_code = country_code_row['code'].to_string(index=False)
+            country_code = country_code_row['code'].to_string(index = False)
             item = rankings_menu_item(country, logo = f":/images/heart_logos/{country_code}.png")
             item.submitted_label.hide()
             item.clicked.connect(partial(self.load_country_stats, country))
