@@ -28,26 +28,26 @@ class Ui_quizzes_data_display(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(quizzes_data_display.sizePolicy().hasHeightForWidth())
         quizzes_data_display.setSizePolicy(sizePolicy)
-        self.horizontalLayout = QHBoxLayout(quizzes_data_display)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.layout = QHBoxLayout(quizzes_data_display)
+        self.layout.setObjectName(u"layout")
+        self.layout.setContentsMargins(0, 0, 0, 0)
         self.left_label = QLabel(quizzes_data_display)
         self.left_label.setObjectName(u"left_label")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.left_label.sizePolicy().hasHeightForWidth())
         self.left_label.setSizePolicy(sizePolicy1)
         self.left_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.left_label)
+        self.layout.addWidget(self.left_label)
 
         self.line = QFrame(quizzes_data_display)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.Shape.VLine)
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.horizontalLayout.addWidget(self.line)
+        self.layout.addWidget(self.line)
 
         self.right_label = QLabel(quizzes_data_display)
         self.right_label.setObjectName(u"right_label")
@@ -55,7 +55,7 @@ class Ui_quizzes_data_display(object):
         self.right_label.setSizePolicy(sizePolicy1)
         self.right_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.right_label)
+        self.layout.addWidget(self.right_label)
 
 
         self.retranslateUi(quizzes_data_display)

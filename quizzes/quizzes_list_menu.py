@@ -85,22 +85,22 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         item.main_layout.removeWidget(item.submitted_label)
         item.submitted_label.deleteLater()
         item.submitted_label = None
-        item.setFixedWidth(300)
+        item.setFixedWidth(400)
 
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         # Setup a horizontal layout with the item and an data display widget
         item_layout = QHBoxLayout()
         item_layout.addWidget(item)
+        item_layout.addStretch(1)
 
         score_and_time_widget = quizzes_data_display(best_score, best_time)
         item_layout.addWidget(score_and_time_widget)
-        item_layout.setContentsMargins(0, 0, 0, 0)
-        item_layout.setSpacing(0)
 
         # Create a widget for the created layout and add to the menu layout
         widget = QWidget(parent = self)
         widget.setLayout(item_layout)
+        widget.setFixedWidth(700)
         self.layout.addWidget(widget)
 
     def get_score_and_time(self, quiz_code: str) -> tuple[str, str]:

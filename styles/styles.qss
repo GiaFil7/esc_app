@@ -138,6 +138,6 @@ QWidget#stats_per_country_item, QWidget#stats_per_country_item > * {
     background-color: rgb(21, 44, 230)
 }
 
-QLabel {
+/* QLabel {
     border: 2px solid black;
-}
+} */
