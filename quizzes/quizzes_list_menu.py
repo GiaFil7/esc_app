@@ -85,8 +85,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         item.main_layout.removeWidget(item.submitted_label)
         item.submitted_label.deleteLater()
         item.submitted_label = None
-        item.setFixedWidth(400)
-
+        item.setFixedWidth(300)
         item.clicked.connect(partial(self.load_quiz, quiz_name, quiz_type))
 
         # Setup a horizontal layout with the item and an data display widget
@@ -96,11 +95,14 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
         score_and_time_widget = quizzes_data_display(best_score, best_time)
         item_layout.addWidget(score_and_time_widget)
+        item_layout.setContentsMargins(0, 0, 0, 0)
 
         # Create a widget for the created layout and add to the menu layout
         widget = QWidget(parent = self)
         widget.setLayout(item_layout)
-        widget.setFixedWidth(700)
+        widget.setFixedWidth(650)
+        widget.setAttribute(Qt.WA_StyledBackground, True)
+        widget.setObjectName("quizzes_list_menu_item")
         self.layout.addWidget(widget)
 
     def get_score_and_time(self, quiz_code: str) -> tuple[str, str]:
@@ -189,7 +191,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                     best_score_text, best_time_text = self.get_score_and_time(quiz_codes[i])
                     self.add_item(logo_path, quiz_title, "misc", best_score_text, best_time_text)
         
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(10)
         self.layout.setAlignment(Qt.AlignTop)
 
         # Create a temporary widget to set the layout onto the scroll area

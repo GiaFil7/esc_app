@@ -129,12 +129,14 @@ QHeaderView::section, QTableCornerButton::section {
     background-color: rgb(4, 10, 53);
 }
 
-QWidget#by_year_item, QWidget#stats_per_country_item {
+QWidget#by_year_item, QWidget#stats_per_country_item,
+QWidget#quizzes_list_menu_item {
     border-radius: 8px;
 }
 
 QWidget#by_year_item, QWidget#by_year_item > *,
-QWidget#stats_per_country_item, QWidget#stats_per_country_item > * {
+QWidget#stats_per_country_item, QWidget#stats_per_country_item > *,
+QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item * {
     background-color: rgb(21, 44, 230)
 }
 
