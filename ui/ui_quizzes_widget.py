@@ -29,6 +29,7 @@ class Ui_quizzes_widget(object):
         self.layout.setSpacing(4)
         self.layout.setObjectName(u"layout")
         self.title_layout = QHBoxLayout()
+        self.title_layout.setSpacing(10)
         self.title_layout.setObjectName(u"title_layout")
         self.logo_label = QLabel(quizzes_widget)
         self.logo_label.setObjectName(u"logo_label")
@@ -105,6 +106,9 @@ class Ui_quizzes_widget(object):
 
         self.answer_line_edit = QLineEdit(quizzes_widget)
         self.answer_line_edit.setObjectName(u"answer_line_edit")
+        sizePolicy.setHeightForWidth(self.answer_line_edit.sizePolicy().hasHeightForWidth())
+        self.answer_line_edit.setSizePolicy(sizePolicy)
+        self.answer_line_edit.setMinimumSize(QSize(300, 0))
 
         self.desc_layout.addWidget(self.answer_line_edit)
 

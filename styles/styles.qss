@@ -107,15 +107,15 @@ QScrollBar::add-line:horizontal{
     subcontrol-position: right;
 }
 
-QLabel#menu_title {
+QLabel#menu_title, QLabel#quiz_title, QLabel#quiz_pause_text {
     font-size: 25px;
 }
 
-QLabel#menu_item, QLabel#left_label, QLabel#right_label {
+QLabel#menu_item, QLabel#left_label, QLabel#right_label, QLabel#quiz_desc {
     font-size: 15px;
 }
 
-QLabel#widget_title {
+QLabel#widget_title, QLabel#quiz_score, QLabel#quiz_timer {
     font-size: 20px;
 }
 
@@ -137,7 +137,13 @@ QWidget#quizzes_list_menu_item {
 QWidget#by_year_item, QWidget#by_year_item > *,
 QWidget#stats_per_country_item, QWidget#stats_per_country_item > *,
 QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item * {
-    background-color: rgb(21, 44, 230)
+    background-color: rgb(21, 44, 230);
+}
+
+#quiz_field {
+    background-color: rgb(21, 44, 230);
+    border-radius: 5px;
+    border: 1px solid black;
 }
 
 /* QLabel {

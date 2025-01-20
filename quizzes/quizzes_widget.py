@@ -70,6 +70,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.logo_label.setPixmap(logo_pixmap)
         self.desc_label.setText(desc)
 
+        # Set a name for objects for styling purposes
+        self.name_label.setObjectName("quiz_title")
+        self.score_label.setObjectName("quiz_score")
+        self.timer_label.setObjectName("quiz_timer")
+        self.desc_label.setObjectName("quiz_desc")
+        self.answer_line_edit.setObjectName("quiz_field")
+
         # Keep unnecessary components hidden until needed
         self.give_up_button.hide()
         self.answer_line_edit.hide()
@@ -103,6 +110,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
             
             # Display the pause screen
             self.pause_label = QLabel("Paused", parent = self)
+            self.pause_label.setObjectName("quiz_pause_text")
             self.pause_label.setAlignment(Qt.AlignCenter)
             self.pause_label.adjustSize()
             self.pause_label.raise_()
