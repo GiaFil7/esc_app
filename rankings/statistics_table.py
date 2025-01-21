@@ -145,8 +145,12 @@ class statistics_table(QWidget, Ui_statistics_table):
                     self.set_row_items(items, country)
 
             # Resize the columns to fit the contents
-            header = self.table.horizontalHeader()
-            header.setSectionResizeMode(QHeaderView.ResizeToContents)
+            hor_header = self.table.horizontalHeader()
+            hor_header.setSectionResizeMode(QHeaderView.ResizeToContents)
+
+            # Make rows unable to be resized by the user
+            ver_header = self.table.verticalHeader()
+            ver_header.setSectionResizeMode(QHeaderView.Fixed)
 
             QTimer.singleShot(100, partial(resize_table, self.table))
         else:

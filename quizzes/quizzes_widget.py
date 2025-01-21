@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QLabel
+from PySide6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QLabel, QAbstractItemView
 from PySide6.QtGui import QPixmap, Qt, QColor
 from PySide6.QtCore import QTimer
 from ui.ui_quizzes_widget import Ui_quizzes_widget
@@ -170,6 +170,13 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.score_label.setText(f"{self.score}/{self.num_of_entries}")
         self.table = QTableWidget()
         self.table.verticalHeader().setVisible(False)
+
+        # Make table cells unselectable and unrezisable by the user
+        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setFocusPolicy(Qt.NoFocus)
+        self.table.setSelectionMode(QAbstractItemView.NoSelection)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        self.table.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
 
         # Get the number of groups to split the entries into
         if self.num_of_entries > 10:
