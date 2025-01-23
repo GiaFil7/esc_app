@@ -192,17 +192,27 @@ class statistics_table(QWidget, Ui_statistics_table):
         """
 
         countries = list(entries['country'])
-        place = countries.index(self.table_type) + 1
-        if (place >= 11 and place <= 19) or place % 10 == 0 or (place % 10 >= 4 and place % 10 <= 9):
-            text = f"{place}th/{len(countries)}"
-        elif place % 10 == 1:
-            text = f"{place}st/{len(countries)}"
-        elif place % 10 == 2:
-            text = f"{place}nd/{len(countries)}"
-        elif place % 10 == 3:
-            text = f"{place}rd/{len(countries)}"
+
+        indices = [i for i, val in enumerate(countries) if val == self.table_type]
         
-        return text
+        ret_text = ""
+        for ind in indices:
+            place = ind + 1
+            if (place >= 11 and place <= 19) or place % 10 == 0 or (place % 10 >= 4 and place % 10 <= 9):
+                text = f"{place}th/{len(countries)}"
+            elif place % 10 == 1:
+                text = f"{place}st/{len(countries)}"
+            elif place % 10 == 2:
+                text = f"{place}nd/{len(countries)}"
+            elif place % 10 == 3:
+                text = f"{place}rd/{len(countries)}"
+
+            if ret_text == "":
+                ret_text += text
+            else:
+                ret_text += f"\n {text}"
+        
+        return ret_text
     
     def handle_sort(self, logical_ind: int):
         """
