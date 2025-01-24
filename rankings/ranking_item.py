@@ -42,9 +42,8 @@ class ranking_item(QWidget, Ui_ranking_item):
         self.song_label.setText(f"{self.song} - {self.artist}")
 
         # If these values change, update find_drop_location in ranking_widget
-        self.horizontalLayout.setContentsMargins(0, 3, 0, 3)
-        self.number_label.setContentsMargins(0, 0, 3, 0)
-        self.song_label.setContentsMargins(3, 0, 0, 0)
+        self.h_layout.setContentsMargins(0, 0, 0, 0)
+        self.h_layout.setSpacing(3)
 
     def mouseMoveEvent(self, e):
         """

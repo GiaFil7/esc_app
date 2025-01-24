@@ -25,8 +25,8 @@ class Ui_statistics_table(object):
         if not statistics_table.objectName():
             statistics_table.setObjectName(u"statistics_table")
         statistics_table.resize(600, 400)
-        self.verticalLayout = QVBoxLayout(statistics_table)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.layout = QVBoxLayout(statistics_table)
+        self.layout.setObjectName(u"layout")
         self.title_layout = QHBoxLayout()
         self.title_layout.setObjectName(u"title_layout")
         self.icon_label = QLabel(statistics_table)
@@ -63,7 +63,7 @@ class Ui_statistics_table(object):
         self.title_layout.addWidget(self.back_button)
 
 
-        self.verticalLayout.addLayout(self.title_layout)
+        self.layout.addLayout(self.title_layout)
 
         self.table = QTableWidget(statistics_table)
         if (self.table.columnCount() < 4):
@@ -87,7 +87,7 @@ class Ui_statistics_table(object):
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.table.setCornerButtonEnabled(False)
 
-        self.verticalLayout.addWidget(self.table)
+        self.layout.addWidget(self.table)
 
 
         self.retranslateUi(statistics_table)

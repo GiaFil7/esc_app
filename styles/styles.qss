@@ -146,6 +146,6 @@ QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item * {
     border: 1px solid black;
 }
 
-/* QLabel {
+QLabel {
     border: 2px solid black;
-} */
+}

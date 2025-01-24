@@ -30,10 +30,10 @@ class Ui_ranking_item(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ranking_item.sizePolicy().hasHeightForWidth())
         ranking_item.setSizePolicy(sizePolicy)
-        self.horizontalLayout = QHBoxLayout(ranking_item)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.h_layout = QHBoxLayout(ranking_item)
+        self.h_layout.setSpacing(0)
+        self.h_layout.setObjectName(u"h_layout")
+        self.h_layout.setContentsMargins(0, 0, 0, 0)
         self.number_label = QLabel(ranking_item)
         self.number_label.setObjectName(u"number_label")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -41,8 +41,10 @@ class Ui_ranking_item(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.number_label.sizePolicy().hasHeightForWidth())
         self.number_label.setSizePolicy(sizePolicy1)
+        self.number_label.setMinimumSize(QSize(0, 0))
+        self.number_label.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
-        self.horizontalLayout.addWidget(self.number_label)
+        self.h_layout.addWidget(self.number_label)
 
         self.heart_label = QLabel(ranking_item)
         self.heart_label.setObjectName(u"heart_label")
@@ -53,7 +55,7 @@ class Ui_ranking_item(object):
         self.heart_label.setPixmap(QPixmap(u":/images/heart_logos/empty_heart.svg"))
         self.heart_label.setScaledContents(True)
 
-        self.horizontalLayout.addWidget(self.heart_label)
+        self.h_layout.addWidget(self.heart_label)
 
         self.song_label = QLabel(ranking_item)
         self.song_label.setObjectName(u"song_label")
@@ -63,7 +65,7 @@ class Ui_ranking_item(object):
         sizePolicy2.setHeightForWidth(self.song_label.sizePolicy().hasHeightForWidth())
         self.song_label.setSizePolicy(sizePolicy2)
 
-        self.horizontalLayout.addWidget(self.song_label)
+        self.h_layout.addWidget(self.song_label)
 
 
         self.retranslateUi(ranking_item)
@@ -73,7 +75,7 @@ class Ui_ranking_item(object):
 
     def retranslateUi(self, ranking_item):
         ranking_item.setWindowTitle(QCoreApplication.translate("ranking_item", u"Form", None))
-        self.number_label.setText(QCoreApplication.translate("ranking_item", u"#", None))
+        self.number_label.setText(QCoreApplication.translate("ranking_item", u"##", None))
         self.heart_label.setText("")
         self.song_label.setText(QCoreApplication.translate("ranking_item", u"Song Name - Artist", None))
     # retranslateUi

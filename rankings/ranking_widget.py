@@ -414,7 +414,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             c = c + 1
             w = self.layout.itemAt(n).widget()
             if hasattr(w,'number_label'):
-                w.number_label.setText(str(c))
+                if c <=9:
+                    w.number_label.setText(f" {str(c)}")
+                else:
+                    w.number_label.setText(str(c))
             else:
                 # Ignore the drag_target_indicator widget
                 c = c - 1
