@@ -32,13 +32,13 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>80</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>16777215</width>
-           <height>80</height>
+           <width>40</width>
+           <height>40</height>
           </size>
          </property>
          <property name="text">
@@ -48,14 +48,14 @@
           <pixmap resource="../resources.qrc">:/images/contest_logos/ESC/ESC.png</pixmap>
          </property>
          <property name="scaledContents">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="year_label">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -66,11 +66,17 @@
         </widget>
        </item>
        <item>
-        <widget class="Line" name="vertical_line">
+        <spacer name="horizontal_spacer">
          <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QComboBox" name="show_combo_box">
@@ -178,7 +184,7 @@
           <x>0</x>
           <y>0</y>
           <width>733</width>
-          <height>474</height>
+          <height>514</height>
          </rect>
         </property>
        </widget>

@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QLayout, QPushButton, QScrollArea,
-    QSizePolicy, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QLabel,
+    QLayout, QPushButton, QScrollArea, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_ranking_widget(object):
@@ -39,29 +39,23 @@ class Ui_ranking_widget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
-        self.logo_label.setMinimumSize(QSize(0, 80))
-        self.logo_label.setMaximumSize(QSize(16777215, 80))
+        self.logo_label.setMinimumSize(QSize(0, 0))
+        self.logo_label.setMaximumSize(QSize(40, 40))
         self.logo_label.setPixmap(QPixmap(u":/images/contest_logos/ESC/ESC.png"))
-        self.logo_label.setScaledContents(False)
+        self.logo_label.setScaledContents(True)
 
         self.title_layout.addWidget(self.logo_label)
 
         self.year_label = QLabel(ranking_widget)
         self.year_label.setObjectName(u"year_label")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.year_label.sizePolicy().hasHeightForWidth())
-        self.year_label.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.year_label.sizePolicy().hasHeightForWidth())
+        self.year_label.setSizePolicy(sizePolicy)
 
         self.title_layout.addWidget(self.year_label)
 
-        self.vertical_line = QFrame(ranking_widget)
-        self.vertical_line.setObjectName(u"vertical_line")
-        self.vertical_line.setFrameShape(QFrame.Shape.VLine)
-        self.vertical_line.setFrameShadow(QFrame.Shadow.Sunken)
+        self.horizontal_spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.title_layout.addWidget(self.vertical_line)
+        self.title_layout.addItem(self.horizontal_spacer)
 
         self.show_combo_box = QComboBox(ranking_widget)
         self.show_combo_box.setObjectName(u"show_combo_box")
@@ -119,15 +113,15 @@ class Ui_ranking_widget(object):
 
         self.entry_scroll_area = QScrollArea(ranking_widget)
         self.entry_scroll_area.setObjectName(u"entry_scroll_area")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.entry_scroll_area.sizePolicy().hasHeightForWidth())
-        self.entry_scroll_area.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.entry_scroll_area.sizePolicy().hasHeightForWidth())
+        self.entry_scroll_area.setSizePolicy(sizePolicy1)
         self.entry_scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 733, 474))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 733, 514))
         self.entry_scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.main_layout.addWidget(self.entry_scroll_area)

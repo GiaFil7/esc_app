@@ -38,7 +38,7 @@ class Ui_quizzes_widget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
         self.logo_label.setSizePolicy(sizePolicy)
-        self.logo_label.setMaximumSize(QSize(95, 30))
+        self.logo_label.setMaximumSize(QSize(40, 40))
         self.logo_label.setPixmap(QPixmap(u":/images/heart_logos/empty_heart.svg"))
         self.logo_label.setScaledContents(True)
 
@@ -46,6 +46,11 @@ class Ui_quizzes_widget(object):
 
         self.name_label = QLabel(quizzes_widget)
         self.name_label.setObjectName(u"name_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.name_label.sizePolicy().hasHeightForWidth())
+        self.name_label.setSizePolicy(sizePolicy1)
 
         self.title_layout.addWidget(self.name_label)
 
@@ -132,7 +137,7 @@ class Ui_quizzes_widget(object):
         self.scroll_area.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 582, 316))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 582, 306))
         self.scroll_area.setWidget(self.scrollAreaWidgetContents)
 
         self.layout.addWidget(self.scroll_area)
