@@ -41,6 +41,9 @@ class ranking_item(QWidget, Ui_ranking_item):
         self.heart_label.setPixmap(QPixmap(f":/images/heart_logos/{country_code_for_icon}.png"))
         self.song_label.setText(f"{self.song} - {self.artist}")
 
+        self.number_label.setFixedWidth(20)
+        self.setObjectName("w_ranking_item")
+
         # If these values change, update find_drop_location in ranking_widget
         self.h_layout.setContentsMargins(0, 0, 0, 0)
         self.h_layout.setSpacing(3)

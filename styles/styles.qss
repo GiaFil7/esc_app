@@ -130,13 +130,14 @@ QHeaderView::section, QTableCornerButton::section {
 }
 
 QWidget#by_year_item, QWidget#stats_per_country_item,
-QWidget#quizzes_list_menu_item {
+QWidget#quizzes_list_menu_item{
     border-radius: 8px;
 }
 
 QWidget#by_year_item, QWidget#by_year_item > *,
 QWidget#stats_per_country_item, QWidget#stats_per_country_item > *,
-QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item * {
+QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item *,
+QWidget#w_ranking_item, QWidget#w_ranking_item * {
     background-color: rgb(21, 44, 230);
 }
 
@@ -146,6 +147,6 @@ QWidget#quizzes_list_menu_item, QWidget#quizzes_list_menu_item * {
     border: 1px solid black;
 }
 
-QLabel {
+/* QLabel {
     border: 2px solid black;
-}
+} */

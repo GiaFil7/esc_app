@@ -154,9 +154,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         # Get the new order
         new_ranking = []
         c = 0
-        for n in range(self.layout.count()):
+        for n in range(self.scroll_layout.count()):
             c = c + 1
-            w = self.layout.itemAt(n).widget()
+            w = self.scroll_layout.itemAt(n).widget()
             if hasattr(w,'number_label'):
                 new_ranking.append(w.country_code)
             else:
@@ -274,11 +274,11 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         image_widget.right_layout.setAlignment(Qt.AlignTop)
 
         c = 0
-        for n in range(self.layout.count()):
+        for n in range(self.scroll_layout.count()):
             c += 1
 
             # Get the ranking item at each index
-            w = self.layout.itemAt(n).widget()
+            w = self.scroll_layout.itemAt(n).widget()
 
             if hasattr(w,'number_label'):
                 # Reinitialise the ranking item
@@ -289,7 +289,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
                 item.song_label.setText(song)
 
                 # Determine which layout should the item be placed in
-                if c / self.layout.count() <= 0.5:
+                if c / self.scroll_layout.count() <= 0.5:
                     image_widget.left_layout.addWidget(item)
                 else:
                     image_widget.right_layout.addWidget(item)
@@ -337,7 +337,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         """
 
         # Setup the layout
-        self.layout = QVBoxLayout()
+        self.scroll_layout = QVBoxLayout()
         for i in range(len(ranking)):
             country = str(ranking[i])
             song = str(songs[i])
@@ -345,11 +345,13 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
             entry = ranking_item(i+1, country, song, artist)
             entry.set_data(i)
-            self.layout.addWidget(entry)
+            self.scroll_layout.addWidget(entry)
 
-        self.item_height = self.layout.itemAt(0).widget().heart_label.height()
+        self.item_height = self.scroll_layout.itemAt(0).widget().heart_label.height()
 
-        self.layout.setSpacing(0)
+        self.scroll_layout.setSpacing(8)
+        self.scroll_layout.setAlignment(Qt.AlignTop)
+        
         self.scroll_bar = self.entry_scroll_area.verticalScrollBar()
         self.scroll_bar.setSingleStep(self.item_height)
 
@@ -357,12 +359,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         # Setup the temporary dragging widget
         self.drag_target_indicator = drag_target_indicator()
-        self.layout.addWidget(self.drag_target_indicator)
+        self.scroll_layout.addWidget(self.drag_target_indicator)
         self.drag_target_indicator.hide()
 
         # Create a temporary widget to set the layout onto the scroll area
         self.scroll_widget = QWidget()
-        self.scroll_widget.setLayout(self.layout)
+        self.scroll_widget.setLayout(self.scroll_layout)
         self.scroll_widget.setContentsMargins(0, 0, 0, 0)
 
         self.entry_scroll_area.setWidget(self.scroll_widget)
@@ -399,20 +401,20 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         # Use drop target location for destination, then remove it.
         self.drag_target_indicator.hide()
-        index = self.layout.indexOf(self.drag_target_indicator)
+        index = self.scroll_layout.indexOf(self.drag_target_indicator)
         if index is not None:
-            self.layout.insertWidget(index, widget)
+            self.scroll_layout.insertWidget(index, widget)
             self.orderChanged.emit(self.get_item_data())
             widget.show()
-            self.layout.activate()
+            self.scroll_layout.activate()
         e.accept()
 
         # Update entry numbering
         c = 0
-        for n in range(self.layout.count()):
+        for n in range(self.scroll_layout.count()):
             # Get the widget at each index
             c = c + 1
-            w = self.layout.itemAt(n).widget()
+            w = self.scroll_layout.itemAt(n).widget()
             if hasattr(w,'number_label'):
                 if c <=9:
                     w.number_label.setText(f" {str(c)}")
@@ -441,7 +443,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         index = self.find_drop_location(e)
         if index is not None:
             # Inserting moves the item if its alreaady in the layout
-            self.layout.insertWidget(index, self.drag_target_indicator)
+            self.scroll_layout.insertWidget(index, self.drag_target_indicator)
 
             # Hide the item being dragged
             e.source().hide()
@@ -463,9 +465,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         spacing = 2
 
         count_visible = 0
-        for n in range(self.layout.count()):
+        for n in range(self.scroll_layout.count()):
             # Get the widget at each index
-            w = self.layout.itemAt(n).widget()
+            w = self.scroll_layout.itemAt(n).widget()
 
             # Get only the visible items and account for the top one being
             # only partially visible
@@ -506,9 +508,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         """
 
         data = []
-        for n in range(self.layout.count()):
+        for n in range(self.scroll_layout.count()):
             # Get the widget at each index
-            w = self.layout.itemAt(n).widget()
+            w = self.scroll_layout.itemAt(n).widget()
             if w != self.drag_target_indicator:
                 # The target indicator has no data
                 data.append(w.data)

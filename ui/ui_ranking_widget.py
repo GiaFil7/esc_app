@@ -119,6 +119,7 @@ class Ui_ranking_widget(object):
         sizePolicy1.setHeightForWidth(self.entry_scroll_area.sizePolicy().hasHeightForWidth())
         self.entry_scroll_area.setSizePolicy(sizePolicy1)
         self.entry_scroll_area.setWidgetResizable(True)
+        self.entry_scroll_area.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 733, 514))
