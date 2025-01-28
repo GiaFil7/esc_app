@@ -58,6 +58,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.logo_label.setPixmap(logo_pixmap)
         self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
+        self.import_export_button.setObjectName("ranking_widget_button")
+        self.save_img_button.setObjectName("ranking_widget_button")
+
         self.get_ranking_data()
 
         self.setup_ranking_items(self.ranking, self.songs, self.artists)

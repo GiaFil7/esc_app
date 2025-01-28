@@ -153,6 +153,10 @@ drag_target_indicator {
     border: 1px solid black;
 }
 
+QPushButton#ranking_widget_button {
+    font-size: 15px;
+}
+
 /* QLabel {
     border: 2px solid black;
 } */
