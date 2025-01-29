@@ -58,6 +58,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.logo_label.setPixmap(logo_pixmap)
         self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
+        self.year_label.setObjectName("ranking_year_label")
         self.import_export_button.setObjectName("ranking_widget_button")
         self.save_img_button.setObjectName("ranking_widget_button")
 
@@ -358,7 +359,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.scroll_bar = self.entry_scroll_area.verticalScrollBar()
         self.scroll_bar.setSingleStep(self.item_height)
 
-        self.title_layout.setSpacing(0)
+        self.title_layout.setSpacing(4)
         
         # Setup the temporary dragging widget
         self.drag_target_indicator = drag_target_indicator()

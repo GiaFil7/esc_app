@@ -107,8 +107,9 @@ QScrollBar::add-line:horizontal{
     subcontrol-position: right;
 }
 
-QLabel#menu_title, QLabel#quiz_title, QLabel#quiz_pause_text {
-    font-size: 25px;
+QLabel#menu_title, QLabel#quiz_title, QLabel#quiz_pause_text,
+QLabel#ranking_year_label {
+    font-size: 20px;
 }
 
 QLabel#menu_item, QLabel#left_label, QLabel#right_label, QLabel#quiz_desc {
