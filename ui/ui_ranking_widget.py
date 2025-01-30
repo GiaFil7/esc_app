@@ -61,6 +61,8 @@ class Ui_ranking_widget(object):
         self.show_combo_box.setObjectName(u"show_combo_box")
         sizePolicy.setHeightForWidth(self.show_combo_box.sizePolicy().hasHeightForWidth())
         self.show_combo_box.setSizePolicy(sizePolicy)
+        self.show_combo_box.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.show_combo_box.setFrame(False)
 
         self.title_layout.addWidget(self.show_combo_box)
 
