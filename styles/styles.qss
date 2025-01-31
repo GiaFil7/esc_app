@@ -156,6 +156,7 @@ drag_target_indicator {
 
 QPushButton#ranking_widget_button {
     font-size: 15px;
+    border-radius: 8px;
 }
 
 QComboBox {

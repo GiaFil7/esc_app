@@ -61,6 +61,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.year_label.setObjectName("ranking_year_label")
         self.import_export_button.setObjectName("ranking_widget_button")
         self.save_img_button.setObjectName("ranking_widget_button")
+        self.info_button.setObjectName("ranking_widget_button")
+        self.save_button.setObjectName("ranking_widget_button")
+        self.back_button.setObjectName("ranking_widget_button")
 
         self.get_ranking_data()
 
