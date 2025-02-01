@@ -131,8 +131,17 @@ QHeaderView::section, QTableCornerButton::section {
 }
 
 QWidget#by_year_item, QWidget#stats_per_country_item,
-QWidget#quizzes_list_menu_item, QWidget#w_ranking_item{
+QWidget#quizzes_list_menu_item {
     border-radius: 8px;
+}
+
+QWidget#w_ranking_item, drag_target_indicator {
+    border-radius: 6px;
+}
+
+drag_target_indicator {
+    background-color: rgb(6, 12, 66);
+    border: 1px solid black;
 }
 
 QWidget#by_year_item, QWidget#by_year_item > *,
@@ -145,12 +154,6 @@ QWidget#w_ranking_item, QWidget#w_ranking_item * {
 #quiz_field {
     background-color: rgb(21, 44, 230);
     border-radius: 5px;
-    border: 1px solid black;
-}
-
-drag_target_indicator {
-    background-color: rgb(6, 12, 66);
-    border-radius: 8px;
     border: 1px solid black;
 }
 

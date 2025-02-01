@@ -42,7 +42,6 @@ class ranking_item(QWidget, Ui_ranking_item):
         self.song_label.setText(f"{self.song} - {self.artist}")
 
         self.number_label.setFixedWidth(20)
-        self.setObjectName("w_ranking_item")
 
         # If these values change, update find_drop_location in ranking_widget
         self.h_layout.setContentsMargins(0, 0, 0, 0)
@@ -85,7 +84,4 @@ class drag_target_indicator(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setContentsMargins(25, 5, 25, 5)
-        #self.setStyleSheet(
-        #    "QLabel { background-color: #ccc; border: 1px solid black; }"
-        #)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)

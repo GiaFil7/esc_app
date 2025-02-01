@@ -58,6 +58,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.logo_label.setPixmap(logo_pixmap)
         self.year_label.setText(f"{self.contest_name} {str(self.year)}")
 
+        # Set object names for styling
         self.year_label.setObjectName("ranking_year_label")
         self.import_export_button.setObjectName("ranking_widget_button")
         self.save_img_button.setObjectName("ranking_widget_button")
@@ -351,6 +352,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             artist = str(artists[i])
 
             entry = ranking_item(i+1, country, song, artist)
+            entry.setAttribute(Qt.WA_StyledBackground, True)
+            entry.setObjectName("w_ranking_item")
             entry.set_data(i)
             self.scroll_layout.addWidget(entry)
 
