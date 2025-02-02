@@ -380,6 +380,8 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.entry_scroll_area.setWidget(self.scroll_widget)
         self.entry_scroll_area.setContentsMargins(0, 0, 0, 0)
 
+        self.adjust_item_width()
+
     def dragEnterEvent(self, e):
         """
         Accepts the drag event.
@@ -525,3 +527,24 @@ class ranking_widget(QWidget, Ui_ranking_widget):
                 # The target indicator has no data
                 data.append(w.data)
         return data
+    
+    def adjust_item_width(self):
+        """
+        Adjusts the widths of the ranking items to the widest one plus some
+        small padding.
+        """
+
+        # Find the largest width
+        max_width = 0
+        for i in range(self.scroll_layout.count()):
+            item = self.scroll_layout.itemAt(i).widget()
+            item.adjustSize()
+
+            if item.width() > max_width:
+                max_width = item.width()
+
+        # Set the largest width (+ padding) to all items
+        padding = 10
+        for i in range(self.scroll_layout.count()):
+            item = self.scroll_layout.itemAt(i).widget()
+            item.setFixedWidth(max_width + padding)

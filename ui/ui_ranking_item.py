@@ -25,7 +25,7 @@ class Ui_ranking_item(object):
         if not ranking_item.objectName():
             ranking_item.setObjectName(u"ranking_item")
         ranking_item.resize(708, 43)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ranking_item.sizePolicy().hasHeightForWidth())
@@ -38,11 +38,8 @@ class Ui_ranking_item(object):
         self.main_layout.setObjectName(u"main_layout")
         self.number_label = QLabel(ranking_item)
         self.number_label.setObjectName(u"number_label")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.number_label.sizePolicy().hasHeightForWidth())
-        self.number_label.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.number_label.sizePolicy().hasHeightForWidth())
+        self.number_label.setSizePolicy(sizePolicy)
         self.number_label.setMinimumSize(QSize(0, 0))
         self.number_label.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
@@ -51,8 +48,8 @@ class Ui_ranking_item(object):
         self.heart_label = QLabel(ranking_item)
         self.heart_label.setObjectName(u"heart_label")
         self.heart_label.setEnabled(True)
-        sizePolicy1.setHeightForWidth(self.heart_label.sizePolicy().hasHeightForWidth())
-        self.heart_label.setSizePolicy(sizePolicy1)
+        sizePolicy.setHeightForWidth(self.heart_label.sizePolicy().hasHeightForWidth())
+        self.heart_label.setSizePolicy(sizePolicy)
         self.heart_label.setMaximumSize(QSize(25, 25))
         self.heart_label.setPixmap(QPixmap(u":/images/heart_logos/empty_heart.svg"))
         self.heart_label.setScaledContents(True)
@@ -61,11 +58,8 @@ class Ui_ranking_item(object):
 
         self.song_label = QLabel(ranking_item)
         self.song_label.setObjectName(u"song_label")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.song_label.sizePolicy().hasHeightForWidth())
-        self.song_label.setSizePolicy(sizePolicy2)
+        sizePolicy.setHeightForWidth(self.song_label.sizePolicy().hasHeightForWidth())
+        self.song_label.setSizePolicy(sizePolicy)
 
         self.main_layout.addWidget(self.song_label)
 

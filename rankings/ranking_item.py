@@ -46,6 +46,7 @@ class ranking_item(QWidget, Ui_ranking_item):
         # If these values change, update find_drop_location in ranking_widget
         self.h_layout.setContentsMargins(0, 0, 0, 0)
         self.h_layout.setSpacing(3)
+        self.h_layout.setAlignment(Qt.AlignLeft)
 
     def mouseMoveEvent(self, e):
         """
