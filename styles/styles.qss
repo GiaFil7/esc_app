@@ -151,13 +151,13 @@ QWidget#w_ranking_item, QWidget#w_ranking_item * {
     background-color: rgb(21, 44, 230);
 }
 
-#quiz_field {
+QLineEdit {
     background-color: rgb(21, 44, 230);
     border-radius: 5px;
     border: 1px solid black;
 }
 
-QPushButton#ranking_widget_button, QComboBox {
+QPushButton#ranking_widget_button, QComboBox, #import_button, #export_button {
     font-size: 15px;
     border-radius: 8px;
 }

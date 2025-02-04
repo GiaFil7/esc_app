@@ -26,10 +26,17 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         self.ranking = ", ".join(str(code) for code in self.ranking)
 
         self.export_field.setText(self.ranking)
+        self.import_button.setObjectName("import_button")
+        self.export_button.setObjectName("export_button")
         
         # Connect all slots
         self.import_button.pressed.connect(self.import_ranking)
         self.export_button.pressed.connect(self.copy_to_clipboard)
+
+        # Resize labels
+        self.import_label.adjustSize()
+        self.export_label.adjustSize()
+        self.export_label.setFixedWidth(self.import_label.width())
 
     def import_ranking(self):
         """
