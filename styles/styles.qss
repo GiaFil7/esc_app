@@ -157,9 +157,11 @@ QLineEdit {
     border: 1px solid black;
 }
 
-QPushButton#ranking_widget_button, QComboBox, #import_button, #export_button {
+QPushButton#ranking_widget_button, QComboBox, #import_button, #export_button,
+QDialogButtonBox > QPushButton {
     font-size: 15px;
     border-radius: 8px;
+    padding: 2px;
 }
 
 QComboBox {
