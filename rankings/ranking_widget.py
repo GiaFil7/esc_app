@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QPixmap, Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
@@ -108,6 +108,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             html_as_string = read_html_file(help_file)
 
             # Create a QLabel widget and display the info to the user
+            self.info_scroll_area = QScrollArea() # TO-DO
             self.info_label = QLabel()
             self.info_label.setText(html_as_string)
             self.info_label.setAlignment(Qt.AlignTop)
@@ -119,7 +120,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.save_button.hide()
             self.back_button.hide()
             self.show_combo_box.hide()
-            self.vertical_line.hide()
+            self.save_img_button.hide()
 
             # Repurpose the info button as a close button for the info
             self.info_button.setIcon(QPixmap(":/images/icons/close_icon.png"))
@@ -131,11 +132,11 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.import_export_button.show()
             self.save_button.show()
             self.back_button.show()
+            self.save_img_button.show()
 
             if not (self.contest_code == "ESC" and self.year <= 2003):
                 self.show_combo_box.show()
             
-            self.vertical_line.show()
             self.info_label.hide()
 
             self.info_button.setIcon(QPixmap(":/images/icons/help_icon.png"))
