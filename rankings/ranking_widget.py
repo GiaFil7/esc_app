@@ -107,12 +107,15 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
             html_as_string = read_html_file(help_file)
 
-            # Create a QLabel widget and display the info to the user
-            self.info_scroll_area = QScrollArea() # TO-DO
+            # Create a QLabel widget in a scroll area and display the info
+            # to the user
+            self.info_scroll_area = QScrollArea()
+            self.info_scroll_area.setObjectName("info_scroll_area")
             self.info_label = QLabel()
             self.info_label.setText(html_as_string)
             self.info_label.setAlignment(Qt.AlignTop)
-            self.main_layout.addWidget(self.info_label)
+            self.info_scroll_area.setWidget(self.info_label)
+            self.main_layout.addWidget(self.info_scroll_area)
 
             # Hide all unneeded widgets
             self.entry_scroll_area.hide()
@@ -138,6 +141,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
                 self.show_combo_box.show()
             
             self.info_label.hide()
+            self.info_scroll_area.hide()
 
             self.info_button.setIcon(QPixmap(":/images/icons/help_icon.png"))
             self.is_info_visible = False
