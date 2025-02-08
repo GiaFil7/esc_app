@@ -191,6 +191,10 @@ QScrollArea {
     padding: 5px 0 0 5px;
 }
 
+QLabel#img_title {
+    font-size: 20px;
+}
+
 /* QLabel {
     border: 2px solid black;
 } */

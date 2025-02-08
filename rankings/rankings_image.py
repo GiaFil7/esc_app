@@ -15,3 +15,4 @@ class rankings_image(QWidget, Ui_rankings_image):
         self.setupUi(self)
 
         self.title_label.setText(contest_name)
+        self.title_label.setObjectName("img_title")
