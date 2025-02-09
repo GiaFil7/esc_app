@@ -115,7 +115,7 @@ class Ui_ranking_widget(object):
 
         self.entry_scroll_area = QScrollArea(ranking_widget)
         self.entry_scroll_area.setObjectName(u"entry_scroll_area")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.entry_scroll_area.sizePolicy().hasHeightForWidth())

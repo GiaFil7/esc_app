@@ -553,3 +553,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         for i in range(self.scroll_layout.count()):
             item = self.scroll_layout.itemAt(i).widget()
             item.setFixedWidth(max_width + padding)
+
+        self.entry_scroll_area.verticalScrollBar().adjustSize()
+        scrollbar_width = self.entry_scroll_area.verticalScrollBar().width()
+
+        self.entry_scroll_area.setAttribute(Qt.WA_StyledBackground, True)
+        self.entry_scroll_area.setFixedWidth(max_width + padding + scrollbar_width)
