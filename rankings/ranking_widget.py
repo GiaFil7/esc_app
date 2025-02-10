@@ -365,6 +365,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.item_height = self.scroll_layout.itemAt(0).widget().heart_label.height()
 
         self.scroll_layout.setSpacing(8)
+        self.scroll_layout.setContentsMargins(0, 0, 0, 0)
         self.scroll_layout.setAlignment(Qt.AlignTop)
         
         self.scroll_bar = self.entry_scroll_area.verticalScrollBar()
@@ -433,7 +434,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             c = c + 1
             w = self.scroll_layout.itemAt(n).widget()
             if hasattr(w,'number_label'):
-                if c <=9:
+                if c <= 9:
                     w.number_label.setText(f" {str(c)}")
                 else:
                     w.number_label.setText(str(c))
@@ -451,9 +452,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         # Scroll up or down if dragging to top or bottom of the scroll area
         pos = e.position()
         if pos.y() <= self.logo_label.height() and self.scroll_bar.value() > self.scroll_bar.minimum():
-            self.scroll_bar.setValue( self.scroll_bar.value() - 5)
+            self.scroll_bar.setValue(self.scroll_bar.value() - 5)
         elif pos.y() >= self.entry_scroll_area.height() and self.scroll_bar.value() < self.scroll_bar.maximum():
-            self.scroll_bar.setValue( self.scroll_bar.value() + 5)
+            self.scroll_bar.setValue(self.scroll_bar.value() + 5)
 
 
         # Find the correct location of the drop target
@@ -553,9 +554,18 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         for i in range(self.scroll_layout.count()):
             item = self.scroll_layout.itemAt(i).widget()
             item.setFixedWidth(max_width + padding)
+            item.adjustSize()  
 
+        # Adjust the width of the scroll area
         self.entry_scroll_area.verticalScrollBar().adjustSize()
-        scrollbar_width = self.entry_scroll_area.verticalScrollBar().width()
 
-        self.entry_scroll_area.setAttribute(Qt.WA_StyledBackground, True)
-        self.entry_scroll_area.setFixedWidth(max_width + padding + scrollbar_width)
+        if self.entry_scroll_area.verticalScrollBar().isVisible():
+            scrollbar_width = self.entry_scroll_area.verticalScrollBar().sizeHint().width()
+        else:
+            scrollbar_width = 0
+
+        frame_width = 2 # See stylesheet
+
+        self.entry_scroll_area.setFixedWidth(max_width + padding
+        + scrollbar_width + frame_width * 2)
+        self.entry_scroll_area.adjustSize()

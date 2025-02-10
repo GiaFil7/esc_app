@@ -82,7 +82,7 @@ class drag_target_indicator(QLabel):
     be dropped if the user stopped dragging.
     """
 
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super().__init__(parent)
         self.setContentsMargins(25, 5, 25, 5)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
