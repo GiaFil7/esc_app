@@ -554,10 +554,16 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         for i in range(self.scroll_layout.count()):
             item = self.scroll_layout.itemAt(i).widget()
             item.setFixedWidth(max_width + padding)
-            item.adjustSize()  
+            item.adjustSize()
+            print(item.sizeHint().height())
 
         # Adjust the width of the scroll area
         self.entry_scroll_area.verticalScrollBar().adjustSize()
+        self.entry_scroll_area.adjustSize()
+
+        print(f"min: {self.entry_scroll_area.verticalScrollBar().minimum()}")
+        print(f"max: {self.entry_scroll_area.verticalScrollBar().maximum()}")
+        print(f"scroll area height: {self.entry_scroll_area.sizeHint().height()}")
 
         if self.entry_scroll_area.verticalScrollBar().isVisible():
             scrollbar_width = self.entry_scroll_area.verticalScrollBar().sizeHint().width()
