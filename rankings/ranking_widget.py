@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, QTimer
 from PySide6.QtGui import QPixmap, Qt
 from ui.ui_ranking_widget import Ui_ranking_widget
 from rankings.ranking_item import ranking_item, drag_target_indicator
@@ -386,7 +386,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.entry_scroll_area.setWidget(self.scroll_widget)
         self.entry_scroll_area.setContentsMargins(0, 0, 0, 0)
 
-        self.adjust_item_width()
+        QTimer.singleShot(20, self.adjust_item_width)
 
     def dragEnterEvent(self, e):
         """
@@ -555,15 +555,10 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             item = self.scroll_layout.itemAt(i).widget()
             item.setFixedWidth(max_width + padding)
             item.adjustSize()
-            print(item.sizeHint().height())
 
         # Adjust the width of the scroll area
         self.entry_scroll_area.verticalScrollBar().adjustSize()
         self.entry_scroll_area.adjustSize()
-
-        print(f"min: {self.entry_scroll_area.verticalScrollBar().minimum()}")
-        print(f"max: {self.entry_scroll_area.verticalScrollBar().maximum()}")
-        print(f"scroll area height: {self.entry_scroll_area.sizeHint().height()}")
 
         if self.entry_scroll_area.verticalScrollBar().isVisible():
             scrollbar_width = self.entry_scroll_area.verticalScrollBar().sizeHint().width()
@@ -572,6 +567,9 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         frame_width = 2 # See stylesheet
 
+        margin = 5
+        self.scroll_layout.setContentsMargins(margin, margin, margin, margin)
+
         self.entry_scroll_area.setFixedWidth(max_width + padding
-        + scrollbar_width + frame_width * 2)
+        + scrollbar_width + frame_width * 2 + margin * 2)
         self.entry_scroll_area.adjustSize()
