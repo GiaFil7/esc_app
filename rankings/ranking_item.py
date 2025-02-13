@@ -84,5 +84,5 @@ class drag_target_indicator(QLabel):
 
     def __init__(self, parent = None):
         super().__init__(parent)
-        self.setContentsMargins(25, 5, 25, 5)
+        self.setContentsMargins(0, 7, 0, 7)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)

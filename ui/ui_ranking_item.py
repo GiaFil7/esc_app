@@ -36,6 +36,7 @@ class Ui_ranking_item(object):
         self.h_layout.setContentsMargins(0, 0, 0, 0)
         self.main_layout = QHBoxLayout()
         self.main_layout.setObjectName(u"main_layout")
+        self.main_layout.setContentsMargins(-1, 2, -1, 2)
         self.number_label = QLabel(ranking_item)
         self.number_label.setObjectName(u"number_label")
         sizePolicy.setHeightForWidth(self.number_label.sizePolicy().hasHeightForWidth())

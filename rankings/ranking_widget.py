@@ -417,7 +417,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         widget = e.source()
 
-        # Use drop target location for destination, then remove it.
+        # Use drop target location for destination, then remove it
         self.drag_target_indicator.hide()
         index = self.scroll_layout.indexOf(self.drag_target_indicator)
         if index is not None:
@@ -455,7 +455,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             self.scroll_bar.setValue(self.scroll_bar.value() - 5)
         elif pos.y() >= self.entry_scroll_area.height() and self.scroll_bar.value() < self.scroll_bar.maximum():
             self.scroll_bar.setValue(self.scroll_bar.value() + 5)
-
 
         # Find the correct location of the drop target
         index = self.find_drop_location(e)
