@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QLabel, QSizePolicy
-from PySide6.QtGui import QPixmap, QDrag
+from PySide6.QtGui import QPixmap, QDrag, QPainter, QPainterPath
 from PySide6.QtCore import QMimeData, Qt
 from ui.ui_ranking_item import Ui_ranking_item
 import resources_rc
@@ -61,10 +61,27 @@ class ranking_item(QWidget, Ui_ranking_item):
             mime = QMimeData()
             drag.setMimeData(mime)
 
-            pixmap = QPixmap(self.size())
-            self.render(pixmap)
-            drag.setPixmap(pixmap)
+            pixmap = self.grab()
 
+            # Create a pixmap with rounded corners
+            rounded_pixmap = QPixmap(pixmap.size())
+            rounded_pixmap.fill(Qt.GlobalColor.transparent)
+
+            painter = QPainter(rounded_pixmap)
+            painter.setRenderHint(QPainter.Antialiasing)
+
+            # Create a rounded rectangle path
+            radius = 6
+            path = QPainterPath()
+            path.addRoundedRect(0, 0, pixmap.width(), pixmap.height(), radius, radius)
+
+            # Set clipping path and draw the original pixmap
+            painter.setClipPath(path)
+            painter.drawPixmap(0, 0, pixmap)
+            painter.end()
+
+            # Set the rounded pixmap to the drag object
+            drag.setPixmap(rounded_pixmap)
             drag.exec(Qt.DropAction.MoveAction)
     
     def set_data(self, data):
