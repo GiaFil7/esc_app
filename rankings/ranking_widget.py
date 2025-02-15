@@ -387,6 +387,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.entry_scroll_area.setContentsMargins(0, 0, 0, 0)
 
         QTimer.singleShot(20, self.adjust_item_width)
+        QTimer.singleShot(20, self.adjust_scroll_area_size)
 
     def dragEnterEvent(self, e):
         """
@@ -553,22 +554,42 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         for i in range(self.scroll_layout.count()):
             item = self.scroll_layout.itemAt(i).widget()
             item.setFixedWidth(max_width + padding)
-            item.adjustSize()
+            item.updateGeometry()
 
-        # Adjust the width of the scroll area
+    def adjust_scroll_area_size(self):
+        """
+        Adjusts the size of the scroll area to the width and, if needed,
+        the height of the items.
+        """
+
         self.entry_scroll_area.verticalScrollBar().adjustSize()
         self.entry_scroll_area.adjustSize()
 
+        # Include the width of the vertical scrollbar only if it's visible
         if self.entry_scroll_area.verticalScrollBar().isVisible():
             scrollbar_width = self.entry_scroll_area.verticalScrollBar().sizeHint().width()
         else:
             scrollbar_width = 0
 
         frame_width = 2 # See stylesheet
-
         margin = 5
         self.scroll_layout.setContentsMargins(margin, margin, margin, margin)
 
-        self.entry_scroll_area.setFixedWidth(max_width + padding
+        # Get the size of one of the items
+        item = self.scroll_layout.itemAt(0).widget()
+        item.adjustSize()
+        item_height = item.height()
+        item_width = item.width()
+
+        # Compute and set the height of the scroll area if needed
+        height = (frame_width * 2 + margin * 2 - self.scroll_layout.spacing()
+        + (self.scroll_layout.count() - 1) * (item_height + self.scroll_layout.spacing()))
+
+        if not self.entry_scroll_area.verticalScrollBar().isVisible():
+            self.entry_scroll_area.setFixedHeight(height)
+        
+        # Compute and set the width of the scroll area
+        self.entry_scroll_area.setFixedWidth(item_width
         + scrollbar_width + frame_width * 2 + margin * 2)
+        
         self.entry_scroll_area.adjustSize()
