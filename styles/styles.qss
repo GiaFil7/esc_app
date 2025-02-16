@@ -137,6 +137,7 @@ QWidget#quizzes_list_menu_item {
 
 QWidget#w_ranking_item, drag_target_indicator {
     border-radius: 6px;
+    border: 1px solid black;
 }
 
 drag_target_indicator {
@@ -185,6 +186,12 @@ QComboBox::drop-down {
 
 QScrollArea {
     border: 2px solid black;
+}
+
+QScrollArea#entry_scroll_area, #scroll_widget {
+    background-color: rgb(121, 27, 222);
+    border-radius: 16px;
+    border: none;
 }
 
 #info_scroll_area {

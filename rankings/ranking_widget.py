@@ -65,6 +65,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.info_button.setObjectName("ranking_widget_button")
         self.save_button.setObjectName("ranking_widget_button")
         self.back_button.setObjectName("ranking_widget_button")
+        self.entry_scroll_area.setObjectName("entry_scroll_area")
 
         self.get_ranking_data()
 
@@ -380,6 +381,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         # Create a temporary widget to set the layout onto the scroll area
         self.scroll_widget = QWidget()
+        self.scroll_widget.setObjectName("scroll_widget")
         self.scroll_widget.setLayout(self.scroll_layout)
         self.scroll_widget.setContentsMargins(0, 0, 0, 0)
 
@@ -387,7 +389,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.entry_scroll_area.setContentsMargins(0, 0, 0, 0)
 
         QTimer.singleShot(20, self.adjust_item_width)
-        QTimer.singleShot(20, self.adjust_scroll_area_size)
+        QTimer.singleShot(30, self.adjust_scroll_area_size)
 
     def dragEnterEvent(self, e):
         """
@@ -572,7 +574,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             scrollbar_width = 0
 
         frame_width = 2 # See stylesheet
-        margin = 5
+        margin = 10
         self.scroll_layout.setContentsMargins(margin, margin, margin, margin)
 
         # Get the size of one of the items

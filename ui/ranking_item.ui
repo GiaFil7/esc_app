@@ -37,6 +37,9 @@
    </property>
    <item>
     <layout class="QHBoxLayout" name="main_layout">
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
      <property name="topMargin">
       <number>2</number>
      </property>
