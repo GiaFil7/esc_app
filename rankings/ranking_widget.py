@@ -388,8 +388,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         self.entry_scroll_area.setWidget(self.scroll_widget)
         self.entry_scroll_area.setContentsMargins(0, 0, 0, 0)
 
-        QTimer.singleShot(20, self.adjust_item_width)
-        QTimer.singleShot(30, self.adjust_scroll_area_size)
+        QTimer.singleShot(20, self.adjust_ui)
 
     def dragEnterEvent(self, e):
         """
@@ -595,3 +594,12 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         + scrollbar_width + frame_width * 2 + margin * 2)
         
         self.entry_scroll_area.adjustSize()
+
+    def adjust_ui(self):
+        """
+        Calls the functions that adjust the size of ui components. Grouped
+        into one function for timing purposes.
+        """
+
+        self.adjust_item_width()
+        self.adjust_scroll_area_size()
