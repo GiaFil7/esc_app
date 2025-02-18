@@ -601,5 +601,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         into one function for timing purposes.
         """
 
+        self.main_layout.setAlignment(Qt.AlignTop)
         self.adjust_item_width()
         self.adjust_scroll_area_size()
