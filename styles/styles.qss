@@ -201,7 +201,3 @@ QScrollArea#entry_scroll_area, #scroll_widget {
 QLabel#img_title {
     font-size: 20px;
 }
-
-/* QLabel {
-    border: 2px solid black;
-} */
