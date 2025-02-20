@@ -190,7 +190,6 @@ QScrollArea {
 
 QScrollArea#entry_scroll_area, #scroll_widget {
     background-color: rgb(121, 27, 222);
-    border-radius: 16px;
     border: none;
 }
 

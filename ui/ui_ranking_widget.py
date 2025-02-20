@@ -16,8 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QComboBox, QHBoxLayout,
-    QLabel, QLayout, QPushButton, QScrollArea,
-    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+    QLabel, QLayout, QPushButton, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
+
+from rounded_scrollarea import rounded_scrollarea
 import resources_rc
 
 class Ui_ranking_widget(object):
@@ -113,7 +115,7 @@ class Ui_ranking_widget(object):
 
         self.main_layout.addLayout(self.title_layout)
 
-        self.entry_scroll_area = QScrollArea(ranking_widget)
+        self.entry_scroll_area = rounded_scrollarea(ranking_widget)
         self.entry_scroll_area.setObjectName(u"entry_scroll_area")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         sizePolicy1.setHorizontalStretch(0)

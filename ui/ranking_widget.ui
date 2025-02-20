@@ -174,7 +174,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QScrollArea" name="entry_scroll_area">
+      <widget class="rounded_scrollarea" name="entry_scroll_area">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -206,6 +206,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>rounded_scrollarea</class>
+   <extends>QScrollArea</extends>
+   <header location="global">rounded_scrollarea.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../resources.qrc"/>
  </resources>
