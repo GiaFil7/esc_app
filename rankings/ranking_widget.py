@@ -572,7 +572,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         else:
             scrollbar_width = 0
 
-        frame_width = 2 # See stylesheet
         margin = 10
         self.scroll_layout.setContentsMargins(margin, margin, margin, margin)
 
@@ -583,7 +582,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         item_width = item.width()
 
         # Compute and set the height of the scroll area if needed
-        height = (frame_width * 2 + margin * 2 - self.scroll_layout.spacing()
+        height = (margin * 2 - self.scroll_layout.spacing()
         + (self.scroll_layout.count() - 1) * (item_height + self.scroll_layout.spacing()))
 
         if not self.entry_scroll_area.verticalScrollBar().isVisible():
@@ -591,7 +590,7 @@ class ranking_widget(QWidget, Ui_ranking_widget):
         
         # Compute and set the width of the scroll area
         self.entry_scroll_area.setFixedWidth(item_width
-        + scrollbar_width + frame_width * 2 + margin * 2)
+        + scrollbar_width + margin * 2)
         
         self.entry_scroll_area.adjustSize()
 
