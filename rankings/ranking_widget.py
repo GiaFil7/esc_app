@@ -11,6 +11,7 @@ from typing import List
 from utils import load_widget, read_html_file, save_widget_to_file
 from utils import get_contest_data, update_contest_data
 from utils import get_entry_data, update_entry_data
+from utils import resize_scrollarea
 import pandas as pd
 import resources_rc
 
@@ -557,43 +558,6 @@ class ranking_widget(QWidget, Ui_ranking_widget):
             item.setFixedWidth(max_width + padding)
             item.updateGeometry()
 
-    def adjust_scroll_area_size(self):
-        """
-        Adjusts the size of the scroll area to the width and, if needed,
-        the height of the items.
-        """
-
-        self.entry_scroll_area.verticalScrollBar().adjustSize()
-        self.entry_scroll_area.adjustSize()
-
-        # Include the width of the vertical scrollbar only if it's visible
-        if self.entry_scroll_area.verticalScrollBar().isVisible():
-            scrollbar_width = self.entry_scroll_area.verticalScrollBar().sizeHint().width()
-        else:
-            scrollbar_width = 0
-
-        margin = 10
-        self.scroll_layout.setContentsMargins(margin, margin, margin, margin)
-
-        # Get the size of one of the items
-        item = self.scroll_layout.itemAt(0).widget()
-        item.adjustSize()
-        item_height = item.height()
-        item_width = item.width()
-
-        # Compute and set the height of the scroll area if needed
-        height = (margin * 2 - self.scroll_layout.spacing()
-        + (self.scroll_layout.count() - 1) * (item_height + self.scroll_layout.spacing()))
-
-        if not self.entry_scroll_area.verticalScrollBar().isVisible():
-            self.entry_scroll_area.setFixedHeight(height)
-        
-        # Compute and set the width of the scroll area
-        self.entry_scroll_area.setFixedWidth(item_width
-        + scrollbar_width + margin * 2)
-        
-        self.entry_scroll_area.adjustSize()
-
     def adjust_ui(self):
         """
         Calls the functions that adjust the size of ui components. Grouped
@@ -602,4 +566,4 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         self.main_layout.setAlignment(Qt.AlignTop)
         self.adjust_item_width()
-        self.adjust_scroll_area_size()
+        resize_scrollarea(self.entry_scroll_area, self.scroll_layout, 10)

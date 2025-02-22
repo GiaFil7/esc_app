@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QFileDialog, QLabel, QTableWidget
+from PySide6.QtWidgets import QFileDialog, QTableWidget, QVBoxLayout
 from PySide6.QtCore import Qt
 
 def load_widget(current_widget: object, widget_to_load: object):
@@ -97,3 +97,45 @@ def resize_table(table: QTableWidget):
 
         if not table.horizontalScrollBar().isVisible() and added_horizontal_scrollbar_height:
             table.setFixedHeight(height_total - table.horizontalScrollBar().sizeHint().height())
+
+def resize_scrollarea(scroll_area: object, scroll_layout: QVBoxLayout, margin: int):
+    """
+    Adjusts the size of a scrollarea to fit its items.
+
+    :param scroll_area: The scrollarea
+    :type scroll_area: object
+    :param scroll_layout: The layout of items of the scrollarea
+    :type scroll_layout: QVBoxLayout
+    :param margin: The ContentsMargins value for the scrollarea
+    :type margin: int
+    """
+
+    scroll_area.verticalScrollBar().adjustSize()
+    scroll_area.adjustSize()
+
+    # Include the width of the vertical scrollbar only if it's visible
+    if scroll_area.verticalScrollBar().isVisible():
+        scrollbar_width = scroll_area.verticalScrollBar().sizeHint().width()
+    else:
+        scrollbar_width = 0
+
+    scroll_layout.setContentsMargins(margin, margin, margin, margin)
+
+    # Get the size of one of the items
+    item = scroll_layout.itemAt(0).widget()
+    item.adjustSize()
+    item_height = item.height()
+    item_width = item.width()
+
+    # Compute and set the height of the scroll area if needed
+    height = (margin * 2 - scroll_layout.spacing()
+    + (scroll_layout.count() - 1) * (item_height + scroll_layout.spacing()))
+
+    if not scroll_area.verticalScrollBar().isVisible():
+        scroll_area.setFixedHeight(height)
+    
+    # Compute and set the width of the scroll area
+    scroll_area.setFixedWidth(item_width
+    + scrollbar_width + margin * 2)
+    
+    scroll_area.adjustSize()
