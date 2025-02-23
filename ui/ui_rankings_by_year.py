@@ -16,8 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
+    QWidget)
+
+from rounded_scrollarea import rounded_scrollarea
 import resources_rc
 
 class Ui_rankings_by_year(object):
@@ -62,7 +64,7 @@ class Ui_rankings_by_year(object):
 
         self.verticalLayout.addLayout(self.title_layout)
 
-        self.scroll_area = QScrollArea(rankings_by_year)
+        self.scroll_area = rounded_scrollarea(rankings_by_year)
         self.scroll_area.setObjectName(u"scroll_area")
         self.scroll_area.setFrameShape(QFrame.Shape.NoFrame)
         self.scroll_area.setWidgetResizable(True)

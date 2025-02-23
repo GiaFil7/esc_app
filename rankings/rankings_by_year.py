@@ -1,11 +1,11 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from ui.ui_rankings_by_year import Ui_rankings_by_year
 from rankings.rankings_menu_item import rankings_menu_item
 from rankings.ranking_widget import ranking_widget
 from functools import partial
-from utils import load_widget, get_contest_data
+from utils import load_widget, get_contest_data, resize_scrollarea
 import resources_rc
 
 class rankings_by_year(QWidget, Ui_rankings_by_year):
@@ -30,6 +30,7 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
         self.name_label.setText(contest_menu.contest_name)
         self.name_label.setObjectName("widget_title")
+        self.scroll_area.setObjectName("rankings_by_year_scrollarea")
 
         self.back_button.clicked.connect(partial(load_widget, self, contest_menu))
 
@@ -66,10 +67,12 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
 
         # Create a temporary widget to set the layout onto the scroll area
         self.scroll_widget = QWidget()
+        self.scroll_widget.setObjectName("scroll_widget")
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
 
         self.align_icons()
+        QTimer.singleShot(20, partial(resize_scrollarea, self.scroll_area, self.layout, 10))
     
     def load_ranking(self, year: str):
         """
