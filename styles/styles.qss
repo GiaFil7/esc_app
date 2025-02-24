@@ -189,7 +189,8 @@ QScrollArea {
 }
 
 QScrollArea#entry_scroll_area, #scroll_widget,
-QScrollArea#rankings_by_year_scrollarea {
+QScrollArea#rankings_by_year_scrollarea,
+QScrollArea#per_country_scrollarea {
     background-color: rgb(121, 27, 222);
     border: none;
 }

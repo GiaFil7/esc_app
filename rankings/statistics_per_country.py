@@ -1,11 +1,12 @@
 from ui.ui_rankings_by_year import Ui_rankings_by_year
 from PySide6.QtWidgets import QWidget, QVBoxLayout
 from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from rankings.rankings_menu_item import rankings_menu_item
 from rankings.statistics_table import statistics_table
 from functools import partial
 from utils import load_widget, get_entry_data, get_countries, get_country_codes
+from utils import resize_scrollarea
 import resources_rc
 
 class statistics_per_country(QWidget, Ui_rankings_by_year):
@@ -30,6 +31,7 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
 
         self.name_label.setText(self.contest_name)
         self.name_label.setObjectName("widget_title")
+        self.scroll_area.setObjectName("per_country_scrollarea")
         
         logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"
         self.logo_label.setPixmap(QPixmap(logo_path))
@@ -58,15 +60,18 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
             item.clicked.connect(partial(self.load_country_stats, country))
             item.setAttribute(Qt.WA_StyledBackground, True)
             item.setObjectName("stats_per_country_item")
-            item.setFixedWidth(250)
+            item.setFixedWidth(225)
 
             self.layout.addWidget(item)
         self.layout.setSpacing(10)
 
         # Initialise a temporary widget and set it to the scroll area
         self.scroll_widget = QWidget()
+        self.scroll_widget.setObjectName("scroll_widget")
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
+
+        QTimer.singleShot(20, partial(resize_scrollarea, self.scroll_area, self.layout, 10))
 
     def load_country_stats(self, country: str):
         """
