@@ -152,7 +152,7 @@ class statistics_table(QWidget, Ui_statistics_table):
             ver_header = self.table.verticalHeader()
             ver_header.setSectionResizeMode(QHeaderView.Fixed)
 
-            self.layout().setAlignment(Qt.AlignTop)
+            self.layout.setAlignment(Qt.AlignTop)
 
             QTimer.singleShot(100, partial(resize_table, self.table))
         else:
