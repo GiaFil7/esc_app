@@ -154,7 +154,7 @@ class statistics_table(QWidget, Ui_statistics_table):
 
             self.layout.setAlignment(Qt.AlignTop)
 
-            QTimer.singleShot(100, partial(resize_table, self.table))
+            QTimer.singleShot(20, partial(resize_table, self.table))
         else:
             # If there are no submitted years, display a message to the user
             self.show_none_label("No submitted years.")

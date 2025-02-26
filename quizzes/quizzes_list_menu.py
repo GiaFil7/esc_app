@@ -1,11 +1,13 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
 from PySide6.QtGui import Qt, QPixmap
+from PySide6.QtCore import QTimer
 from ui.ui_quizzes_list_menu import Ui_quizzes_list_menu
 from rankings.rankings_menu_item import rankings_menu_item
 from quizzes.quizzes_widget import quizzes_widget
 from quizzes.quizzes_data_display import quizzes_data_display
 from utils import load_widget, get_countries, get_entry_data, get_country_code
 from utils import get_contest_data, get_quiz_data, get_misc_quiz_data
+from utils import resize_scrollarea
 from functools import partial
 import datetime
 import resources_rc
@@ -200,6 +202,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.scroll_area.setWidget(self.scroll_widget)
 
         self.align_labels()
+        QTimer.singleShot(20, partial(resize_scrollarea, self.scroll_area, self.layout, 10))
 
         # Display the total score and time
         if self.menu_type != "misc":
