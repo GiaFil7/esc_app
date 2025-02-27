@@ -50,6 +50,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.name_label.setText(text)
         self.name_label.setObjectName("widget_title")
         self.logo_label.setPixmap(QPixmap(f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"))
+        self.scroll_area.setObjectName("quizzes_list_menu_scrollarea")
 
         self.setup_layout()
     
@@ -198,6 +199,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
         # Create a temporary widget to set the layout onto the scroll area
         self.scroll_widget = QWidget(parent = self)
+        self.scroll_widget.setObjectName("scroll_widget")
         self.scroll_widget.setLayout(self.layout)
         self.scroll_area.setWidget(self.scroll_widget)
 
@@ -252,3 +254,6 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
             right_labels[i].setFixedWidth(max_right)
             right_labels[i].adjustSize()
+
+            item = self.layout.itemAt(i).widget()
+            item.setContentsMargins(0, 0, 5, 0)

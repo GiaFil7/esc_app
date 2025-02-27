@@ -16,8 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
+    QWidget)
+
+from rounded_scrollarea import rounded_scrollarea
 import resources_rc
 
 class Ui_quizzes_list_menu(object):
@@ -71,7 +73,7 @@ class Ui_quizzes_list_menu(object):
 
         self.verticalLayout.addLayout(self.title_layout)
 
-        self.scroll_area = QScrollArea(quizzes_list_menu)
+        self.scroll_area = rounded_scrollarea(quizzes_list_menu)
         self.scroll_area.setObjectName(u"scroll_area")
         self.scroll_area.setFrameShape(QFrame.Shape.NoFrame)
         self.scroll_area.setWidgetResizable(True)

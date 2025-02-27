@@ -95,7 +95,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QScrollArea" name="scroll_area">
+    <widget class="rounded_scrollarea" name="scroll_area">
      <property name="frameShape">
       <enum>QFrame::Shape::NoFrame</enum>
      </property>
@@ -116,6 +116,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>rounded_scrollarea</class>
+   <extends>QScrollArea</extends>
+   <header>rounded_scrollarea.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../resources.qrc"/>
  </resources>
