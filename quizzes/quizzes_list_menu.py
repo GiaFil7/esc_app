@@ -205,6 +205,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
         self.align_labels()
         QTimer.singleShot(20, partial(resize_scrollarea, self.scroll_area, self.layout, 10))
+        self.verticalLayout.setAlignment(Qt.AlignTop)
 
         # Display the total score and time
         if self.menu_type != "misc":

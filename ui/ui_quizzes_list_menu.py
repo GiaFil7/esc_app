@@ -46,6 +46,11 @@ class Ui_quizzes_list_menu(object):
 
         self.name_label = QLabel(quizzes_list_menu)
         self.name_label.setObjectName(u"name_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.name_label.sizePolicy().hasHeightForWidth())
+        self.name_label.setSizePolicy(sizePolicy1)
 
         self.title_layout.addWidget(self.name_label)
 
@@ -55,6 +60,8 @@ class Ui_quizzes_list_menu(object):
 
         self.totals_label = QLabel(quizzes_list_menu)
         self.totals_label.setObjectName(u"totals_label")
+        sizePolicy1.setHeightForWidth(self.totals_label.sizePolicy().hasHeightForWidth())
+        self.totals_label.setSizePolicy(sizePolicy1)
 
         self.title_layout.addWidget(self.totals_label)
 
