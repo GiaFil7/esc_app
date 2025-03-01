@@ -188,11 +188,18 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
                 self.misc_quiz_data = get_misc_quiz_data(self.contest_code)
                 quiz_names = list(self.misc_quiz_data['quiz_name'])
                 quiz_codes = list(self.misc_quiz_data['quiz_code'])
-                logo_path = ":/images/heart_logos/empty_heart.svg"
+                logo_path = ":/images/heart_logos/empty_heart.png"
                 
                 for i, quiz_title in enumerate(quiz_names):
                     best_score_text, best_time_text = self.get_score_and_time(quiz_codes[i])
                     self.add_item(logo_path, quiz_title, "misc", best_score_text, best_time_text)
+
+                # Add a dummy item and hide it to account for the removal of 
+                # the drag indicator when the resize_scrollarea is used for
+                # rankings.
+                self.add_item(logo_path, "", "misc", "", "")
+                dummy_item = self.layout.itemAt(self.layout.count() - 1).widget()
+                dummy_item.hide()
         
         self.layout.setSpacing(10)
         self.layout.setAlignment(Qt.AlignTop)

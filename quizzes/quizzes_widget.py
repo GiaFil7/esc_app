@@ -63,7 +63,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
                 misc_data = self.misc_quiz_data[self.misc_quiz_data['quiz_name'] == self.quiz_name]
                 self.quiz_code = misc_data['quiz_code'].to_string(header = False, index = False)
                 desc = misc_data['desc'].to_string(header = False, index = False)
-                logo_path = ":/images/heart_logos/empty_heart.svg"
+                logo_path = ":/images/heart_logos/empty_heart.png"
         
         logo_pixmap = QPixmap(logo_path)
         logo_pixmap = logo_pixmap.scaled(self.logo_label.size(), aspectMode = Qt.KeepAspectRatio, mode = Qt.SmoothTransformation)

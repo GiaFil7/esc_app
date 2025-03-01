@@ -14,14 +14,14 @@ class rankings_menu_item(QWidget, Ui_ranking_menu_item):
     :type text: str
     :param submitted: A boolean describing whether the ranking has been submitted or not (default: True)
     :type submitted: bool
-    :param logo: The path to the logo to be displayed (default: ":/images/heart_logos/empty_heart.svg")
+    :param logo: The path to the logo to be displayed (default: ":/images/heart_logos/empty_heart.png")
     :type logo: str
     """
 
     # Make the item clickable
     clicked = Signal()
 
-    def __init__(self, text:str , submitted: bool = True, logo: str = ":/images/heart_logos/empty_heart.svg"):
+    def __init__(self, text:str , submitted: bool = True, logo: str = ":/images/heart_logos/empty_heart.png"):
         super().__init__()
         self.setupUi(self)
 
