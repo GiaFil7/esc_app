@@ -90,7 +90,8 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         """
 
         load_widget(self, self.parent_menu)
-        self.parent_menu.setup_layout()
+        #QTimer.singleShot(20, self.parent_menu.setup_layout)
+        #self.parent_menu.setup_layout()
 
     def toggle_quiz_state(self):
         """
