@@ -438,7 +438,9 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.quiz_data = get_quiz_data(self.contest_code)
 
         # Update the user's best score and/or best time if needed
-        ind = self.quiz_data.index[self.quiz_data['quiz'] == self.quiz_code].tolist()
+        temp_data = get_quiz_data(self.contest_code)
+        temp_data['quiz'] = temp_data['quiz'].astype(str)
+        ind = temp_data.index[temp_data['quiz'] == str(self.quiz_code)].tolist()
         ind = ind[0]
         if self.score > 0: 
             if self.score > self.quiz_data.iloc[ind, 1]:
