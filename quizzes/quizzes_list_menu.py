@@ -265,3 +265,6 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
             item = self.layout.itemAt(i).widget()
             item.setContentsMargins(0, 0, 5, 0)
+    
+    def update_scrollarea(self):
+        resize_scrollarea(self.scroll_area, self.layout, 10)
