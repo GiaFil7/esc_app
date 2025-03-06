@@ -67,7 +67,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         load_widget(self, quizzes_widget(quiz_name, quiz_type, self))
 
     def add_item(self, logo_path: str, quiz_name: str, quiz_type: str,
-                 best_score: str, best_time: str):
+                 best_score: str, best_time: str, quiz_code: str):
         """
         Add a new item to the menu that when clicked loads the proper quiz.
 
@@ -81,6 +81,8 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         :type best_score: str
         :param best_time: The user's best time for the quiz
         :type best_time: str
+        :param quiz_code: The quiz code
+        :type quiz_code: str
         """
         
         # Initialise the item
@@ -97,6 +99,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         item_layout.addStretch(1)
 
         score_and_time_widget = quizzes_data_display(best_score, best_time)
+        score_and_time_widget.setObjectName(str(quiz_code))
         item_layout.addWidget(score_and_time_widget)
         item_layout.setContentsMargins(0, 0, 0, 0)
 
@@ -133,7 +136,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
 
         # Convert seconds to timedelta
         time_value = str(datetime.timedelta(seconds = best_time))
-        if best_time < 3600:
+        if best_time < 36000:
             time_value = time_value[-5:]
         
         percentage = round((best_score / max_score) * 100)
@@ -166,38 +169,42 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
             case "by_country":
                 countries = get_countries(self.entry_data)
 
+                self.quiz_codes = []
                 for country in countries:
                     country_code = get_country_code(country)
+                    self.quiz_codes.append(country_code)
+
                     logo_path = f":/images/heart_logos/{country_code}.png"
 
                     best_score_text, best_time_text = self.get_score_and_time(country_code)
 
-                    self.add_item(logo_path, country, "country", best_score_text, best_time_text)
+                    self.add_item(logo_path, country, "country", best_score_text, best_time_text, country_code)
 
             case "by_year":
                 years = list(self.contest_data['year'])
+                self.quiz_codes = years
 
                 for year in years:
                     logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}_{year}.png"
 
                     best_score_text, best_time_text = self.get_score_and_time(year)
 
-                    self.add_item(logo_path, f"{self.contest_name} {year}", "year", best_score_text, best_time_text)
+                    self.add_item(logo_path, f"{self.contest_name} {year}", "year", best_score_text, best_time_text, year)
 
             case "misc":
                 self.misc_quiz_data = get_misc_quiz_data(self.contest_code)
                 quiz_names = list(self.misc_quiz_data['quiz_name'])
-                quiz_codes = list(self.misc_quiz_data['quiz_code'])
+                self.quiz_codes = list(self.misc_quiz_data['quiz_code'])
                 logo_path = ":/images/heart_logos/empty_heart.png"
                 
                 for i, quiz_title in enumerate(quiz_names):
-                    best_score_text, best_time_text = self.get_score_and_time(quiz_codes[i])
-                    self.add_item(logo_path, quiz_title, "misc", best_score_text, best_time_text)
+                    best_score_text, best_time_text = self.get_score_and_time(self.quiz_codes[i])
+                    self.add_item(logo_path, quiz_title, "misc", best_score_text, best_time_text, self.quiz_codes[i])
 
                 # Add a dummy item and hide it to account for the removal of 
                 # the drag indicator when the resize_scrollarea is used for
                 # rankings.
-                self.add_item(logo_path, "", "misc", "", "")
+                self.add_item(logo_path, "", "misc", "", "", "")
                 dummy_item = self.layout.itemAt(self.layout.count() - 1).widget()
                 dummy_item.hide()
         
@@ -214,19 +221,7 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         QTimer.singleShot(20, partial(resize_scrollarea, self.scroll_area, self.layout, 10))
         self.verticalLayout.setAlignment(Qt.AlignTop)
 
-        # Display the total score and time
-        if self.menu_type != "misc":
-            total_time_value = str(datetime.timedelta(seconds = self.total_best_time))
-            if self.total_best_time < 3600:
-                total_time_value = total_time_value[-5:]
-        
-            percentage = round((self.total_best_score / self.total_max_score) * 100)
-
-            text = f"Total score: {self.total_best_score}/{self.total_max_score} ({percentage}%) | Total time: {total_time_value}"
-        else:
-            text = ""
-        
-        self.totals_label.setText(text)
+        self.display_totals()
 
     def align_labels(self):
         """
@@ -266,5 +261,32 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
             item = self.layout.itemAt(i).widget()
             item.setContentsMargins(0, 0, 5, 0)
     
-    def update_scrollarea(self):
-        resize_scrollarea(self.scroll_area, self.layout, 10)
+    def display_totals(self):
+        # Display the total score and time
+        if self.menu_type != "misc":
+            total_time_value = str(datetime.timedelta(seconds = self.total_best_time))
+            if self.total_best_time < 3600:
+                total_time_value = total_time_value[-5:]
+        
+            percentage = round((self.total_best_score / self.total_max_score) * 100)
+
+            text = f"Total score: {self.total_best_score}/{self.total_max_score} ({percentage}%) | Total time: {total_time_value}"
+        else:
+            text = ""
+        
+        self.totals_label.setText(text)
+
+    def update_data(self):
+        # Get quiz data and initialise values
+        self.quiz_data = get_quiz_data(self.contest_code)
+        self.total_max_score = 0
+        self.total_best_score = 0
+        self.total_best_time = 0
+
+        for quiz_code in self.quiz_codes:
+            best_score, best_time = self.get_score_and_time(quiz_code)
+            data_display = self.findChild(quizzes_data_display, str(quiz_code))
+            data_display.left_label.setText(best_score)
+            data_display.right_label.setText(best_time)
+        
+        self.display_totals()
