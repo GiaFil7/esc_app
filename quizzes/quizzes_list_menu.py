@@ -262,7 +262,10 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
             item.setContentsMargins(0, 0, 5, 0)
     
     def display_totals(self):
-        # Display the total score and time
+        """
+        Displays the total score and time.
+        """
+
         if self.menu_type != "misc":
             total_time_value = str(datetime.timedelta(seconds = self.total_best_time))
             if self.total_best_time < 3600:
@@ -277,12 +280,18 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.totals_label.setText(text)
 
     def update_data(self):
+        """
+        Updates the data shown on quizzes_data_display widgets and the total
+        score and time.
+        """
+
         # Get quiz data and initialise values
         self.quiz_data = get_quiz_data(self.contest_code)
         self.total_max_score = 0
         self.total_best_score = 0
         self.total_best_time = 0
 
+        # Update labels based on the new data
         for quiz_code in self.quiz_codes:
             best_score, best_time = self.get_score_and_time(quiz_code)
             data_display = self.findChild(quizzes_data_display, str(quiz_code))
