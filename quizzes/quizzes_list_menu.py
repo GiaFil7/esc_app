@@ -295,7 +295,11 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         for quiz_code in self.quiz_codes:
             best_score, best_time = self.get_score_and_time(quiz_code)
             data_display = self.findChild(quizzes_data_display, str(quiz_code))
+
             data_display.left_label.setText(best_score)
             data_display.right_label.setText(best_time)
-        
+
+            data_display.left_label.adjustSize()
+            data_display.right_label.adjustSize()
+                    
         self.display_totals()
