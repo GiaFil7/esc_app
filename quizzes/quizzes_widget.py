@@ -76,6 +76,7 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.timer_label.setObjectName("quiz_timer")
         self.desc_label.setObjectName("quiz_desc")
         self.answer_line_edit.setObjectName("quiz_field")
+        self.give_up_button.setObjectName("give_up_button")
 
         # Keep unnecessary components hidden until needed
         self.give_up_button.hide()

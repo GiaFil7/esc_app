@@ -117,16 +117,16 @@ class Ui_quizzes_widget(object):
 
         self.desc_layout.addWidget(self.answer_line_edit)
 
-        self.spacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.desc_layout.addItem(self.spacer_2)
-
         self.give_up_button = QPushButton(quizzes_widget)
         self.give_up_button.setObjectName(u"give_up_button")
         sizePolicy.setHeightForWidth(self.give_up_button.sizePolicy().hasHeightForWidth())
         self.give_up_button.setSizePolicy(sizePolicy)
 
         self.desc_layout.addWidget(self.give_up_button)
+
+        self.spacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.desc_layout.addItem(self.spacer_2)
 
 
         self.layout.addLayout(self.desc_layout)
