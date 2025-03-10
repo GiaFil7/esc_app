@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QFrame, QHBoxLayout,
+    QLabel, QPushButton, QScrollArea, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_credits(object):
@@ -30,18 +30,19 @@ class Ui_credits(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(credits.sizePolicy().hasHeightForWidth())
         credits.setSizePolicy(sizePolicy)
-        self.layout = QVBoxLayout(credits)
-        self.layout.setObjectName(u"layout")
+        self.vertical_layout = QVBoxLayout(credits)
+        self.vertical_layout.setObjectName(u"vertical_layout")
         self.top_layout = QHBoxLayout()
+        self.top_layout.setSpacing(0)
         self.top_layout.setObjectName(u"top_layout")
         self.title_label = QLabel(credits)
         self.title_label.setObjectName(u"title_label")
 
         self.top_layout.addWidget(self.title_label)
 
-        self.top_spacer = QSpacerItem(579, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+        self.spacer_left = QSpacerItem(200, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.top_layout.addItem(self.top_spacer)
+        self.top_layout.addItem(self.spacer_left)
 
         self.close_button = QPushButton(credits)
         self.close_button.setObjectName(u"close_button")
@@ -56,25 +57,35 @@ class Ui_credits(object):
 
         self.top_layout.addWidget(self.close_button)
 
+        self.spacer_right = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.layout.addLayout(self.top_layout)
+        self.top_layout.addItem(self.spacer_right)
+
+
+        self.vertical_layout.addLayout(self.top_layout)
 
         self.scroll_area = QScrollArea(credits)
         self.scroll_area.setObjectName(u"scroll_area")
         self.scroll_area.setFrameShape(QFrame.Shape.NoFrame)
+        self.scroll_area.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustToContents)
         self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setAlignment(Qt.AlignmentFlag.AlignJustify|Qt.AlignmentFlag.AlignVCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
         self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 582, 350))
         self.text_label = QLabel(self.scrollAreaWidgetContents_2)
         self.text_label.setObjectName(u"text_label")
         self.text_label.setGeometry(QRect(0, 0, 581, 331))
-        sizePolicy.setHeightForWidth(self.text_label.sizePolicy().hasHeightForWidth())
-        self.text_label.setSizePolicy(sizePolicy)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.text_label.sizePolicy().hasHeightForWidth())
+        self.text_label.setSizePolicy(sizePolicy2)
+        self.text_label.setMargin(5)
         self.text_label.setOpenExternalLinks(True)
         self.scroll_area.setWidget(self.scrollAreaWidgetContents_2)
 
-        self.layout.addWidget(self.scroll_area)
+        self.vertical_layout.addWidget(self.scroll_area)
 
 
         self.retranslateUi(credits)

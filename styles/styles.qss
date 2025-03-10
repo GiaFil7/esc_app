@@ -195,7 +195,8 @@ QComboBox::drop-down {
 QScrollArea#entry_scroll_area, #scroll_widget,
 QScrollArea#rankings_by_year_scrollarea,
 QScrollArea#per_country_scrollarea,
-QScrollArea#quizzes_list_menu_scrollarea {
+QScrollArea#quizzes_list_menu_scrollarea,
+QWidget#credits, QWidget#credits QLabel {
     background-color: rgb(121, 27, 222);
     border: none;
 }

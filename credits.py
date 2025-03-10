@@ -20,8 +20,14 @@ class credits(QWidget, Ui_credits):
         self.close_button.clicked.connect(partial(load_widget, self, main_menu))
 
         self.title_label.setObjectName("menu_title")
+        self.text_label.setObjectName("credits_label")
+        self.setObjectName("credits")
 
         # Read and display the credits HTML file
         html_text = read_html_file("files\\credits.html")
         self.text_label.setText(html_text)
         self.text_label.setAlignment(Qt.AlignTop)
+        self.text_label.setWordWrap(True)
+        self.text_label.adjustSize()
+
+        self.vertical_layout.setAlignment(Qt.AlignCenter)
