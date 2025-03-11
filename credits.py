@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QWidget
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QPainter, QColor, QRegion, QPainterPath
+from PySide6.QtCore import Qt, QRect
 from ui.ui_credits import Ui_credits
 from utils import load_widget, read_html_file
 from functools import partial
@@ -26,8 +27,34 @@ class credits(QWidget, Ui_credits):
         # Read and display the credits HTML file
         html_text = read_html_file("files\\credits.html")
         self.text_label.setText(html_text)
+
+        # Adjust UI
         self.text_label.setAlignment(Qt.AlignTop)
         self.text_label.setWordWrap(True)
         self.text_label.adjustSize()
+        self.title_label.adjustSize()
+
+        margin = 10
+        self.vertical_layout.setContentsMargins(margin, margin, margin, margin)
+        self.scroll_area.setFixedSize(self.text_label.width(), self.text_label.height())
+
+        total_width = self.text_label.width() + 2 * margin
+        total_height = self.title_label.height() + self.vertical_layout.spacing() * 3 + self.text_label.height() + 2 * margin
+        self.setFixedSize(total_width, total_height)
 
         self.vertical_layout.setAlignment(Qt.AlignCenter)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor("#791BDE"))
+
+    def resizeEvent(self, event):
+        """
+        Handles the cropping of the scrollarea.
+        """
+
+        super().resizeEvent(event)
+        path = QPainterPath()
+        path.addRoundedRect(QRect(0, 0, self.width(), self.height()), 16, 16)
+        region = QRegion(path.toFillPolygon().toPolygon())
+        self.setMask(region)
