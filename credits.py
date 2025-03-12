@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget
-from PySide6.QtGui import QPainter, QColor, QRegion, QPainterPath
-from PySide6.QtCore import Qt, QRect
+from PySide6.QtGui import QPainter, QColor
+from PySide6.QtCore import Qt
 from ui.ui_credits import Ui_credits
-from utils import load_widget, read_html_file
+from utils import load_widget, read_html_file, round_corners
 from functools import partial
 import resources_rc
 
@@ -54,7 +54,4 @@ class credits(QWidget, Ui_credits):
         """
 
         super().resizeEvent(event)
-        path = QPainterPath()
-        path.addRoundedRect(QRect(0, 0, self.width(), self.height()), 16, 16)
-        region = QRegion(path.toFillPolygon().toPolygon())
-        self.setMask(region)
+        round_corners(self, 16)

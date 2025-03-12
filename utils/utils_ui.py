@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QFileDialog, QTableWidget, QVBoxLayout
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QRegion, QPainterPath
+from PySide6.QtCore import Qt, QRect
 
 def load_widget(current_widget: object, widget_to_load: object):
     """
@@ -139,3 +140,18 @@ def resize_scrollarea(scroll_area: object, scroll_layout: QVBoxLayout, margin: i
     + scrollbar_width + margin * 2)
     
     scroll_area.adjustSize()
+
+def round_corners(widget: object, radius: int):
+    """
+    Clips the rectange of a widget so it can have rounded corners.
+
+    :param widget: The widget to round the corners of
+    :type widget: object
+    :param radius: The border radius
+    :type radius: int
+    """
+
+    path = QPainterPath()
+    path.addRoundedRect(QRect(0, 0, widget.width(), widget.height()), radius, radius)
+    region = QRegion(path.toFillPolygon().toPolygon())
+    widget.setMask(region)

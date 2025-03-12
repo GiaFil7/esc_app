@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QScrollArea
-from PySide6.QtGui import QRegion, QPainterPath
-from PySide6.QtCore import QRect
+from utils import round_corners
 
 class rounded_scrollarea(QScrollArea):
     """
@@ -13,7 +12,4 @@ class rounded_scrollarea(QScrollArea):
         """
 
         super().resizeEvent(event)
-        path = QPainterPath()
-        path.addRoundedRect(QRect(0, 0, self.width(), self.height()), 16, 16)
-        region = QRegion(path.toFillPolygon().toPolygon())
-        self.setMask(region)
+        round_corners(self, 16)
