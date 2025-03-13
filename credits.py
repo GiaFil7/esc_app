@@ -45,6 +45,10 @@ class credits(QWidget, Ui_credits):
         self.vertical_layout.setAlignment(Qt.AlignCenter)
 
     def paintEvent(self, event):
+        """
+        Handles the background color of the widget.
+        """
+
         painter = QPainter(self)
         painter.fillRect(self.rect(), QColor("#791BDE"))
 
