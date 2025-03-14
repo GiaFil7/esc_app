@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QFileDialog, QTableWidget, QVBoxLayout
+from PySide6.QtWidgets import QFileDialog, QTableWidget, QVBoxLayout, QApplication
 from PySide6.QtGui import QRegion, QPainterPath
 from PySide6.QtCore import Qt, QRect
 
@@ -155,3 +155,20 @@ def round_corners(widget: object, radius: int):
     path.addRoundedRect(QRect(0, 0, widget.width(), widget.height()), radius, radius)
     region = QRegion(path.toFillPolygon().toPolygon())
     widget.setMask(region)
+
+def get_widget(widget_ObjectName: str) -> object:
+    """
+    Searches the application widget for a child widget of the provided name.
+    Returns None if not found.
+
+    :param widget_ObjectName: The ObjectName of the widget
+    :type widget_ObjectName: str
+    :returns: The widget if found or None if not.
+    :rtype: object
+    """
+
+    app = QApplication.instance()
+    for widget in app.allWidgets():
+        if widget.objectName() == widget_ObjectName:
+            return widget
+    return None
