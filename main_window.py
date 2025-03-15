@@ -14,6 +14,7 @@ class main_window(QMainWindow, Ui_main_window):
         
         # Setup stacked_widget and add the main_menu widget to it
         self.stacked_widget = QStackedWidget()
+        self.stacked_widget.setObjectName("stacked_widget")
         self.main_menu = main_menu()
         self.stacked_widget.addWidget(self.main_menu)
 

@@ -41,6 +41,19 @@
       <number>0</number>
      </property>
      <item>
+      <spacer name="spacer_left">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QLabel" name="title_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -54,7 +67,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="spacer_left">
+      <spacer name="spacer_right">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
        </property>

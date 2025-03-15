@@ -13,7 +13,7 @@ def load_widget(current_widget: object, widget_to_load: object):
     :type widget_to_load: object
     """
 
-    current_widget.stacked_widget = current_widget.parent()
+    current_widget.stacked_widget = get_widget("stacked_widget")
     current_widget.stacked_widget.addWidget(widget_to_load)
     current_widget.stacked_widget.setCurrentWidget(widget_to_load)
 

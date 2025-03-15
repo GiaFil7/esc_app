@@ -37,6 +37,10 @@ class Ui_credits(object):
         self.top_layout = QHBoxLayout()
         self.top_layout.setSpacing(0)
         self.top_layout.setObjectName(u"top_layout")
+        self.spacer_left = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.top_layout.addItem(self.spacer_left)
+
         self.title_label = QLabel(credits)
         self.title_label.setObjectName(u"title_label")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
@@ -47,9 +51,9 @@ class Ui_credits(object):
 
         self.top_layout.addWidget(self.title_label)
 
-        self.spacer_left = QSpacerItem(1, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.spacer_right = QSpacerItem(1, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.top_layout.addItem(self.spacer_left)
+        self.top_layout.addItem(self.spacer_right)
 
         self.close_button = QPushButton(credits)
         self.close_button.setObjectName(u"close_button")

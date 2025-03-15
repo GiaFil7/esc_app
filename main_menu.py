@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QVBoxLayout
+from PySide6.QtCore import Qt
 from ui.ui_main_menu import Ui_main_menu
 from rankings.rankings_main_menu import rankings_main_menu
 from quizzes.quizzes_main_menu import quizzes_main_menu
@@ -19,4 +20,18 @@ class main_menu(QWidget, Ui_main_menu):
         # Setup button slots
         self.rankings_button.clicked.connect(partial(load_widget, self, rankings_main_menu(self)))
         self.quizzes_button.clicked.connect(partial(load_widget, self, quizzes_main_menu(self)))
-        self.credits_button.clicked.connect(partial(load_widget, self, credits(self)))
+        self.credits_button.clicked.connect(self.load_credits)
+
+    def load_credits(self):
+        """
+        Wraps a credits widgets in a QWidget and loads it.
+        """
+
+        wrapper_widget = QWidget()
+        credits_widget = credits(self)
+
+        wrapper_layout = QVBoxLayout()
+        wrapper_layout.addWidget(credits_widget, alignment = Qt.AlignCenter)
+        wrapper_widget.setLayout(wrapper_layout)
+
+        load_widget(self, wrapper_widget)
