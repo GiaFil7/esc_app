@@ -97,6 +97,12 @@
         <iconset resource="../resources.qrc">
          <normaloff>:/images/icons/close_icon.png</normaloff>:/images/icons/close_icon.png</iconset>
        </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
     </layout>
