@@ -61,11 +61,11 @@ class ranking_widget(QWidget, Ui_ranking_widget):
 
         # Set object names for styling
         self.year_label.setObjectName("ranking_year_label")
-        self.import_export_button.setObjectName("ranking_widget_button")
-        self.save_img_button.setObjectName("ranking_widget_button")
-        self.info_button.setObjectName("ranking_widget_button")
-        self.save_button.setObjectName("ranking_widget_button")
-        self.back_button.setObjectName("ranking_widget_button")
+        self.import_export_button.setObjectName("button_with_text")
+        self.save_img_button.setObjectName("button_with_text")
+        self.info_button.setObjectName("button_small")
+        self.save_button.setObjectName("button_small")
+        self.back_button.setObjectName("button_small")
         self.entry_scroll_area.setObjectName("entry_scroll_area")
 
         self.get_ranking_data()

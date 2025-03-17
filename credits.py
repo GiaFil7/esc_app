@@ -22,6 +22,7 @@ class credits(QWidget, Ui_credits):
 
         self.title_label.setObjectName("menu_title")
         self.text_label.setObjectName("credits_label")
+        self.close_button.setObjectName("button_small")
         self.setObjectName("credits")
 
         # Read and display the credits HTML file

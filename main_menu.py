@@ -22,6 +22,11 @@ class main_menu(QWidget, Ui_main_menu):
         self.quizzes_button.clicked.connect(partial(load_widget, self, quizzes_main_menu(self)))
         self.credits_button.clicked.connect(self.load_credits)
 
+        # Define object names
+        self.rankings_button.setObjectName("button_large")
+        self.quizzes_button.setObjectName("button_large")
+        self.credits_button.setObjectName("button_large")
+
     def load_credits(self):
         """
         Wraps a credits widgets in a QWidget and loads it.

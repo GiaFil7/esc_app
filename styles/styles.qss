@@ -10,26 +10,46 @@ QWidget {
     /* font-family: "Ultra"; */
 }
 
-QPushButton {
-    background-color: rgb(6, 14, 71);
+QPushButton:hover {
+    background-color: red;
+}
+
+QPushButton#button_large {
+    background-color: cyan;
     border: 2px solid black;
     border-radius: 20px;
     font-size: 20px
 }
 
-QPushButton:hover {
-    background-color: rgb(10, 23, 117);
+QPushButton#button_small {
+    border: 2px solid black;
+    height: 24px;
+    width: 24px;
+    border-radius: 13px;
+    background-color: green;
+}
+
+QPushButton#button_with_text, QComboBox,
+QDialogButtonBox > QPushButton {
+    border: 2px solid black;
+    background-color: black;
+    font-size: 15px;
+    height: 24px;
+    border-radius: 13px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #statistics_menu > QPushButton {
     border-radius: 10px;
 }
 
-#credits > QPushButton {
-    height: 24px;
-    width: 24px;
-    border-radius: 13px;
-    background-color: green;
+QPushButton#give_up_button {
+    border-radius: 5px;
+    font-size: 12px;
+    margin-left: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 /* Common for vertical and horizontal scrollbars */
@@ -163,21 +183,6 @@ QLineEdit {
     background-color: rgb(21, 44, 230);
     border-radius: 5px;
     border: 1px solid black;
-}
-
-QPushButton#give_up_button {
-    border-radius: 5px;
-    font-size: 12px;
-    margin-left: 4px;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-
-QPushButton#ranking_widget_button, QComboBox, #import_button, #export_button,
-QDialogButtonBox > QPushButton {
-    font-size: 15px;
-    border-radius: 8px;
-    padding: 2px;
 }
 
 QComboBox {
