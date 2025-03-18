@@ -22,6 +22,9 @@ class rankings_main_menu(QWidget, Ui_rankings_main_menu):
         self.esc_rankings_button.clicked.connect(partial(self.load_contest_menu, "ESC"))
         self.back_button.clicked.connect(partial(load_widget, self, main_menu))
 
+        # Setup the properties
+        self.esc_rankings_button.setObjectName("button_large")
+        self.back_button.setObjectName("button_large")
         self.title_label.setObjectName("menu_title")
 
     def load_contest_menu(self, contest_code: str):

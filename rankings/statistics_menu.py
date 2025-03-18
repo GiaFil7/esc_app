@@ -27,6 +27,14 @@ class statistics_menu(QWidget, Ui_statistics_menu):
         self.contest_code = contest_code
         self.contest_name = contest_menu.contest_name
 
+        self.winners_button.setObjectName("button_large")
+        self.second_places_button.setObjectName("button_large")
+        self.third_places_button.setObjectName("button_large")
+        self.last_places_button.setObjectName("button_large")
+        self.medal_table_button.setObjectName("button_large")
+        self.per_country_button.setObjectName("button_large")
+        self.back_button.setObjectName("button_large")
+
         # Setup the slots
         self.winners_button.clicked.connect(partial(self.load_table, "Winners"))
         self.second_places_button.clicked.connect(partial(self.load_table, "2nd Places"))

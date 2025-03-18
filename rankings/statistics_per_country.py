@@ -32,6 +32,7 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
         self.name_label.setText(self.contest_name)
         self.name_label.setObjectName("widget_title")
         self.scroll_area.setObjectName("per_country_scrollarea")
+        self.back_button.setObjectName("button_small")
         
         logo_path = f":/images/contest_logos/{self.contest_code}/{self.contest_code}.png"
         self.logo_label.setPixmap(QPixmap(logo_path))

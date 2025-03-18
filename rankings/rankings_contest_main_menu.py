@@ -27,6 +27,10 @@ class rankings_contest_main_menu(QWidget, Ui_rankings_contest_main_menu):
         self.contest_code = contest_code
         self.contest_data = get_contest_data(self.contest_code)
         self.contest_name = get_contest_name(self.contest_data)
+
+        self.rankings_button.setObjectName("button_large")
+        self.statistics_button.setObjectName("button_large")
+        self.back_button.setObjectName("button_large")
         
         # Setup the slots
         self.rankings_button.clicked.connect(self.load_rankings)

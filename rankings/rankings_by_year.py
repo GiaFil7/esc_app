@@ -31,6 +31,7 @@ class rankings_by_year(QWidget, Ui_rankings_by_year):
         self.name_label.setText(contest_menu.contest_name)
         self.name_label.setObjectName("widget_title")
         self.scroll_area.setObjectName("rankings_by_year_scrollarea")
+        self.back_button.setObjectName("button_small")
 
         self.back_button.clicked.connect(partial(load_widget, self, contest_menu))
 
