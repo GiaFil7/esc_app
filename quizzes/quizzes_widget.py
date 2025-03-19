@@ -34,6 +34,11 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.is_paused = True
         self.time = 0
 
+        self.back_button.setObjectName("button_small")
+        self.play_pause_button.setObjectName("button_small")
+        self.give_up_button.setObjectName("button_with_text")
+        self.replay_button.setObjectName("button_small")
+
         # Setup slots
         self.back_button.clicked.connect(self.go_back)
         self.play_pause_button.clicked.connect(self.toggle_quiz_state)
@@ -76,7 +81,6 @@ class quizzes_widget(QWidget, Ui_quizzes_widget):
         self.timer_label.setObjectName("quiz_timer")
         self.desc_label.setObjectName("quiz_desc")
         self.answer_line_edit.setObjectName("quiz_field")
-        self.give_up_button.setObjectName("give_up_button")
 
         # Keep unnecessary components hidden until needed
         self.give_up_button.hide()

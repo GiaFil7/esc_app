@@ -33,7 +33,8 @@ class quizzes_list_menu(QWidget, Ui_quizzes_list_menu):
         self.contest_name = contest_main_menu.contest_name
         self.entry_data = get_entry_data(self.contest_code)
         self.contest_data = get_contest_data(self.contest_code)
-
+        
+        self.back_button.setObjectName("button_small")
         self.back_button.clicked.connect(partial(load_widget, self, contest_main_menu))
 
         # Set text

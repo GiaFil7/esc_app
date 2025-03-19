@@ -22,4 +22,7 @@ class quizzes_main_menu(QWidget, Ui_quizzes_main_menu):
         self.esc_quizzes_button.clicked.connect(partial(load_widget, self, quizzes_contest_main_menu("ESC", self)))
         self.back_button.clicked.connect(partial(load_widget, self, main_menu))
 
+        # Set the properties
         self.title_label.setObjectName("menu_title")
+        self.esc_quizzes_button.setObjectName("button_large")
+        self.back_button.setObjectName("button_large")

@@ -32,9 +32,14 @@ class quizzes_contest_main_menu(QWidget, Ui_quizzes_contest_main_menu):
         self.misc_button.clicked.connect(partial(self.load_menu, "misc"))
         self.back_button.clicked.connect(partial(load_widget, self, quizzes_main_menu))
 
-        # Set menu title properties
+        # Set properties
         self.menu_title_label.setText(f"{self.contest_name} - Quizzes")
         self.menu_title_label.setObjectName("menu_title")
+
+        self.by_country_button.setObjectName("button_large")
+        self.by_year_button.setObjectName("button_large")
+        self.misc_button.setObjectName("button_large")
+        self.back_button.setObjectName("button_large")
         
     def load_menu(self, type: str):
         """
