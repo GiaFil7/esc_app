@@ -28,6 +28,10 @@ class ranking_import_export(QWidget, Ui_import_export_dialog):
         self.export_field.setText(self.ranking)
         self.import_button.setObjectName("button_small")
         self.export_button.setObjectName("button_small")
+        self.import_field.setObjectName("import_field")
+        self.export_field.setObjectName("export_field")
+        self.import_label.setObjectName("import_label")
+        self.export_label.setObjectName("export_label")
         
         # Connect all slots
         self.import_button.pressed.connect(self.import_ranking)
