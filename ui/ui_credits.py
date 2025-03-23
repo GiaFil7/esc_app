@@ -65,6 +65,7 @@ class Ui_credits(object):
         icon = QIcon()
         icon.addFile(u":/images/icons/close_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.close_button.setIcon(icon)
+        self.close_button.setFlat(False)
 
         self.top_layout.addWidget(self.close_button)
 
@@ -97,6 +98,9 @@ class Ui_credits(object):
 
 
         self.retranslateUi(credits)
+
+        self.close_button.setDefault(False)
+
 
         QMetaObject.connectSlotsByName(credits)
     # setupUi

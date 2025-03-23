@@ -204,19 +204,18 @@ QComboBox::drop-down {
     subcontrol-position: top right;
     width: 15px;
     height: 24px;
-    border-radius: 12px;
+    border: none;
+    background: transparent;
 }
 
 QComboBox::down-arrow {
-    background-color: rgb(6, 12, 66);
-    height: 24px;
-    border-radius: 12px;
+    border: none;
+    width: 12px;
+    height: 12px;
+    image: url(:/images/icons/down_arrow.png);
 }
-
-QComboBox::drop-down:button{
-    background-color: rgb(6, 12, 66);
-    height: 24px;
-    border-radius: 12px;
+QComboBox::down-arrow:open {
+    border: none;
 }
 
 QScrollArea#entry_scroll_area, #scroll_widget,

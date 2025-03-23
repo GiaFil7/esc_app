@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/icons/down_arrow.png</file>
     <file>images/heart_logos/empty_heart.png</file>
     <file>images/icons/refresh_icon.png</file>
     <file>images/icons/pause_icon.png</file>
