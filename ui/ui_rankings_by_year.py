@@ -16,8 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
 
 from rounded_scrollarea import rounded_scrollarea
 import resources_rc
@@ -27,17 +26,23 @@ class Ui_rankings_by_year(object):
         if not rankings_by_year.objectName():
             rankings_by_year.setObjectName(u"rankings_by_year")
         rankings_by_year.resize(600, 400)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(rankings_by_year.sizePolicy().hasHeightForWidth())
+        rankings_by_year.setSizePolicy(sizePolicy)
         self.verticalLayout = QVBoxLayout(rankings_by_year)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.title_layout = QHBoxLayout()
+        self.title_layout.setSpacing(12)
         self.title_layout.setObjectName(u"title_layout")
         self.logo_label = QLabel(rankings_by_year)
         self.logo_label.setObjectName(u"logo_label")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
-        self.logo_label.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.logo_label.sizePolicy().hasHeightForWidth())
+        self.logo_label.setSizePolicy(sizePolicy1)
         self.logo_label.setMaximumSize(QSize(95, 30))
         self.logo_label.setPixmap(QPixmap(u":/images/contest_logos/ESC/ESC.png"))
         self.logo_label.setScaledContents(True)
@@ -46,15 +51,18 @@ class Ui_rankings_by_year(object):
 
         self.name_label = QLabel(rankings_by_year)
         self.name_label.setObjectName(u"name_label")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.name_label.sizePolicy().hasHeightForWidth())
+        self.name_label.setSizePolicy(sizePolicy2)
 
         self.title_layout.addWidget(self.name_label)
 
-        self.horizontal_spacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.title_layout.addItem(self.horizontal_spacer)
-
         self.back_button = QPushButton(rankings_by_year)
         self.back_button.setObjectName(u"back_button")
+        sizePolicy1.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
+        self.back_button.setSizePolicy(sizePolicy1)
         icon = QIcon()
         icon.addFile(u":/images/icons/back_icon.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.back_button.setIcon(icon)
