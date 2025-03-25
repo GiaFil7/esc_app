@@ -40,6 +40,7 @@ class statistics_per_country(QWidget, Ui_rankings_by_year):
         self.back_button.clicked.connect(partial(load_widget, self, statistics_menu))
 
         self.setup_menu_items()
+        self.title_layout.setAlignment(Qt.AlignLeft)
 
     def setup_menu_items(self):
         """
