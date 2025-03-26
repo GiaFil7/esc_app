@@ -214,6 +214,7 @@ QComboBox::down-arrow {
     height: 12px;
     image: url(:/images/icons/down_arrow.png);
 }
+
 QComboBox::down-arrow:open {
     border: none;
 }
