@@ -44,14 +44,6 @@ QDialogButtonBox > QPushButton {
     border-radius: 10px;
 }
 
-/* QPushButton#give_up_button {
-    border-radius: 5px;
-    font-size: 12px;
-    margin-left: 4px;
-    padding-left: 2px;
-    padding-right: 2px;
-} */
-
 /* Common for vertical and horizontal scrollbars */
 QScrollBar {
     background-color: rgb(6, 14, 71);
